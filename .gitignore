@@ -11,3 +11,8 @@
 
 ### Python ###
 __pycache__/
+
+
+data/*
+!data/README.md
+!data/results
