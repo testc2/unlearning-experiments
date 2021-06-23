@@ -1,0 +1,12 @@
+# DATASETS 
+
+## MNIST
+
+## COVTYPE
+
+## HIGGS
+
+## CIFAR
+
+## EPSILON
+
