@@ -29,7 +29,7 @@ We provide SLURM batch job scripts to efficiently collect results.
 For example to collect experiment 2b results for all datasets, one can use
 
 ```{bash}
-./code/slurm_script/master.sh all 2b
+./code/slurm_scripts/master.sh all 2b
 ```
 
 which will schedule SLURM batch jobs and place results in their respective folders in `data/results`.
