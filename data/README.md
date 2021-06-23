@@ -18,6 +18,6 @@ Download the [HIGGS.bz2](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets
 4. **CIFAR**
 Dowload the [cifar10.bz1 and cifar10.t.bz2](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass.html#cifar10) files, unzip and place it in the `./CIFAR/raw/` subfolder.
 5. **EPSILON**:
-Download the [epsilon_normalized.bz2 and epsilon_normalized.t.bz2](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html#epsilon) files, unzip and place them in `./EPSILON/raw/`. Note, this is a rather large dataset, unzipped **>15GB.**
+Download the [epsilon_normalized.bz2 and epsilon_normalized.t.bz2](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html#epsilon) files, unzip and place them in `./epsilon/raw/`. Note, this is a rather large dataset, unzipped **>15GB.**
 
 ## RESULTS

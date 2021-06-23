@@ -14,7 +14,7 @@ For example, `prepare_MNISTBinary` and `prepare_MNISTOVR`. We also define hyperp
 
 The original DeltaGrad paper considers a multinomial Logistic regression model for even binary datasets. This is not optimal if we are comparing the other unlearning methods.
 
-Therefore, we define a custom ``LR`` class in [DNN_single.py](Models/DNN_single.py) to ensure a binary Logistic Regression model for all the binary datasets, which interfaces directly with the rest of the DeltaGrad code.
+Therefore, we define a custom `LR` class in [DNN_single.py](Models/DNN_single.py) to ensure a binary Logistic Regression model for all the binary datasets, which interfaces directly with the rest of the DeltaGrad code.
 
 To achieve multi-class classification for $k>2$ classes, we train $k$ independent binary models ins a One-VS-Rest manner. This is primarily achieved in [main_delete_ovr.py](main_delete_ovr.py) where we write code to handle training and updating these $k$ models and storing their SGD information that DeltaGrad requires.
 
