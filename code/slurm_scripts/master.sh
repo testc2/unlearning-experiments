@@ -1,5 +1,9 @@
 #!/bin/bash
+if [ "$1" = "all" ]; then
 datasets="MNISTBinary MNISTOVR COVTYPEBinary HIGGS CIFARBinary EPSILON"
+else
+datasets=$1
+fi  
 repo_name="unlearning-experiments"
 # will submit batch jobs for all datasets
 for dataset in $datasets; do
@@ -42,30 +46,38 @@ for dataset in $datasets; do
         ;;
     esac
 
-    case $1 in 
+    case $2 in 
     # Deletion Distribution Experiments 
         1)
-            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/deletion_distribution_exp.sh $dataset
-    # QoA experiments
-        2a) # for  INLUENCE and FISHER
-            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/QoA_exp.sh $dataset
+            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/slurm_scripts/deletion_distribution_exp.sh $dataset
             ;;
-        2b) # for DeltaGrad
-            sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/deltagrad_array_job.sh $dataset $1
+    # QoA experiments
+        # for  INLUENCE and FISHER
+        2a)
+            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/slurm_scripts/QoA_exp.sh $dataset
+            ;;
+        # for DeltaGrad
+        2b) 
+            sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/slurm_scripts/deltagrad_array_job.sh $dataset $2
             ;;
     # Noise Injection experiments 
-        3a) # for INFLUENCE and FISHER
-            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/perturb_experiments.job $dataset
+        # for INFLUENCE and FISHER
+        3a)
+            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/slurm_scripts/perturb_experiments.sh $dataset
             ;;
-        3b) # for DeltaGrad
+        # for DeltaGrad
+        3b)
             sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/deltagrad_scripts/deltagrad_perturb_exp.sh $dataset
             ;;
     # Unlearning Experiments
-        4a) # for INFLUENCE and FISHER
-            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/unlearn_experiments.job $dataset
+        # for INFLUENCE and FISHER
+        4a)
+            sbatch --mem $mem -t $time -c $cores -J $dataset $WRKDIR/${repo_name}/code/slurm_scripts/unlearn_experiments.sh $dataset
             ;;
-        4b) # for DeltaGrad
-            sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/deltagrad_array_job.sh $dataset $1
+        # for DeltaGrad
+        4b)
+            sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/slurm_scripts/deltagrad_array_job.sh $dataset $2
+            ;;
         *)
             echo -n "Error Usage: ./master.sh (MNISTBinary|MNISTOVR|COVTYPEBinary|HIGGS|CIFARBinary|EPSILON) (1|2a|2b|3a|3b|4a|4b)"
             exit 1
