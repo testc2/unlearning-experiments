@@ -435,7 +435,7 @@ def model_privacy_del_ovr(args, method, lr_lists):
                     
                     compute_model_para_diff_ovr(model_base_line, perturbed_models)
                     test_ovr(
-                        updated_models,
+                        perturbed_models,
                         dataset_test,
                         batch_size,
                         criterion,
@@ -446,7 +446,7 @@ def model_privacy_del_ovr(args, method, lr_lists):
                     )
                     print("Remove ", end="")
                     test_ovr(
-                        updated_models,
+                        perturbed_models,
                         dataset_remove,
                         batch_size,
                         criterion,
@@ -457,7 +457,7 @@ def model_privacy_del_ovr(args, method, lr_lists):
                     )
                     print("Remain ", end="")
                     test_ovr(
-                        updated_models,
+                        perturbed_models,
                         dataset_prime,
                         batch_size,
                         criterion,
