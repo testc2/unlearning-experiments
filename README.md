@@ -1,6 +1,6 @@
 Code for the paper:
 
-> Ananth Mahadevan and Michael Mathioudakis, Certifiable Machine Unlearning for Linear Models 
+> Ananth Mahadevan and Michael Mathioudakis, Certifiable Machine Unlearning for Linear Models [https://arxiv.org/abs/2106.15093]
 
 ## Requirements 
 Please refer to the requirements.txt for a complete list of the requirement
@@ -24,7 +24,7 @@ The implementation code and details of the various experiments is present in the
 
 ## Scripts
 
-The scripts to run the experiments in present in [slurm_scrips](code/slurm_scripts/master.sh) folder.
+The scripts to run the experiments in present in [slurm_scrips](code/slurm_scripts/) folder.
 We provide SLURM batch job scripts to efficiently collect results.
 For example to collect experiment 2b results for all datasets, one can use
 
@@ -38,6 +38,5 @@ Refer to the scripts [README](code/slurm_scripts/README.md) for more details on 
 
 ## TODOs
 
-- Add possible regular scripts as alternate to slurm scrips
-- Add link to Arxiv paper
-- Provide a set of results and plotting code
+- Add bash regular scripts as alternate to slurm scripts
+- Provide a set of results and code to generate plots

@@ -6,7 +6,8 @@ For example to run the script from the project root for all datasets for the del
 ./code/slurm_scripts/master.sh all 1
 ```
 
-**NOTE**: The slurm jobs options might need to be modified to suit your cluster setting such as partition, etc. So please do look at the scrips in the folder before running them.
+**NOTE:** The slurm jobs options might need to be modified to suit your cluster setting such as partition, etc. So please do look at the scrips in the folder before running them.
+{: .gitlab-orange}
 
 ## Datasets 
 The first cmd line option is the dataset(s) to collect results for. The availble ones are 
@@ -26,19 +27,19 @@ The second cmd line argument specifies the experiment to collect results for. Th
     QoA Experiments for INFLUENCE and FISHER methods. The results will be found in `data/results/{Dataset}/Remove_Dist_binary_selected.csv`
 - **2b** : 
 
-QoA Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_remove_ratio_binary_selected_{remove_ratio}.xml`, where `{remove_ratio}` is one of the chosen deletion ratio for the dataset (see [deltagrad_array_job.sh](deltagrad_array_job.sh)).
+    QoA Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_remove_ratio_binary_selected_{remove_ratio}.xml`, where `{remove_ratio}` is one of the chosen deletion ratio for the dataset (see [deltagrad_array_job.sh](deltagrad_array_job.sh)).
 - **3a** : 
 
-Noise Injection Experiments for INFLUENCE and FISHER methods. The results will be found in `data/results/{Dataset}/Perturbation_binary.csv`
+    Noise Injection Experiments for INFLUENCE and FISHER methods. The results will be found in `data/results/{Dataset}/Perturbation_binary.csv`
 - **3b** : 
 
-Noise Injetion Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_perturb_binary.xml`.
+    Noise Injetion Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_perturb_binary.xml`.
 - **4a** : 
 
-Unlearning Experiments for INFLUENCE and FISHER methods. The results will be found in `data/results/{Dataset}/Unlearn_binary.csv`
+    Unlearning Experiments for INFLUENCE and FISHER methods. The results will be found in `data/results/{Dataset}/Unlearn_binary.csv`
 - **4b**:
 
-Unlearning Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_unlearn_binary_{remove_ratio}.csv`, where `{remove_ratio}` is one of the chosen deletion ratio for the dataset (see [[deltagrad_array_job.sh](deltagrad_array_job.sh)).
+    Unlearning Experiments for DeltaGrad method. The results will be found in `data/results/{Dataset}/Deltagrad_unlearn_binary_{remove_ratio}.csv`, where `{remove_ratio}` is one of the chosen deletion ratio for the dataset (see [[deltagrad_array_job.sh](deltagrad_array_job.sh)).
 
 The slurm job also creates error and log files that can be used to monitor progress.
 
