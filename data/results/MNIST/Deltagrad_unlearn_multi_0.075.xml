@@ -1,0 +1,2253 @@
+<data>
+<generate>
+</generate>
+<training>
+Class: 0 Train - Epoch 199, Batch: 118, Loss: 0.064242
+Class: 1 Train - Epoch 199, Batch: 118, Loss: 0.065521
+Class: 2 Train - Epoch 199, Batch: 118, Loss: 0.110005
+Class: 3 Train - Epoch 199, Batch: 118, Loss: 0.119517
+Class: 4 Train - Epoch 199, Batch: 118, Loss: 0.103770
+Class: 5 Train - Epoch 199, Batch: 118, Loss: 0.143007
+Class: 6 Train - Epoch 199, Batch: 118, Loss: 0.078787
+Class: 7 Train - Epoch 199, Batch: 118, Loss: 0.086144
+Class: 8 Train - Epoch 199, Batch: 118, Loss: 0.157528
+Class: 9 Train - Epoch 199, Batch: 118, Loss: 0.150680
+training_time:: 210.84161520004272
+training time full:: 210.841805934906
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</training>
+torch.Size([60000, 784])
+tensor([16676, 29391, 31962,  ..., 24350, 47361, 17904])
+<results lr="1" epochs="200" bz="512" remove_ratio="0.075" sampling_type="targeted_informed">
+<baseline>
+Class: 0 epoch: 199 Baseline Loss 0.06489647179841995
+Class: 1 epoch: 199 Baseline Loss 0.06869599968194962
+Class: 2 epoch: 199 Baseline Loss 0.1084507554769516
+Class: 3 epoch: 199 Baseline Loss 0.06485074013471603
+Class: 4 epoch: 199 Baseline Loss 0.10951235890388489
+Class: 5 epoch: 199 Baseline Loss 0.14173990488052368
+Class: 6 epoch: 199 Baseline Loss 0.0823531225323677
+Class: 7 epoch: 199 Baseline Loss 0.08921898156404495
+Class: 8 epoch: 199 Baseline Loss 0.15931712090969086
+Class: 9 epoch: 199 Baseline Loss 0.15816934406757355
+training time is 201.8716344833374
+overhead:: 0
+overhead2:: 4.112664699554443
+overhead3:: 0
+memory usage:: 4994666496
+time_baseline:: 201.90214085578918
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(14.8592, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846800, F1 Score: 0.838346
+Remove Test Avg. Loss: 0.005807, Accuracy: 0.319333, F1 Score: 0.484083
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840917, F1 Score: 0.831857
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(14.8860, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.847500, F1 Score: 0.839189
+Remove Test Avg. Loss: 0.005804, Accuracy: 0.320222, F1 Score: 0.485104
+Remain Test Avg. Loss: 0.002335, Accuracy: 0.841017, F1 Score: 0.831992
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(17.3132, dtype=torch.float64)
+Test Avg. Loss: 0.002222, Accuracy: 0.849600, F1 Score: 0.841753
+Remove Test Avg. Loss: 0.005774, Accuracy: 0.327111, F1 Score: 0.492967
+Remain Test Avg. Loss: 0.002333, Accuracy: 0.841500, F1 Score: 0.832722
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(90.0407, dtype=torch.float64)
+Test Avg. Loss: 0.002333, Accuracy: 0.840600, F1 Score: 0.835106
+Remove Test Avg. Loss: 0.005695, Accuracy: 0.374667, F1 Score: 0.545102
+Remain Test Avg. Loss: 0.002453, Accuracy: 0.832300, F1 Score: 0.826063
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.1381, dtype=torch.float64)
+Test Avg. Loss: 0.023727, Accuracy: 0.312000, F1 Score: 0.284095
+Remove Test Avg. Loss: 0.027500, Accuracy: 0.174667, F1 Score: 0.297389
+Remain Test Avg. Loss: 0.021770, Accuracy: 0.304817, F1 Score: 0.276073
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.1020, dtype=torch.float64)
+Test Avg. Loss: 0.478350, Accuracy: 0.118900, F1 Score: 0.103573
+Remove Test Avg. Loss: 0.443220, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426875, Accuracy: 0.120600, F1 Score: 0.104117
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(14.8592, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846800, F1 Score: 0.838346
+Remove Test Avg. Loss: 0.005807, Accuracy: 0.319333, F1 Score: 0.484083
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840917, F1 Score: 0.831857
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(14.8856, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.847400, F1 Score: 0.839046
+Remove Test Avg. Loss: 0.005805, Accuracy: 0.319556, F1 Score: 0.484338
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.841000, F1 Score: 0.831949
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(17.3247, dtype=torch.float64)
+Test Avg. Loss: 0.002225, Accuracy: 0.848400, F1 Score: 0.840592
+Remove Test Avg. Loss: 0.005789, Accuracy: 0.322667, F1 Score: 0.487903
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.841683, F1 Score: 0.832763
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(90.3552, dtype=torch.float64)
+Test Avg. Loss: 0.002354, Accuracy: 0.843500, F1 Score: 0.837512
+Remove Test Avg. Loss: 0.005829, Accuracy: 0.365556, F1 Score: 0.535395
+Remain Test Avg. Loss: 0.002475, Accuracy: 0.835850, F1 Score: 0.828692
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.4218, dtype=torch.float64)
+Test Avg. Loss: 0.025608, Accuracy: 0.279700, F1 Score: 0.251890
+Remove Test Avg. Loss: 0.037477, Accuracy: 0.135111, F1 Score: 0.238058
+Remain Test Avg. Loss: 0.023396, Accuracy: 0.277850, F1 Score: 0.249483
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0395, dtype=torch.float64)
+Test Avg. Loss: 0.522436, Accuracy: 0.112300, F1 Score: 0.099271
+Remove Test Avg. Loss: 0.635296, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464759, Accuracy: 0.112217, F1 Score: 0.099934
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(14.8592, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846800, F1 Score: 0.838346
+Remove Test Avg. Loss: 0.005807, Accuracy: 0.319333, F1 Score: 0.484083
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840917, F1 Score: 0.831857
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(14.8961, dtype=torch.float64)
+Test Avg. Loss: 0.002227, Accuracy: 0.846500, F1 Score: 0.838009
+Remove Test Avg. Loss: 0.005809, Accuracy: 0.318444, F1 Score: 0.483061
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.841017, F1 Score: 0.831934
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(17.3632, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.846800, F1 Score: 0.838316
+Remove Test Avg. Loss: 0.005829, Accuracy: 0.312444, F1 Score: 0.476126
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840583, F1 Score: 0.831348
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(89.4297, dtype=torch.float64)
+Test Avg. Loss: 0.002391, Accuracy: 0.827400, F1 Score: 0.817279
+Remove Test Avg. Loss: 0.006160, Accuracy: 0.255111, F1 Score: 0.406516
+Remain Test Avg. Loss: 0.002489, Accuracy: 0.822967, F1 Score: 0.812629
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.3363, dtype=torch.float64)
+Test Avg. Loss: 0.020217, Accuracy: 0.261600, F1 Score: 0.249238
+Remove Test Avg. Loss: 0.026316, Accuracy: 0.098889, F1 Score: 0.179980
+Remain Test Avg. Loss: 0.018412, Accuracy: 0.259750, F1 Score: 0.247869
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.4646, dtype=torch.float64)
+Test Avg. Loss: 0.432982, Accuracy: 0.059900, F1 Score: 0.057881
+Remove Test Avg. Loss: 0.429020, Accuracy: 0.057111, F1 Score: 0.108051
+Remain Test Avg. Loss: 0.383256, Accuracy: 0.066850, F1 Score: 0.065200
+</noise>
+</baseline>
+<deltagrad period="2">
+Detection overhead:: 1.0752816200256348
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 11.855775833129883
+Class: 0 overhead3:: 33.95872449874878
+Class: 0 overhead4:: 30.140060901641846
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 12.11644721031189
+Class: 1 overhead3:: 68.23300170898438
+Class: 1 overhead4:: 30.44666314125061
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 11.913732767105103
+Class: 2 overhead3:: 101.28619861602783
+Class: 2 overhead4:: 30.07216453552246
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 12.30671238899231
+Class: 3 overhead3:: 139.36834836006165
+Class: 3 overhead4:: 31.706966876983643
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 12.69534707069397
+Class: 4 overhead3:: 176.80639958381653
+Class: 4 overhead4:: 31.130377292633057
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 12.12669324874878
+Class: 5 overhead3:: 210.77232456207275
+Class: 5 overhead4:: 30.57056760787964
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 12.940210819244385
+Class: 6 overhead3:: 251.00466895103455
+Class: 6 overhead4:: 32.09055757522583
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 13.14408254623413
+Class: 7 overhead3:: 292.73505568504333
+Class: 7 overhead4:: 32.768187522888184
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 12.111202239990234
+Class: 8 overhead3:: 329.4983470439911
+Class: 8 overhead4:: 31.365965843200684
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 11.799962997436523
+Class: 9 overhead3:: 366.38145303726196
+Class: 9 overhead4:: 31.488425731658936
+Class: 9 overhead5:: 0
+memory usage:: 4950802432
+time_deltagrad:: 1195.6529932022095
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0.2822, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.846500, F1 Score: 0.837844
+Remove Test Avg. Loss: 0.005843, Accuracy: 0.314000, F1 Score: 0.477930
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840400, F1 Score: 0.831089
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.9285, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.846800, F1 Score: 0.838265
+Remove Test Avg. Loss: 0.005840, Accuracy: 0.314889, F1 Score: 0.478959
+Remain Test Avg. Loss: 0.002338, Accuracy: 0.840433, F1 Score: 0.831156
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(8.8812, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.848500, F1 Score: 0.840292
+Remove Test Avg. Loss: 0.005810, Accuracy: 0.319778, F1 Score: 0.484593
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840750, F1 Score: 0.831691
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.7979, dtype=torch.float64)
+Test Avg. Loss: 0.002336, Accuracy: 0.840400, F1 Score: 0.834846
+Remove Test Avg. Loss: 0.005724, Accuracy: 0.368667, F1 Score: 0.538724
+Remain Test Avg. Loss: 0.002455, Accuracy: 0.831900, F1 Score: 0.825486
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0051, dtype=torch.float64)
+Test Avg. Loss: 0.023719, Accuracy: 0.312000, F1 Score: 0.284226
+Remove Test Avg. Loss: 0.027492, Accuracy: 0.172889, F1 Score: 0.294809
+Remain Test Avg. Loss: 0.021763, Accuracy: 0.304583, F1 Score: 0.275839
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0809, dtype=torch.float64)
+Test Avg. Loss: 0.478334, Accuracy: 0.118900, F1 Score: 0.103565
+Remove Test Avg. Loss: 0.443198, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426861, Accuracy: 0.120583, F1 Score: 0.104111
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0.2822, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.846500, F1 Score: 0.837844
+Remove Test Avg. Loss: 0.005843, Accuracy: 0.314000, F1 Score: 0.477930
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840400, F1 Score: 0.831089
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.9361, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.846700, F1 Score: 0.838132
+Remove Test Avg. Loss: 0.005841, Accuracy: 0.314667, F1 Score: 0.478702
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840500, F1 Score: 0.831236
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(8.9187, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.847500, F1 Score: 0.839304
+Remove Test Avg. Loss: 0.005825, Accuracy: 0.316889, F1 Score: 0.481269
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.841100, F1 Score: 0.831939
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1320, dtype=torch.float64)
+Test Avg. Loss: 0.002358, Accuracy: 0.842600, F1 Score: 0.836315
+Remove Test Avg. Loss: 0.005860, Accuracy: 0.360889, F1 Score: 0.530372
+Remain Test Avg. Loss: 0.002477, Accuracy: 0.835383, F1 Score: 0.828043
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3045, dtype=torch.float64)
+Test Avg. Loss: 0.025603, Accuracy: 0.279500, F1 Score: 0.251699
+Remove Test Avg. Loss: 0.037474, Accuracy: 0.134000, F1 Score: 0.236332
+Remain Test Avg. Loss: 0.023392, Accuracy: 0.277717, F1 Score: 0.249335
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0336, dtype=torch.float64)
+Test Avg. Loss: 0.522425, Accuracy: 0.112300, F1 Score: 0.099275
+Remove Test Avg. Loss: 0.635277, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464749, Accuracy: 0.112200, F1 Score: 0.099915
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0.2822, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.846500, F1 Score: 0.837844
+Remove Test Avg. Loss: 0.005843, Accuracy: 0.314000, F1 Score: 0.477930
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840400, F1 Score: 0.831089
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.9196, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.845800, F1 Score: 0.837081
+Remove Test Avg. Loss: 0.005845, Accuracy: 0.312667, F1 Score: 0.476384
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840433, F1 Score: 0.831071
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.8000, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.845400, F1 Score: 0.836411
+Remove Test Avg. Loss: 0.005865, Accuracy: 0.305111, F1 Score: 0.467563
+Remain Test Avg. Loss: 0.002343, Accuracy: 0.839883, F1 Score: 0.830313
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(87.9983, dtype=torch.float64)
+Test Avg. Loss: 0.002395, Accuracy: 0.826000, F1 Score: 0.815346
+Remove Test Avg. Loss: 0.006196, Accuracy: 0.249778, F1 Score: 0.399716
+Remain Test Avg. Loss: 0.002492, Accuracy: 0.822283, F1 Score: 0.811697
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0220, dtype=torch.float64)
+Test Avg. Loss: 0.020215, Accuracy: 0.261500, F1 Score: 0.249111
+Remove Test Avg. Loss: 0.026335, Accuracy: 0.097778, F1 Score: 0.178138
+Remain Test Avg. Loss: 0.018409, Accuracy: 0.259583, F1 Score: 0.247695
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2632, dtype=torch.float64)
+Test Avg. Loss: 0.432972, Accuracy: 0.059900, F1 Score: 0.057881
+Remove Test Avg. Loss: 0.429024, Accuracy: 0.056889, F1 Score: 0.107653
+Remain Test Avg. Loss: 0.383247, Accuracy: 0.066833, F1 Score: 0.065184
+</noise>
+</deltagrad>
+<deltagrad period="5">
+Detection overhead:: 1.01487398147583
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 4.907927751541138
+Class: 0 overhead3:: 15.210800886154175
+Class: 0 overhead4:: 12.992380142211914
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 5.034133434295654
+Class: 1 overhead3:: 30.65573287010193
+Class: 1 overhead4:: 12.978909015655518
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 5.049073696136475
+Class: 2 overhead3:: 46.58145213127136
+Class: 2 overhead4:: 12.868045568466187
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 5.0523412227630615
+Class: 3 overhead3:: 61.41651916503906
+Class: 3 overhead4:: 12.91735577583313
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 4.922098636627197
+Class: 4 overhead3:: 77.00488996505737
+Class: 4 overhead4:: 12.960659980773926
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 4.904252529144287
+Class: 5 overhead3:: 92.34572100639343
+Class: 5 overhead4:: 12.924221754074097
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 4.941287517547607
+Class: 6 overhead3:: 108.15341830253601
+Class: 6 overhead4:: 12.845394849777222
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 4.745773792266846
+Class: 7 overhead3:: 122.18052220344543
+Class: 7 overhead4:: 13.502222776412964
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 4.654115915298462
+Class: 8 overhead3:: 136.54269337654114
+Class: 8 overhead4:: 12.758461236953735
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 4.562016725540161
+Class: 9 overhead3:: 149.66513752937317
+Class: 9 overhead4:: 12.481233835220337
+Class: 9 overhead5:: 0
+memory usage:: 4950798336
+time_deltagrad:: 795.9962298870087
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0.6505, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846900, F1 Score: 0.838451
+Remove Test Avg. Loss: 0.005804, Accuracy: 0.319778, F1 Score: 0.484593
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840883, F1 Score: 0.831729
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.0988, dtype=torch.float64)
+Test Avg. Loss: 0.002225, Accuracy: 0.847400, F1 Score: 0.838983
+Remove Test Avg. Loss: 0.005801, Accuracy: 0.320667, F1 Score: 0.485613
+Remain Test Avg. Loss: 0.002335, Accuracy: 0.840933, F1 Score: 0.831820
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(8.9014, dtype=torch.float64)
+Test Avg. Loss: 0.002222, Accuracy: 0.848900, F1 Score: 0.840908
+Remove Test Avg. Loss: 0.005771, Accuracy: 0.329111, F1 Score: 0.495235
+Remain Test Avg. Loss: 0.002333, Accuracy: 0.841667, F1 Score: 0.832921
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8008, dtype=torch.float64)
+Test Avg. Loss: 0.002333, Accuracy: 0.840700, F1 Score: 0.835270
+Remove Test Avg. Loss: 0.005689, Accuracy: 0.376444, F1 Score: 0.546981
+Remain Test Avg. Loss: 0.002452, Accuracy: 0.832467, F1 Score: 0.826256
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0062, dtype=torch.float64)
+Test Avg. Loss: 0.023719, Accuracy: 0.312200, F1 Score: 0.284313
+Remove Test Avg. Loss: 0.027464, Accuracy: 0.173778, F1 Score: 0.296100
+Remain Test Avg. Loss: 0.021762, Accuracy: 0.304683, F1 Score: 0.276021
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0819, dtype=torch.float64)
+Test Avg. Loss: 0.478324, Accuracy: 0.118900, F1 Score: 0.103573
+Remove Test Avg. Loss: 0.443163, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426852, Accuracy: 0.120633, F1 Score: 0.104135
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0.6505, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846900, F1 Score: 0.838451
+Remove Test Avg. Loss: 0.005804, Accuracy: 0.319778, F1 Score: 0.484593
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840883, F1 Score: 0.831729
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.1061, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.847500, F1 Score: 0.839159
+Remove Test Avg. Loss: 0.005802, Accuracy: 0.320667, F1 Score: 0.485613
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840950, F1 Score: 0.831845
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(8.9400, dtype=torch.float64)
+Test Avg. Loss: 0.002225, Accuracy: 0.848700, F1 Score: 0.840946
+Remove Test Avg. Loss: 0.005786, Accuracy: 0.325111, F1 Score: 0.490693
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.841817, F1 Score: 0.832896
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1359, dtype=torch.float64)
+Test Avg. Loss: 0.002353, Accuracy: 0.843700, F1 Score: 0.837630
+Remove Test Avg. Loss: 0.005821, Accuracy: 0.369333, F1 Score: 0.539435
+Remain Test Avg. Loss: 0.002474, Accuracy: 0.836067, F1 Score: 0.828963
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3067, dtype=torch.float64)
+Test Avg. Loss: 0.025595, Accuracy: 0.280100, F1 Score: 0.252317
+Remove Test Avg. Loss: 0.037422, Accuracy: 0.134889, F1 Score: 0.237713
+Remain Test Avg. Loss: 0.023385, Accuracy: 0.277733, F1 Score: 0.249384
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0357, dtype=torch.float64)
+Test Avg. Loss: 0.522410, Accuracy: 0.112300, F1 Score: 0.099275
+Remove Test Avg. Loss: 0.635216, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464734, Accuracy: 0.112183, F1 Score: 0.099902
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0.6505, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846900, F1 Score: 0.838451
+Remove Test Avg. Loss: 0.005804, Accuracy: 0.319778, F1 Score: 0.484593
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840883, F1 Score: 0.831729
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.0851, dtype=torch.float64)
+Test Avg. Loss: 0.002226, Accuracy: 0.846900, F1 Score: 0.838500
+Remove Test Avg. Loss: 0.005806, Accuracy: 0.319556, F1 Score: 0.484338
+Remain Test Avg. Loss: 0.002336, Accuracy: 0.840900, F1 Score: 0.831751
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.8128, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.846500, F1 Score: 0.837929
+Remove Test Avg. Loss: 0.005825, Accuracy: 0.316222, F1 Score: 0.480500
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840750, F1 Score: 0.831530
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(87.9936, dtype=torch.float64)
+Test Avg. Loss: 0.002390, Accuracy: 0.827300, F1 Score: 0.817116
+Remove Test Avg. Loss: 0.006151, Accuracy: 0.257556, F1 Score: 0.409613
+Remain Test Avg. Loss: 0.002488, Accuracy: 0.822950, F1 Score: 0.812645
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0155, dtype=torch.float64)
+Test Avg. Loss: 0.020201, Accuracy: 0.261700, F1 Score: 0.249367
+Remove Test Avg. Loss: 0.026258, Accuracy: 0.097556, F1 Score: 0.177769
+Remain Test Avg. Loss: 0.018399, Accuracy: 0.259783, F1 Score: 0.247876
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2565, dtype=torch.float64)
+Test Avg. Loss: 0.432952, Accuracy: 0.059900, F1 Score: 0.057886
+Remove Test Avg. Loss: 0.428935, Accuracy: 0.056889, F1 Score: 0.107653
+Remain Test Avg. Loss: 0.383231, Accuracy: 0.066800, F1 Score: 0.065154
+</noise>
+</deltagrad>
+<deltagrad period="10">
+Detection overhead:: 0.9538300037384033
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 2.5000903606414795
+Class: 0 overhead3:: 8.702032089233398
+Class: 0 overhead4:: 6.523247480392456
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 2.409621238708496
+Class: 1 overhead3:: 16.13966655731201
+Class: 1 overhead4:: 6.39826512336731
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 2.402618169784546
+Class: 2 overhead3:: 22.792412042617798
+Class: 2 overhead4:: 6.353639841079712
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 2.4313433170318604
+Class: 3 overhead3:: 29.60477614402771
+Class: 3 overhead4:: 6.569246768951416
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 2.318255662918091
+Class: 4 overhead3:: 35.98306632041931
+Class: 4 overhead4:: 6.524968147277832
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 2.1736257076263428
+Class: 5 overhead3:: 42.35223150253296
+Class: 5 overhead4:: 6.192555904388428
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 2.3819141387939453
+Class: 6 overhead3:: 49.291743993759155
+Class: 6 overhead4:: 6.340258598327637
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 2.395695924758911
+Class: 7 overhead3:: 56.597604274749756
+Class: 7 overhead4:: 6.432554721832275
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 2.4385828971862793
+Class: 8 overhead3:: 63.545127153396606
+Class: 8 overhead4:: 6.4603352546691895
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 2.302091598510742
+Class: 9 overhead3:: 69.83779549598694
+Class: 9 overhead4:: 6.258060932159424
+Class: 9 overhead5:: 0
+memory usage:: 4950798336
+time_deltagrad:: 654.2721319198608
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0.6798, dtype=torch.float64)
+Test Avg. Loss: 0.002232, Accuracy: 0.846300, F1 Score: 0.837609
+Remove Test Avg. Loss: 0.005859, Accuracy: 0.314444, F1 Score: 0.478445
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840367, F1 Score: 0.830978
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.1200, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.846400, F1 Score: 0.837763
+Remove Test Avg. Loss: 0.005855, Accuracy: 0.314889, F1 Score: 0.478959
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.840283, F1 Score: 0.830919
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(8.9081, dtype=torch.float64)
+Test Avg. Loss: 0.002228, Accuracy: 0.847900, F1 Score: 0.839552
+Remove Test Avg. Loss: 0.005825, Accuracy: 0.320000, F1 Score: 0.484848
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840800, F1 Score: 0.831694
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8055, dtype=torch.float64)
+Test Avg. Loss: 0.002337, Accuracy: 0.840000, F1 Score: 0.834363
+Remove Test Avg. Loss: 0.005735, Accuracy: 0.369333, F1 Score: 0.539435
+Remain Test Avg. Loss: 0.002455, Accuracy: 0.831917, F1 Score: 0.825484
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0107, dtype=torch.float64)
+Test Avg. Loss: 0.023707, Accuracy: 0.311900, F1 Score: 0.284124
+Remove Test Avg. Loss: 0.027465, Accuracy: 0.172667, F1 Score: 0.294486
+Remain Test Avg. Loss: 0.021751, Accuracy: 0.304667, F1 Score: 0.275974
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0863, dtype=torch.float64)
+Test Avg. Loss: 0.478300, Accuracy: 0.118800, F1 Score: 0.103458
+Remove Test Avg. Loss: 0.443152, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426830, Accuracy: 0.120583, F1 Score: 0.104117
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0.6798, dtype=torch.float64)
+Test Avg. Loss: 0.002232, Accuracy: 0.846300, F1 Score: 0.837609
+Remove Test Avg. Loss: 0.005859, Accuracy: 0.314444, F1 Score: 0.478445
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840367, F1 Score: 0.830978
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.1221, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.846500, F1 Score: 0.837813
+Remove Test Avg. Loss: 0.005857, Accuracy: 0.314889, F1 Score: 0.478959
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840333, F1 Score: 0.830978
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(8.9403, dtype=torch.float64)
+Test Avg. Loss: 0.002230, Accuracy: 0.847100, F1 Score: 0.838819
+Remove Test Avg. Loss: 0.005840, Accuracy: 0.318222, F1 Score: 0.482805
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.841050, F1 Score: 0.831853
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1343, dtype=torch.float64)
+Test Avg. Loss: 0.002358, Accuracy: 0.842900, F1 Score: 0.836600
+Remove Test Avg. Loss: 0.005871, Accuracy: 0.360889, F1 Score: 0.530372
+Remain Test Avg. Loss: 0.002477, Accuracy: 0.835267, F1 Score: 0.827913
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3049, dtype=torch.float64)
+Test Avg. Loss: 0.025586, Accuracy: 0.279800, F1 Score: 0.251987
+Remove Test Avg. Loss: 0.037438, Accuracy: 0.133556, F1 Score: 0.235640
+Remain Test Avg. Loss: 0.023376, Accuracy: 0.277633, F1 Score: 0.249227
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0338, dtype=torch.float64)
+Test Avg. Loss: 0.522387, Accuracy: 0.112300, F1 Score: 0.099275
+Remove Test Avg. Loss: 0.635217, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464715, Accuracy: 0.112200, F1 Score: 0.099916
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0.6798, dtype=torch.float64)
+Test Avg. Loss: 0.002232, Accuracy: 0.846300, F1 Score: 0.837609
+Remove Test Avg. Loss: 0.005859, Accuracy: 0.314444, F1 Score: 0.478445
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840367, F1 Score: 0.830978
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.1069, dtype=torch.float64)
+Test Avg. Loss: 0.002232, Accuracy: 0.845900, F1 Score: 0.837146
+Remove Test Avg. Loss: 0.005861, Accuracy: 0.314000, F1 Score: 0.477930
+Remain Test Avg. Loss: 0.002340, Accuracy: 0.840350, F1 Score: 0.830955
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.8200, dtype=torch.float64)
+Test Avg. Loss: 0.002237, Accuracy: 0.845200, F1 Score: 0.836160
+Remove Test Avg. Loss: 0.005880, Accuracy: 0.305778, F1 Score: 0.468346
+Remain Test Avg. Loss: 0.002344, Accuracy: 0.839950, F1 Score: 0.830359
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(87.9988, dtype=torch.float64)
+Test Avg. Loss: 0.002395, Accuracy: 0.826000, F1 Score: 0.815358
+Remove Test Avg. Loss: 0.006207, Accuracy: 0.250222, F1 Score: 0.400284
+Remain Test Avg. Loss: 0.002492, Accuracy: 0.822383, F1 Score: 0.811792
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0205, dtype=torch.float64)
+Test Avg. Loss: 0.020197, Accuracy: 0.261700, F1 Score: 0.249326
+Remove Test Avg. Loss: 0.026306, Accuracy: 0.097111, F1 Score: 0.177031
+Remain Test Avg. Loss: 0.018394, Accuracy: 0.259633, F1 Score: 0.247743
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2615, dtype=torch.float64)
+Test Avg. Loss: 0.432933, Accuracy: 0.059900, F1 Score: 0.057883
+Remove Test Avg. Loss: 0.428969, Accuracy: 0.056889, F1 Score: 0.107653
+Remain Test Avg. Loss: 0.383214, Accuracy: 0.066800, F1 Score: 0.065155
+</noise>
+</deltagrad>
+<deltagrad period="20">
+Detection overhead:: 0.9684429168701172
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 1.1897854804992676
+Class: 0 overhead3:: 4.130603075027466
+Class: 0 overhead4:: 3.216698169708252
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 1.1897244453430176
+Class: 1 overhead3:: 7.673517465591431
+Class: 1 overhead4:: 3.242295503616333
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 1.0655055046081543
+Class: 2 overhead3:: 10.749760389328003
+Class: 2 overhead4:: 2.981860637664795
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 1.172309398651123
+Class: 3 overhead3:: 14.009528398513794
+Class: 3 overhead4:: 3.0556750297546387
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 1.2442827224731445
+Class: 4 overhead3:: 17.876651287078857
+Class: 4 overhead4:: 3.2721054553985596
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 1.1754131317138672
+Class: 5 overhead3:: 21.191523551940918
+Class: 5 overhead4:: 3.2493159770965576
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 1.2266216278076172
+Class: 6 overhead3:: 24.57152771949768
+Class: 6 overhead4:: 3.2717020511627197
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 1.1712090969085693
+Class: 7 overhead3:: 27.84262180328369
+Class: 7 overhead4:: 3.198668956756592
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 1.1524009704589844
+Class: 8 overhead3:: 30.940206289291382
+Class: 8 overhead4:: 3.1684696674346924
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 1.170989990234375
+Class: 9 overhead3:: 34.484774589538574
+Class: 9 overhead4:: 3.152437925338745
+Class: 9 overhead5:: 0
+memory usage:: 4950794240
+time_deltagrad:: 586.8363687992096
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0.8716, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.846100, F1 Score: 0.837345
+Remove Test Avg. Loss: 0.005828, Accuracy: 0.315333, F1 Score: 0.479473
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840350, F1 Score: 0.830976
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.2522, dtype=torch.float64)
+Test Avg. Loss: 0.002228, Accuracy: 0.846500, F1 Score: 0.837768
+Remove Test Avg. Loss: 0.005824, Accuracy: 0.316222, F1 Score: 0.480500
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840450, F1 Score: 0.831118
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(8.9338, dtype=torch.float64)
+Test Avg. Loss: 0.002225, Accuracy: 0.847900, F1 Score: 0.839723
+Remove Test Avg. Loss: 0.005794, Accuracy: 0.324000, F1 Score: 0.489426
+Remain Test Avg. Loss: 0.002335, Accuracy: 0.840867, F1 Score: 0.831826
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8162, dtype=torch.float64)
+Test Avg. Loss: 0.002335, Accuracy: 0.840600, F1 Score: 0.835038
+Remove Test Avg. Loss: 0.005707, Accuracy: 0.372889, F1 Score: 0.543218
+Remain Test Avg. Loss: 0.002453, Accuracy: 0.832100, F1 Score: 0.825718
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0200, dtype=torch.float64)
+Test Avg. Loss: 0.023712, Accuracy: 0.312200, F1 Score: 0.284419
+Remove Test Avg. Loss: 0.027456, Accuracy: 0.173778, F1 Score: 0.296100
+Remain Test Avg. Loss: 0.021756, Accuracy: 0.304700, F1 Score: 0.276005
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0954, dtype=torch.float64)
+Test Avg. Loss: 0.478311, Accuracy: 0.118900, F1 Score: 0.103566
+Remove Test Avg. Loss: 0.443153, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426840, Accuracy: 0.120617, F1 Score: 0.104131
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0.8716, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.846100, F1 Score: 0.837345
+Remove Test Avg. Loss: 0.005828, Accuracy: 0.315333, F1 Score: 0.479473
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840350, F1 Score: 0.830976
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.2502, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.846300, F1 Score: 0.837523
+Remove Test Avg. Loss: 0.005825, Accuracy: 0.316000, F1 Score: 0.480243
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840433, F1 Score: 0.831084
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(8.9606, dtype=torch.float64)
+Test Avg. Loss: 0.002228, Accuracy: 0.847700, F1 Score: 0.839614
+Remove Test Avg. Loss: 0.005809, Accuracy: 0.320222, F1 Score: 0.485104
+Remain Test Avg. Loss: 0.002338, Accuracy: 0.841300, F1 Score: 0.832175
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1397, dtype=torch.float64)
+Test Avg. Loss: 0.002356, Accuracy: 0.842900, F1 Score: 0.836548
+Remove Test Avg. Loss: 0.005842, Accuracy: 0.362889, F1 Score: 0.532529
+Remain Test Avg. Loss: 0.002475, Accuracy: 0.835567, F1 Score: 0.828245
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3087, dtype=torch.float64)
+Test Avg. Loss: 0.025592, Accuracy: 0.279800, F1 Score: 0.251905
+Remove Test Avg. Loss: 0.037428, Accuracy: 0.134000, F1 Score: 0.236332
+Remain Test Avg. Loss: 0.023382, Accuracy: 0.277583, F1 Score: 0.249235
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0375, dtype=torch.float64)
+Test Avg. Loss: 0.522400, Accuracy: 0.112300, F1 Score: 0.099277
+Remove Test Avg. Loss: 0.635217, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464726, Accuracy: 0.112183, F1 Score: 0.099897
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0.8716, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.846100, F1 Score: 0.837345
+Remove Test Avg. Loss: 0.005828, Accuracy: 0.315333, F1 Score: 0.479473
+Remain Test Avg. Loss: 0.002337, Accuracy: 0.840350, F1 Score: 0.830976
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.2347, dtype=torch.float64)
+Test Avg. Loss: 0.002229, Accuracy: 0.845900, F1 Score: 0.837144
+Remove Test Avg. Loss: 0.005830, Accuracy: 0.314000, F1 Score: 0.477930
+Remain Test Avg. Loss: 0.002338, Accuracy: 0.840217, F1 Score: 0.830802
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.8379, dtype=torch.float64)
+Test Avg. Loss: 0.002234, Accuracy: 0.845400, F1 Score: 0.836450
+Remove Test Avg. Loss: 0.005849, Accuracy: 0.309333, F1 Score: 0.472505
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.840000, F1 Score: 0.830468
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(88.0016, dtype=torch.float64)
+Test Avg. Loss: 0.002394, Accuracy: 0.826100, F1 Score: 0.815491
+Remove Test Avg. Loss: 0.006180, Accuracy: 0.253333, F1 Score: 0.404255
+Remain Test Avg. Loss: 0.002490, Accuracy: 0.822667, F1 Score: 0.812148
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0218, dtype=torch.float64)
+Test Avg. Loss: 0.020206, Accuracy: 0.261600, F1 Score: 0.249320
+Remove Test Avg. Loss: 0.026302, Accuracy: 0.098222, F1 Score: 0.178875
+Remain Test Avg. Loss: 0.018402, Accuracy: 0.259783, F1 Score: 0.247874
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2626, dtype=torch.float64)
+Test Avg. Loss: 0.432950, Accuracy: 0.059900, F1 Score: 0.057887
+Remove Test Avg. Loss: 0.428976, Accuracy: 0.056889, F1 Score: 0.107653
+Remain Test Avg. Loss: 0.383228, Accuracy: 0.066850, F1 Score: 0.065209
+</noise>
+</deltagrad>
+<deltagrad period="50">
+Detection overhead:: 0.9508693218231201
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.47748804092407227
+Class: 0 overhead3:: 2.2203333377838135
+Class: 0 overhead4:: 1.242180585861206
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.46953535079956055
+Class: 1 overhead3:: 3.495975971221924
+Class: 1 overhead4:: 1.2186570167541504
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.5175366401672363
+Class: 2 overhead3:: 5.0576252937316895
+Class: 2 overhead4:: 1.3257834911346436
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.5365869998931885
+Class: 3 overhead3:: 6.804522752761841
+Class: 3 overhead4:: 1.2956616878509521
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.48431849479675293
+Class: 4 overhead3:: 8.289334774017334
+Class: 4 overhead4:: 1.3090651035308838
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.4483604431152344
+Class: 5 overhead3:: 9.48277473449707
+Class: 5 overhead4:: 1.27066969871521
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.44527363777160645
+Class: 6 overhead3:: 10.78364872932434
+Class: 6 overhead4:: 1.2491421699523926
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.48648571968078613
+Class: 7 overhead3:: 12.079755067825317
+Class: 7 overhead4:: 1.315183401107788
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.50653076171875
+Class: 8 overhead3:: 13.558265447616577
+Class: 8 overhead4:: 1.2994391918182373
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.48030638694763184
+Class: 9 overhead3:: 15.028708457946777
+Class: 9 overhead4:: 1.2505686283111572
+Class: 9 overhead5:: 0
+memory usage:: 4952899584
+time_deltagrad:: 555.623019695282
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(1.5423, dtype=torch.float64)
+Test Avg. Loss: 0.002243, Accuracy: 0.845100, F1 Score: 0.836005
+Remove Test Avg. Loss: 0.005997, Accuracy: 0.292667, F1 Score: 0.452811
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.838517, F1 Score: 0.828358
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.7796, dtype=torch.float64)
+Test Avg. Loss: 0.002243, Accuracy: 0.845200, F1 Score: 0.836133
+Remove Test Avg. Loss: 0.005994, Accuracy: 0.293111, F1 Score: 0.453342
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.838633, F1 Score: 0.828507
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(9.0129, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.846700, F1 Score: 0.837820
+Remove Test Avg. Loss: 0.005962, Accuracy: 0.299556, F1 Score: 0.461012
+Remain Test Avg. Loss: 0.002349, Accuracy: 0.839217, F1 Score: 0.829422
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8141, dtype=torch.float64)
+Test Avg. Loss: 0.002347, Accuracy: 0.839000, F1 Score: 0.833031
+Remove Test Avg. Loss: 0.005861, Accuracy: 0.345111, F1 Score: 0.513134
+Remain Test Avg. Loss: 0.002465, Accuracy: 0.830167, F1 Score: 0.823120
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0097, dtype=torch.float64)
+Test Avg. Loss: 0.023696, Accuracy: 0.311700, F1 Score: 0.283829
+Remove Test Avg. Loss: 0.027515, Accuracy: 0.169556, F1 Score: 0.289949
+Remain Test Avg. Loss: 0.021743, Accuracy: 0.304267, F1 Score: 0.275499
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0843, dtype=torch.float64)
+Test Avg. Loss: 0.478269, Accuracy: 0.118800, F1 Score: 0.103453
+Remove Test Avg. Loss: 0.443168, Accuracy: 0.094222, F1 Score: 0.172218
+Remain Test Avg. Loss: 0.426804, Accuracy: 0.120617, F1 Score: 0.104125
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(1.5423, dtype=torch.float64)
+Test Avg. Loss: 0.002243, Accuracy: 0.845100, F1 Score: 0.836005
+Remove Test Avg. Loss: 0.005997, Accuracy: 0.292667, F1 Score: 0.452811
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.838517, F1 Score: 0.828358
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.7873, dtype=torch.float64)
+Test Avg. Loss: 0.002243, Accuracy: 0.845200, F1 Score: 0.836126
+Remove Test Avg. Loss: 0.005995, Accuracy: 0.293778, F1 Score: 0.454139
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.838783, F1 Score: 0.828673
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(9.0572, dtype=torch.float64)
+Test Avg. Loss: 0.002242, Accuracy: 0.846300, F1 Score: 0.837644
+Remove Test Avg. Loss: 0.005977, Accuracy: 0.298889, F1 Score: 0.460222
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.839483, F1 Score: 0.829638
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1556, dtype=torch.float64)
+Test Avg. Loss: 0.002368, Accuracy: 0.841200, F1 Score: 0.834511
+Remove Test Avg. Loss: 0.005997, Accuracy: 0.347556, F1 Score: 0.515831
+Remain Test Avg. Loss: 0.002487, Accuracy: 0.834050, F1 Score: 0.826309
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3165, dtype=torch.float64)
+Test Avg. Loss: 0.025575, Accuracy: 0.279400, F1 Score: 0.251485
+Remove Test Avg. Loss: 0.037490, Accuracy: 0.128444, F1 Score: 0.227649
+Remain Test Avg. Loss: 0.023369, Accuracy: 0.277067, F1 Score: 0.248547
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0445, dtype=torch.float64)
+Test Avg. Loss: 0.522360, Accuracy: 0.112300, F1 Score: 0.099267
+Remove Test Avg. Loss: 0.635244, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464692, Accuracy: 0.112200, F1 Score: 0.099915
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(1.5423, dtype=torch.float64)
+Test Avg. Loss: 0.002243, Accuracy: 0.845100, F1 Score: 0.836005
+Remove Test Avg. Loss: 0.005997, Accuracy: 0.292667, F1 Score: 0.452811
+Remain Test Avg. Loss: 0.002351, Accuracy: 0.838517, F1 Score: 0.828358
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.7653, dtype=torch.float64)
+Test Avg. Loss: 0.002244, Accuracy: 0.844800, F1 Score: 0.835620
+Remove Test Avg. Loss: 0.005999, Accuracy: 0.292889, F1 Score: 0.453077
+Remain Test Avg. Loss: 0.002352, Accuracy: 0.838650, F1 Score: 0.828506
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.9137, dtype=torch.float64)
+Test Avg. Loss: 0.002248, Accuracy: 0.844600, F1 Score: 0.835127
+Remove Test Avg. Loss: 0.006018, Accuracy: 0.288000, F1 Score: 0.447205
+Remain Test Avg. Loss: 0.002355, Accuracy: 0.838267, F1 Score: 0.828000
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(87.9952, dtype=torch.float64)
+Test Avg. Loss: 0.002405, Accuracy: 0.824500, F1 Score: 0.813040
+Remove Test Avg. Loss: 0.006339, Accuracy: 0.226444, F1 Score: 0.369270
+Remain Test Avg. Loss: 0.002501, Accuracy: 0.820700, F1 Score: 0.809115
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0072, dtype=torch.float64)
+Test Avg. Loss: 0.020177, Accuracy: 0.262000, F1 Score: 0.249657
+Remove Test Avg. Loss: 0.026386, Accuracy: 0.090444, F1 Score: 0.165885
+Remain Test Avg. Loss: 0.018379, Accuracy: 0.259217, F1 Score: 0.247173
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2472, dtype=torch.float64)
+Test Avg. Loss: 0.432887, Accuracy: 0.059800, F1 Score: 0.057786
+Remove Test Avg. Loss: 0.429017, Accuracy: 0.056444, F1 Score: 0.106857
+Remain Test Avg. Loss: 0.383177, Accuracy: 0.066750, F1 Score: 0.065108
+</noise>
+</deltagrad>
+<deltagrad period="75">
+Detection overhead:: 0.983954668045044
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.32387804985046387
+Class: 0 overhead3:: 1.8605632781982422
+Class: 0 overhead4:: 0.8543779850006104
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.2978646755218506
+Class: 1 overhead3:: 2.7060201168060303
+Class: 1 overhead4:: 0.8629951477050781
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.32581233978271484
+Class: 2 overhead3:: 3.558013439178467
+Class: 2 overhead4:: 0.8631913661956787
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.31798720359802246
+Class: 3 overhead3:: 4.395301103591919
+Class: 3 overhead4:: 0.8752191066741943
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.33046984672546387
+Class: 4 overhead3:: 5.315800428390503
+Class: 4 overhead4:: 0.8601644039154053
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.31584620475769043
+Class: 5 overhead3:: 6.163854360580444
+Class: 5 overhead4:: 0.8811366558074951
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.29987263679504395
+Class: 6 overhead3:: 6.903967618942261
+Class: 6 overhead4:: 0.8189408779144287
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.3063666820526123
+Class: 7 overhead3:: 7.823516845703125
+Class: 7 overhead4:: 0.8252308368682861
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.30188989639282227
+Class: 8 overhead3:: 8.616629600524902
+Class: 8 overhead4:: 0.8475074768066406
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.31801867485046387
+Class: 9 overhead3:: 9.517605781555176
+Class: 9 overhead4:: 0.8605916500091553
+Class: 9 overhead5:: 0
+memory usage:: 4950790144
+time_deltagrad:: 559.985692024231
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(1.7713, dtype=torch.float64)
+Test Avg. Loss: 0.002196, Accuracy: 0.852400, F1 Score: 0.845902
+Remove Test Avg. Loss: 0.005456, Accuracy: 0.367556, F1 Score: 0.537537
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.844967, F1 Score: 0.837494
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.9803, dtype=torch.float64)
+Test Avg. Loss: 0.002195, Accuracy: 0.852500, F1 Score: 0.846085
+Remove Test Avg. Loss: 0.005453, Accuracy: 0.369111, F1 Score: 0.539198
+Remain Test Avg. Loss: 0.002308, Accuracy: 0.845017, F1 Score: 0.837603
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(9.0526, dtype=torch.float64)
+Test Avg. Loss: 0.002192, Accuracy: 0.853900, F1 Score: 0.847836
+Remove Test Avg. Loss: 0.005426, Accuracy: 0.378889, F1 Score: 0.549557
+Remain Test Avg. Loss: 0.002307, Accuracy: 0.846050, F1 Score: 0.839005
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8160, dtype=torch.float64)
+Test Avg. Loss: 0.002305, Accuracy: 0.844500, F1 Score: 0.840186
+Remove Test Avg. Loss: 0.005366, Accuracy: 0.428444, F1 Score: 0.599876
+Remain Test Avg. Loss: 0.002427, Accuracy: 0.837050, F1 Score: 0.832204
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0077, dtype=torch.float64)
+Test Avg. Loss: 0.023706, Accuracy: 0.313200, F1 Score: 0.285609
+Remove Test Avg. Loss: 0.027234, Accuracy: 0.186889, F1 Score: 0.314922
+Remain Test Avg. Loss: 0.021750, Accuracy: 0.305733, F1 Score: 0.277140
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0820, dtype=torch.float64)
+Test Avg. Loss: 0.478338, Accuracy: 0.118800, F1 Score: 0.103429
+Remove Test Avg. Loss: 0.442964, Accuracy: 0.094667, F1 Score: 0.172960
+Remain Test Avg. Loss: 0.426863, Accuracy: 0.120650, F1 Score: 0.104149
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(1.7713, dtype=torch.float64)
+Test Avg. Loss: 0.002196, Accuracy: 0.852400, F1 Score: 0.845902
+Remove Test Avg. Loss: 0.005456, Accuracy: 0.367556, F1 Score: 0.537537
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.844967, F1 Score: 0.837494
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.9829, dtype=torch.float64)
+Test Avg. Loss: 0.002195, Accuracy: 0.852600, F1 Score: 0.846105
+Remove Test Avg. Loss: 0.005455, Accuracy: 0.368889, F1 Score: 0.538961
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.845083, F1 Score: 0.837653
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(9.0873, dtype=torch.float64)
+Test Avg. Loss: 0.002195, Accuracy: 0.853000, F1 Score: 0.846985
+Remove Test Avg. Loss: 0.005440, Accuracy: 0.375333, F1 Score: 0.545807
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.846083, F1 Score: 0.838907
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1479, dtype=torch.float64)
+Test Avg. Loss: 0.002326, Accuracy: 0.847100, F1 Score: 0.842188
+Remove Test Avg. Loss: 0.005494, Accuracy: 0.407778, F1 Score: 0.579321
+Remain Test Avg. Loss: 0.002449, Accuracy: 0.839350, F1 Score: 0.833418
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3049, dtype=torch.float64)
+Test Avg. Loss: 0.025585, Accuracy: 0.280200, F1 Score: 0.252629
+Remove Test Avg. Loss: 0.037153, Accuracy: 0.143556, F1 Score: 0.251069
+Remain Test Avg. Loss: 0.023374, Accuracy: 0.278400, F1 Score: 0.250266
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0325, dtype=torch.float64)
+Test Avg. Loss: 0.522422, Accuracy: 0.112400, F1 Score: 0.099373
+Remove Test Avg. Loss: 0.634964, Accuracy: 0.062000, F1 Score: 0.116761
+Remain Test Avg. Loss: 0.464742, Accuracy: 0.112217, F1 Score: 0.099939
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(1.7713, dtype=torch.float64)
+Test Avg. Loss: 0.002196, Accuracy: 0.852400, F1 Score: 0.845902
+Remove Test Avg. Loss: 0.005456, Accuracy: 0.367556, F1 Score: 0.537537
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.844967, F1 Score: 0.837494
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.9701, dtype=torch.float64)
+Test Avg. Loss: 0.002196, Accuracy: 0.852100, F1 Score: 0.845623
+Remove Test Avg. Loss: 0.005458, Accuracy: 0.366222, F1 Score: 0.536109
+Remain Test Avg. Loss: 0.002309, Accuracy: 0.844800, F1 Score: 0.837311
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.9597, dtype=torch.float64)
+Test Avg. Loss: 0.002201, Accuracy: 0.852200, F1 Score: 0.845794
+Remove Test Avg. Loss: 0.005477, Accuracy: 0.364222, F1 Score: 0.533963
+Remain Test Avg. Loss: 0.002313, Accuracy: 0.844867, F1 Score: 0.837354
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(88.0031, dtype=torch.float64)
+Test Avg. Loss: 0.002359, Accuracy: 0.832100, F1 Score: 0.824036
+Remove Test Avg. Loss: 0.005800, Accuracy: 0.304889, F1 Score: 0.467302
+Remain Test Avg. Loss: 0.002460, Accuracy: 0.827300, F1 Score: 0.818898
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0112, dtype=torch.float64)
+Test Avg. Loss: 0.020180, Accuracy: 0.262700, F1 Score: 0.250467
+Remove Test Avg. Loss: 0.025895, Accuracy: 0.106000, F1 Score: 0.191682
+Remain Test Avg. Loss: 0.018379, Accuracy: 0.260250, F1 Score: 0.248499
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2508, dtype=torch.float64)
+Test Avg. Loss: 0.432948, Accuracy: 0.059900, F1 Score: 0.057884
+Remove Test Avg. Loss: 0.428581, Accuracy: 0.057556, F1 Score: 0.108846
+Remain Test Avg. Loss: 0.383225, Accuracy: 0.066900, F1 Score: 0.065255
+</noise>
+</deltagrad>
+<deltagrad period="100">
+Detection overhead:: 0.917036771774292
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.21033740043640137
+Class: 0 overhead3:: 1.4128203392028809
+Class: 0 overhead4:: 0.6330478191375732
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.22797441482543945
+Class: 1 overhead3:: 2.017751693725586
+Class: 1 overhead4:: 0.6747217178344727
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.22328543663024902
+Class: 2 overhead3:: 2.583285093307495
+Class: 2 overhead4:: 0.6463029384613037
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.21730279922485352
+Class: 3 overhead3:: 3.176882266998291
+Class: 3 overhead4:: 0.663557767868042
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.23148632049560547
+Class: 4 overhead3:: 3.8184494972229004
+Class: 4 overhead4:: 0.7381689548492432
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.23012948036193848
+Class: 5 overhead3:: 4.382721424102783
+Class: 5 overhead4:: 0.6202893257141113
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.23001384735107422
+Class: 6 overhead3:: 5.043595552444458
+Class: 6 overhead4:: 0.6590299606323242
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.243056058883667
+Class: 7 overhead3:: 5.680995225906372
+Class: 7 overhead4:: 0.6471371650695801
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.2508430480957031
+Class: 8 overhead3:: 6.367777109146118
+Class: 8 overhead4:: 0.7117996215820312
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.24622130393981934
+Class: 9 overhead3:: 7.0654613971710205
+Class: 9 overhead4:: 0.7704098224639893
+Class: 9 overhead5:: 0
+memory usage:: 4950798336
+time_deltagrad:: 558.4491786956787
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(1.8608, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.844300, F1 Score: 0.834810
+Remove Test Avg. Loss: 0.005947, Accuracy: 0.294889, F1 Score: 0.455466
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838333, F1 Score: 0.828057
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(2.0629, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.844200, F1 Score: 0.834739
+Remove Test Avg. Loss: 0.005943, Accuracy: 0.295778, F1 Score: 0.456525
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838483, F1 Score: 0.828231
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(9.0754, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.846500, F1 Score: 0.837655
+Remove Test Avg. Loss: 0.005911, Accuracy: 0.300889, F1 Score: 0.462590
+Remain Test Avg. Loss: 0.002345, Accuracy: 0.838783, F1 Score: 0.828839
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8228, dtype=torch.float64)
+Test Avg. Loss: 0.002342, Accuracy: 0.839100, F1 Score: 0.833060
+Remove Test Avg. Loss: 0.005809, Accuracy: 0.350444, F1 Score: 0.519006
+Remain Test Avg. Loss: 0.002461, Accuracy: 0.830217, F1 Score: 0.823154
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0129, dtype=torch.float64)
+Test Avg. Loss: 0.023699, Accuracy: 0.312200, F1 Score: 0.284448
+Remove Test Avg. Loss: 0.027475, Accuracy: 0.169111, F1 Score: 0.289299
+Remain Test Avg. Loss: 0.021745, Accuracy: 0.304333, F1 Score: 0.275684
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0870, dtype=torch.float64)
+Test Avg. Loss: 0.478288, Accuracy: 0.118800, F1 Score: 0.103447
+Remove Test Avg. Loss: 0.443150, Accuracy: 0.094222, F1 Score: 0.172218
+Remain Test Avg. Loss: 0.426820, Accuracy: 0.120600, F1 Score: 0.104094
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(1.8608, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.844300, F1 Score: 0.834810
+Remove Test Avg. Loss: 0.005947, Accuracy: 0.294889, F1 Score: 0.455466
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838333, F1 Score: 0.828057
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(2.0650, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.844400, F1 Score: 0.834973
+Remove Test Avg. Loss: 0.005944, Accuracy: 0.295778, F1 Score: 0.456525
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838633, F1 Score: 0.828391
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(9.1092, dtype=torch.float64)
+Test Avg. Loss: 0.002238, Accuracy: 0.845600, F1 Score: 0.836596
+Remove Test Avg. Loss: 0.005926, Accuracy: 0.301556, F1 Score: 0.463377
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.839633, F1 Score: 0.829708
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1539, dtype=torch.float64)
+Test Avg. Loss: 0.002364, Accuracy: 0.841200, F1 Score: 0.834273
+Remove Test Avg. Loss: 0.005946, Accuracy: 0.347111, F1 Score: 0.515341
+Remain Test Avg. Loss: 0.002483, Accuracy: 0.834000, F1 Score: 0.826138
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3093, dtype=torch.float64)
+Test Avg. Loss: 0.025580, Accuracy: 0.279600, F1 Score: 0.251660
+Remove Test Avg. Loss: 0.037458, Accuracy: 0.129778, F1 Score: 0.229740
+Remain Test Avg. Loss: 0.023372, Accuracy: 0.277117, F1 Score: 0.248658
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0367, dtype=torch.float64)
+Test Avg. Loss: 0.522377, Accuracy: 0.112300, F1 Score: 0.099268
+Remove Test Avg. Loss: 0.635225, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464706, Accuracy: 0.112150, F1 Score: 0.099862
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(1.8608, dtype=torch.float64)
+Test Avg. Loss: 0.002239, Accuracy: 0.844300, F1 Score: 0.834810
+Remove Test Avg. Loss: 0.005947, Accuracy: 0.294889, F1 Score: 0.455466
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838333, F1 Score: 0.828057
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(2.0523, dtype=torch.float64)
+Test Avg. Loss: 0.002240, Accuracy: 0.844000, F1 Score: 0.834521
+Remove Test Avg. Loss: 0.005948, Accuracy: 0.293778, F1 Score: 0.454139
+Remain Test Avg. Loss: 0.002348, Accuracy: 0.838300, F1 Score: 0.827991
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.9809, dtype=torch.float64)
+Test Avg. Loss: 0.002244, Accuracy: 0.843800, F1 Score: 0.834073
+Remove Test Avg. Loss: 0.005967, Accuracy: 0.287778, F1 Score: 0.446937
+Remain Test Avg. Loss: 0.002352, Accuracy: 0.837817, F1 Score: 0.827352
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(88.0081, dtype=torch.float64)
+Test Avg. Loss: 0.002402, Accuracy: 0.824500, F1 Score: 0.812936
+Remove Test Avg. Loss: 0.006292, Accuracy: 0.230000, F1 Score: 0.373984
+Remain Test Avg. Loss: 0.002499, Accuracy: 0.820367, F1 Score: 0.808736
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0146, dtype=torch.float64)
+Test Avg. Loss: 0.020188, Accuracy: 0.261800, F1 Score: 0.249450
+Remove Test Avg. Loss: 0.026366, Accuracy: 0.092222, F1 Score: 0.168871
+Remain Test Avg. Loss: 0.018388, Accuracy: 0.259233, F1 Score: 0.247243
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2540, dtype=torch.float64)
+Test Avg. Loss: 0.432915, Accuracy: 0.059900, F1 Score: 0.057883
+Remove Test Avg. Loss: 0.429011, Accuracy: 0.056667, F1 Score: 0.107256
+Remain Test Avg. Loss: 0.383199, Accuracy: 0.066717, F1 Score: 0.065082
+</noise>
+</deltagrad>
+<deltagrad period="200">
+Detection overhead:: 0.9752211570739746
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.1254415512084961
+Class: 0 overhead3:: 1.3397259712219238
+Class: 0 overhead4:: 0.37174105644226074
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.12253785133361816
+Class: 1 overhead3:: 1.6483955383300781
+Class: 1 overhead4:: 0.37854504585266113
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.11876058578491211
+Class: 2 overhead3:: 1.9534556865692139
+Class: 2 overhead4:: 0.35399842262268066
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.11127924919128418
+Class: 3 overhead3:: 2.2361996173858643
+Class: 3 overhead4:: 0.34160327911376953
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.11618804931640625
+Class: 4 overhead3:: 2.5388402938842773
+Class: 4 overhead4:: 0.32118749618530273
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.11589312553405762
+Class: 5 overhead3:: 2.861741781234741
+Class: 5 overhead4:: 0.3381650447845459
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.12322592735290527
+Class: 6 overhead3:: 3.178903102874756
+Class: 6 overhead4:: 0.318692684173584
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.11822295188903809
+Class: 7 overhead3:: 3.511176347732544
+Class: 7 overhead4:: 0.3409738540649414
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.12645912170410156
+Class: 8 overhead3:: 3.891338586807251
+Class: 8 overhead4:: 0.3650989532470703
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.12691068649291992
+Class: 9 overhead3:: 4.276615619659424
+Class: 9 overhead4:: 0.36913156509399414
+Class: 9 overhead5:: 0
+memory usage:: 4950798336
+time_deltagrad:: 540.2749519348145
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(2.4141, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.844200, F1 Score: 0.834623
+Remove Test Avg. Loss: 0.005885, Accuracy: 0.300444, F1 Score: 0.462064
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.838450, F1 Score: 0.828285
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(2.5816, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.844700, F1 Score: 0.835271
+Remove Test Avg. Loss: 0.005881, Accuracy: 0.301111, F1 Score: 0.462852
+Remain Test Avg. Loss: 0.002341, Accuracy: 0.838633, F1 Score: 0.828530
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(9.2286, dtype=torch.float64)
+Test Avg. Loss: 0.002231, Accuracy: 0.846400, F1 Score: 0.837452
+Remove Test Avg. Loss: 0.005850, Accuracy: 0.308889, F1 Score: 0.471986
+Remain Test Avg. Loss: 0.002339, Accuracy: 0.839267, F1 Score: 0.829540
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8608, dtype=torch.float64)
+Test Avg. Loss: 0.002338, Accuracy: 0.838500, F1 Score: 0.832221
+Remove Test Avg. Loss: 0.005757, Accuracy: 0.358444, F1 Score: 0.527728
+Remain Test Avg. Loss: 0.002455, Accuracy: 0.830733, F1 Score: 0.823809
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0389, dtype=torch.float64)
+Test Avg. Loss: 0.023663, Accuracy: 0.312700, F1 Score: 0.285204
+Remove Test Avg. Loss: 0.027464, Accuracy: 0.170889, F1 Score: 0.291896
+Remain Test Avg. Loss: 0.021712, Accuracy: 0.304667, F1 Score: 0.276133
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.1118, dtype=torch.float64)
+Test Avg. Loss: 0.478223, Accuracy: 0.118900, F1 Score: 0.103491
+Remove Test Avg. Loss: 0.443143, Accuracy: 0.094444, F1 Score: 0.172589
+Remain Test Avg. Loss: 0.426762, Accuracy: 0.120650, F1 Score: 0.104159
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(2.4141, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.844200, F1 Score: 0.834623
+Remove Test Avg. Loss: 0.005885, Accuracy: 0.300444, F1 Score: 0.462064
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.838450, F1 Score: 0.828285
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(2.5736, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.844700, F1 Score: 0.835196
+Remove Test Avg. Loss: 0.005882, Accuracy: 0.301111, F1 Score: 0.462852
+Remain Test Avg. Loss: 0.002341, Accuracy: 0.838667, F1 Score: 0.828549
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(9.2347, dtype=torch.float64)
+Test Avg. Loss: 0.002234, Accuracy: 0.844800, F1 Score: 0.835543
+Remove Test Avg. Loss: 0.005865, Accuracy: 0.304667, F1 Score: 0.467041
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.839550, F1 Score: 0.829619
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1636, dtype=torch.float64)
+Test Avg. Loss: 0.002358, Accuracy: 0.841600, F1 Score: 0.834909
+Remove Test Avg. Loss: 0.005886, Accuracy: 0.347778, F1 Score: 0.516076
+Remain Test Avg. Loss: 0.002475, Accuracy: 0.834133, F1 Score: 0.826186
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3071, dtype=torch.float64)
+Test Avg. Loss: 0.025530, Accuracy: 0.279200, F1 Score: 0.251284
+Remove Test Avg. Loss: 0.037389, Accuracy: 0.131778, F1 Score: 0.232869
+Remain Test Avg. Loss: 0.023326, Accuracy: 0.277433, F1 Score: 0.248954
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0333, dtype=torch.float64)
+Test Avg. Loss: 0.522284, Accuracy: 0.112300, F1 Score: 0.099267
+Remove Test Avg. Loss: 0.635144, Accuracy: 0.061556, F1 Score: 0.115972
+Remain Test Avg. Loss: 0.464625, Accuracy: 0.112200, F1 Score: 0.099893
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(2.4141, dtype=torch.float64)
+Test Avg. Loss: 0.002235, Accuracy: 0.844200, F1 Score: 0.834623
+Remove Test Avg. Loss: 0.005885, Accuracy: 0.300444, F1 Score: 0.462064
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.838450, F1 Score: 0.828285
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(2.5666, dtype=torch.float64)
+Test Avg. Loss: 0.002236, Accuracy: 0.844100, F1 Score: 0.834489
+Remove Test Avg. Loss: 0.005887, Accuracy: 0.299778, F1 Score: 0.461275
+Remain Test Avg. Loss: 0.002342, Accuracy: 0.838533, F1 Score: 0.828353
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(9.1171, dtype=torch.float64)
+Test Avg. Loss: 0.002240, Accuracy: 0.843500, F1 Score: 0.833920
+Remove Test Avg. Loss: 0.005906, Accuracy: 0.292222, F1 Score: 0.452279
+Remain Test Avg. Loss: 0.002346, Accuracy: 0.837933, F1 Score: 0.827523
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(88.0272, dtype=torch.float64)
+Test Avg. Loss: 0.002399, Accuracy: 0.825900, F1 Score: 0.814941
+Remove Test Avg. Loss: 0.006240, Accuracy: 0.237556, F1 Score: 0.383911
+Remain Test Avg. Loss: 0.002493, Accuracy: 0.821083, F1 Score: 0.809751
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0215, dtype=torch.float64)
+Test Avg. Loss: 0.020160, Accuracy: 0.262200, F1 Score: 0.249829
+Remove Test Avg. Loss: 0.026356, Accuracy: 0.095111, F1 Score: 0.173701
+Remain Test Avg. Loss: 0.018362, Accuracy: 0.259450, F1 Score: 0.247604
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2598, dtype=torch.float64)
+Test Avg. Loss: 0.432860, Accuracy: 0.059900, F1 Score: 0.057886
+Remove Test Avg. Loss: 0.428999, Accuracy: 0.056667, F1 Score: 0.107256
+Remain Test Avg. Loss: 0.383149, Accuracy: 0.066800, F1 Score: 0.065166
+</noise>
+</deltagrad>
+</results>
+</data>

@@ -1,0 +1,353 @@
+<data>
+<Generate_Dataset/>
+<Training>
+Train - Epoch 0, Batch: 0, Loss: 0.691917
+Train - Epoch 0, Batch: 1, Loss: 0.688471
+Train - Epoch 0, Batch: 2, Loss: 0.685218
+Train - Epoch 0, Batch: 3, Loss: 0.681014
+Train - Epoch 0, Batch: 4, Loss: 0.677843
+Train - Epoch 0, Batch: 5, Loss: 0.674488
+Train - Epoch 0, Batch: 6, Loss: 0.671902
+Train - Epoch 0, Batch: 7, Loss: 0.667180
+Train - Epoch 0, Batch: 8, Loss: 0.666252
+Train - Epoch 0, Batch: 9, Loss: 0.661358
+Train - Epoch 0, Batch: 10, Loss: 0.658104
+Train - Epoch 0, Batch: 11, Loss: 0.654931
+Train - Epoch 100, Batch: 0, Loss: 0.211070
+Train - Epoch 100, Batch: 1, Loss: 0.220132
+Train - Epoch 100, Batch: 2, Loss: 0.210280
+Train - Epoch 100, Batch: 3, Loss: 0.214757
+Train - Epoch 100, Batch: 4, Loss: 0.203876
+Train - Epoch 100, Batch: 5, Loss: 0.203758
+Train - Epoch 100, Batch: 6, Loss: 0.227571
+Train - Epoch 100, Batch: 7, Loss: 0.205296
+Train - Epoch 100, Batch: 8, Loss: 0.208495
+Train - Epoch 100, Batch: 9, Loss: 0.205904
+Train - Epoch 100, Batch: 10, Loss: 0.204057
+Train - Epoch 100, Batch: 11, Loss: 0.218455
+Train - Epoch 200, Batch: 0, Loss: 0.176321
+Train - Epoch 200, Batch: 1, Loss: 0.167748
+Train - Epoch 200, Batch: 2, Loss: 0.161135
+Train - Epoch 200, Batch: 3, Loss: 0.182518
+Train - Epoch 200, Batch: 4, Loss: 0.183122
+Train - Epoch 200, Batch: 5, Loss: 0.162466
+Train - Epoch 200, Batch: 6, Loss: 0.184402
+Train - Epoch 200, Batch: 7, Loss: 0.189688
+Train - Epoch 200, Batch: 8, Loss: 0.186730
+Train - Epoch 200, Batch: 9, Loss: 0.175803
+Train - Epoch 200, Batch: 10, Loss: 0.166178
+Train - Epoch 200, Batch: 11, Loss: 0.175457
+Train - Epoch 300, Batch: 0, Loss: 0.187328
+Train - Epoch 300, Batch: 1, Loss: 0.156263
+Train - Epoch 300, Batch: 2, Loss: 0.154863
+Train - Epoch 300, Batch: 3, Loss: 0.152507
+Train - Epoch 300, Batch: 4, Loss: 0.156734
+Train - Epoch 300, Batch: 5, Loss: 0.170668
+Train - Epoch 300, Batch: 6, Loss: 0.163742
+Train - Epoch 300, Batch: 7, Loss: 0.163532
+Train - Epoch 300, Batch: 8, Loss: 0.164407
+Train - Epoch 300, Batch: 9, Loss: 0.159946
+Train - Epoch 300, Batch: 10, Loss: 0.159007
+Train - Epoch 300, Batch: 11, Loss: 0.155963
+Train - Epoch 400, Batch: 0, Loss: 0.151158
+Train - Epoch 400, Batch: 1, Loss: 0.152150
+Train - Epoch 400, Batch: 2, Loss: 0.159568
+Train - Epoch 400, Batch: 3, Loss: 0.163232
+Train - Epoch 400, Batch: 4, Loss: 0.145199
+Train - Epoch 400, Batch: 5, Loss: 0.154771
+Train - Epoch 400, Batch: 6, Loss: 0.150120
+Train - Epoch 400, Batch: 7, Loss: 0.165168
+Train - Epoch 400, Batch: 8, Loss: 0.151497
+Train - Epoch 400, Batch: 9, Loss: 0.170785
+Train - Epoch 400, Batch: 10, Loss: 0.150079
+Train - Epoch 400, Batch: 11, Loss: 0.143355
+Train - Epoch 500, Batch: 0, Loss: 0.147052
+Train - Epoch 500, Batch: 1, Loss: 0.142695
+Train - Epoch 500, Batch: 2, Loss: 0.163507
+Train - Epoch 500, Batch: 3, Loss: 0.145554
+Train - Epoch 500, Batch: 4, Loss: 0.149096
+Train - Epoch 500, Batch: 5, Loss: 0.150964
+Train - Epoch 500, Batch: 6, Loss: 0.146720
+Train - Epoch 500, Batch: 7, Loss: 0.156323
+Train - Epoch 500, Batch: 8, Loss: 0.144321
+Train - Epoch 500, Batch: 9, Loss: 0.156245
+Train - Epoch 500, Batch: 10, Loss: 0.159994
+Train - Epoch 500, Batch: 11, Loss: 0.145043
+Train - Epoch 600, Batch: 0, Loss: 0.145630
+Train - Epoch 600, Batch: 1, Loss: 0.156208
+Train - Epoch 600, Batch: 2, Loss: 0.148747
+Train - Epoch 600, Batch: 3, Loss: 0.141437
+Train - Epoch 600, Batch: 4, Loss: 0.156422
+Train - Epoch 600, Batch: 5, Loss: 0.158300
+Train - Epoch 600, Batch: 6, Loss: 0.130414
+Train - Epoch 600, Batch: 7, Loss: 0.142817
+Train - Epoch 600, Batch: 8, Loss: 0.147922
+Train - Epoch 600, Batch: 9, Loss: 0.147642
+Train - Epoch 600, Batch: 10, Loss: 0.142943
+Train - Epoch 600, Batch: 11, Loss: 0.161890
+Train - Epoch 700, Batch: 0, Loss: 0.155439
+Train - Epoch 700, Batch: 1, Loss: 0.150977
+Train - Epoch 700, Batch: 2, Loss: 0.137094
+Train - Epoch 700, Batch: 3, Loss: 0.150009
+Train - Epoch 700, Batch: 4, Loss: 0.148912
+Train - Epoch 700, Batch: 5, Loss: 0.150642
+Train - Epoch 700, Batch: 6, Loss: 0.148023
+Train - Epoch 700, Batch: 7, Loss: 0.142115
+Train - Epoch 700, Batch: 8, Loss: 0.150871
+Train - Epoch 700, Batch: 9, Loss: 0.130668
+Train - Epoch 700, Batch: 10, Loss: 0.138117
+Train - Epoch 700, Batch: 11, Loss: 0.153335
+Train - Epoch 800, Batch: 0, Loss: 0.156478
+Train - Epoch 800, Batch: 1, Loss: 0.135735
+Train - Epoch 800, Batch: 2, Loss: 0.159633
+Train - Epoch 800, Batch: 3, Loss: 0.146070
+Train - Epoch 800, Batch: 4, Loss: 0.153034
+Train - Epoch 800, Batch: 5, Loss: 0.138206
+Train - Epoch 800, Batch: 6, Loss: 0.143341
+Train - Epoch 800, Batch: 7, Loss: 0.147535
+Train - Epoch 800, Batch: 8, Loss: 0.132267
+Train - Epoch 800, Batch: 9, Loss: 0.147677
+Train - Epoch 800, Batch: 10, Loss: 0.145870
+Train - Epoch 800, Batch: 11, Loss: 0.127488
+Train - Epoch 900, Batch: 0, Loss: 0.138101
+Train - Epoch 900, Batch: 1, Loss: 0.130541
+Train - Epoch 900, Batch: 2, Loss: 0.146424
+Train - Epoch 900, Batch: 3, Loss: 0.143446
+Train - Epoch 900, Batch: 4, Loss: 0.133058
+Train - Epoch 900, Batch: 5, Loss: 0.139066
+Train - Epoch 900, Batch: 6, Loss: 0.155359
+Train - Epoch 900, Batch: 7, Loss: 0.154544
+Train - Epoch 900, Batch: 8, Loss: 0.152132
+Train - Epoch 900, Batch: 9, Loss: 0.140686
+Train - Epoch 900, Batch: 10, Loss: 0.143162
+Train - Epoch 900, Batch: 11, Loss: 0.153903
+training_time:: 10.313437461853027
+training time full:: 10.313559770584106
+provenance prepare time:: 2.384185791015625e-07
+here
+Test Avg. Loss: 0.000122, Accuracy: 0.968246, F1 Score: 0.967676
+</Training>
+torch.Size([11982, 784])
+tensor([3323, 5846, 6329,  ..., 5145,  604, 4193])
+<results lr="1" epochs="1000" bz="1024" remove_ratio="0.375" sampling_type="targeted_informed">
+<Baseline>
+data dimension:: [11982, 784]
+tensor([ 8196,     7,  6152, 10253, 10255,  2067, 10260,  2072,    27, 10270,
+         4126,  4129, 10274,  6180,    45, 10287, 10294,  2103,  2106,  6202,
+         4156,    64,  6210,  4165, 10311,    74,  6219,  6222,  8278,  4184,
+         6232,  4186, 10330,  8286, 10335,  6253,   110,   111, 10353,  4215,
+         2168,  6266, 10362,  4225,  4226, 10371,  8324,  6275,   134,   135])
+Baseline Loss 0.6939679899255572
+Baseline Loss 0.6763795378276104
+Baseline Loss 0.6598591317757911
+Baseline Loss 0.6413171289891616
+Baseline Loss 0.6291050503548375
+Baseline Loss 0.6170714092950993
+Baseline Loss 0.6027126038663164
+Baseline Loss 0.585413222833309
+Baseline Loss 0.587399644332428
+Baseline Loss 0.564431288538915
+Baseline Loss 0.5566442292434528
+Baseline Loss 0.5475225442107217
+Baseline Loss 0.14206636595896582
+Baseline Loss 0.16768929244034825
+Baseline Loss 0.14227541071129185
+Baseline Loss 0.16684518557210573
+Baseline Loss 0.1523901611266422
+Baseline Loss 0.14852872548247928
+Baseline Loss 0.17257653082358923
+Baseline Loss 0.1455553921598139
+Baseline Loss 0.16838601951895357
+Baseline Loss 0.17153084391850645
+Baseline Loss 0.16726161624021096
+Baseline Loss 0.1567428857346828
+Baseline Loss 0.12846065473706805
+Baseline Loss 0.13138267804015102
+Baseline Loss 0.1254802936758655
+Baseline Loss 0.11873587122553157
+Baseline Loss 0.12037205880878886
+Baseline Loss 0.13085656188266406
+Baseline Loss 0.12663714094629563
+Baseline Loss 0.12154752854369079
+Baseline Loss 0.12634408421704518
+Baseline Loss 0.13219945193940105
+Baseline Loss 0.12767652420315073
+Baseline Loss 0.1296661674752368
+Baseline Loss 0.11769161547890321
+Baseline Loss 0.11450399868218596
+Baseline Loss 0.10727356693807208
+Baseline Loss 0.12014227324656335
+Baseline Loss 0.10801430155491287
+Baseline Loss 0.11500910709972685
+Baseline Loss 0.10873948894427157
+Baseline Loss 0.1226876075742473
+Baseline Loss 0.11449011980388717
+Baseline Loss 0.11524348082018991
+Baseline Loss 0.11514904076154979
+Baseline Loss 0.09844162617804562
+Baseline Loss 0.11498044645797967
+Baseline Loss 0.10641441241728365
+Baseline Loss 0.09600149259511967
+Baseline Loss 0.10319622777553986
+Baseline Loss 0.11504992975345206
+Baseline Loss 0.1010925487010503
+Baseline Loss 0.1098388783683533
+Baseline Loss 0.1095867970281978
+Baseline Loss 0.11277555729011818
+Baseline Loss 0.11251492601578883
+Baseline Loss 0.1003965341094811
+Baseline Loss 0.09204986338468517
+Baseline Loss 0.12032568761686378
+Baseline Loss 0.09383728707834842
+Baseline Loss 0.10721854087174446
+Baseline Loss 0.09619058641149913
+Baseline Loss 0.09736976848750589
+Baseline Loss 0.08083769091308857
+Baseline Loss 0.09732120966968072
+Baseline Loss 0.1152532113266854
+Baseline Loss 0.09864376551856119
+Baseline Loss 0.11314430297262129
+Baseline Loss 0.10737375093983104
+Baseline Loss 0.09839359582606623
+Baseline Loss 0.09750548429295096
+Baseline Loss 0.08426350772189943
+Baseline Loss 0.09346395973839472
+Baseline Loss 0.09550516184007976
+Baseline Loss 0.10645910904983519
+Baseline Loss 0.10116497967604088
+Baseline Loss 0.09924388823090913
+Baseline Loss 0.10474026478510504
+Baseline Loss 0.10738387013635635
+Baseline Loss 0.10090626296142327
+Baseline Loss 0.09329914785152842
+Baseline Loss 0.11218763860193433
+Baseline Loss 0.10608198802975473
+Baseline Loss 0.10888513032021391
+Baseline Loss 0.10112723081709576
+Baseline Loss 0.09004234883916969
+Baseline Loss 0.0973501562542827
+Baseline Loss 0.09235165083284719
+Baseline Loss 0.09824545382124114
+Baseline Loss 0.09394978157911307
+Baseline Loss 0.10874539875625401
+Baseline Loss 0.09026974026534715
+Baseline Loss 0.08404771342227374
+Baseline Loss 0.0991086170390343
+Baseline Loss 0.10892700049489748
+Baseline Loss 0.08664693698432947
+Baseline Loss 0.10998707742162381
+Baseline Loss 0.09069694249926036
+Baseline Loss 0.10230757224127113
+Baseline Loss 0.08714763084702393
+Baseline Loss 0.10644434761820548
+Baseline Loss 0.10732627604771296
+Baseline Loss 0.08429668693031206
+Baseline Loss 0.0925540841737669
+Baseline Loss 0.09312567736668338
+Baseline Loss 0.081341867495991
+Baseline Loss 0.10133828322085674
+Baseline Loss 0.09391265329026346
+Baseline Loss 0.09362076293438042
+Baseline Loss 0.08986707815034987
+Baseline Loss 0.09243905383736233
+Baseline Loss 0.09148135136345666
+Baseline Loss 0.09707662326564698
+Baseline Loss 0.09429567447486763
+Baseline Loss 0.09995512409105937
+Baseline Loss 0.10326937332414643
+Baseline Loss 0.10178992446256616
+Baseline Loss 0.0812268035299482
+training time is 14.177732944488525
+overhead:: 0
+overhead2:: 3.1310534477233887
+overhead3:: 0
+memory usage:: 830734336
+time_baseline:: 14.196831703186035
+Test Avg. Loss: 0.000344, Accuracy: 0.872480, F1 Score: 0.884316
+model difference (l2 norm): tensor(14.2096, dtype=torch.float64)
+Test Avg. Loss: 0.000344, Accuracy: 0.872480, F1 Score: 0.884316
+Remove Test Avg. Loss: 0.000819, Accuracy: 0.662141, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000353, Accuracy: 0.859372, F1 Score: 0.873184
+</Baseline>
+<Deltagrad period="2">
+data dimension:: [11982, 784]
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 12000
+overhead2:: 3.1768991947174072
+overhead3:: 4.29181694984436
+overhead4:: 2.8450276851654053
+overhead5:: 0
+memory usage:: 1088376832
+time_deltagrad:: 21.09149956703186
+model difference (l2 norm): tensor(1.6535, dtype=torch.float64)
+Test Avg. Loss: 0.000307, Accuracy: 0.888609, F1 Score: 0.897448
+Remove Test Avg. Loss: 0.000731, Accuracy: 0.698420, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000320, Accuracy: 0.873477, F1 Score: 0.884486
+</Deltagrad>
+<Deltagrad period="5">
+data dimension:: [11982, 784]
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 12000
+overhead2:: 1.3207964897155762
+overhead3:: 2.160670042037964
+overhead4:: 1.162975549697876
+overhead5:: 0
+memory usage:: 1092300800
+time_deltagrad:: 17.202914476394653
+model difference (l2 norm): tensor(2.1797, dtype=torch.float64)
+Test Avg. Loss: 0.000304, Accuracy: 0.889617, F1 Score: 0.898281
+Remove Test Avg. Loss: 0.000725, Accuracy: 0.700200, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000317, Accuracy: 0.873894, F1 Score: 0.884859
+</Deltagrad>
+<Deltagrad period="10">
+data dimension:: [11982, 784]
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 12000
+overhead2:: 0.6583547592163086
+overhead3:: 1.4041290283203125
+overhead4:: 0.5973689556121826
+overhead5:: 0
+memory usage:: 1088086016
+time_deltagrad:: 15.656167030334473
+model difference (l2 norm): tensor(2.6079, dtype=torch.float64)
+Test Avg. Loss: 0.000289, Accuracy: 0.896673, F1 Score: 0.904161
+Remove Test Avg. Loss: 0.000687, Accuracy: 0.716670, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000304, Accuracy: 0.879987, F1 Score: 0.889775
+</Deltagrad>
+<Deltagrad period="20">
+data dimension:: [11982, 784]
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 12000
+overhead2:: 0.32891416549682617
+overhead3:: 1.0189251899719238
+overhead4:: 0.3182046413421631
+overhead5:: 0
+memory usage:: 1090433024
+time_deltagrad:: 14.69216799736023
+model difference (l2 norm): tensor(2.7956, dtype=torch.float64)
+Test Avg. Loss: 0.000295, Accuracy: 0.892641, F1 Score: 0.900792
+Remove Test Avg. Loss: 0.000702, Accuracy: 0.707100, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000309, Accuracy: 0.876565, F1 Score: 0.887039
+</Deltagrad>
+</results>
+</data>

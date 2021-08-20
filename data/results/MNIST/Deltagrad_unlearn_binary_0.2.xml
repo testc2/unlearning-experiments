@@ -1,0 +1,1851 @@
+<data>
+<generate>
+</generate>
+<training>
+Train - Epoch 0, Batch: 0, Loss: 0.690668
+Train - Epoch 0, Batch: 1, Loss: 0.686035
+Train - Epoch 0, Batch: 2, Loss: 0.682603
+Train - Epoch 0, Batch: 3, Loss: 0.679206
+Train - Epoch 0, Batch: 4, Loss: 0.676549
+Train - Epoch 0, Batch: 5, Loss: 0.672753
+Train - Epoch 0, Batch: 6, Loss: 0.669738
+Train - Epoch 0, Batch: 7, Loss: 0.664814
+Train - Epoch 0, Batch: 8, Loss: 0.661506
+Train - Epoch 0, Batch: 9, Loss: 0.659799
+Train - Epoch 0, Batch: 10, Loss: 0.656385
+Train - Epoch 0, Batch: 11, Loss: 0.652731
+Train - Epoch 100, Batch: 0, Loss: 0.214887
+Train - Epoch 100, Batch: 1, Loss: 0.230650
+Train - Epoch 100, Batch: 2, Loss: 0.196124
+Train - Epoch 100, Batch: 3, Loss: 0.185781
+Train - Epoch 100, Batch: 4, Loss: 0.212984
+Train - Epoch 100, Batch: 5, Loss: 0.218490
+Train - Epoch 100, Batch: 6, Loss: 0.224942
+Train - Epoch 100, Batch: 7, Loss: 0.207742
+Train - Epoch 100, Batch: 8, Loss: 0.207214
+Train - Epoch 100, Batch: 9, Loss: 0.190116
+Train - Epoch 100, Batch: 10, Loss: 0.223480
+Train - Epoch 100, Batch: 11, Loss: 0.220981
+Train - Epoch 200, Batch: 0, Loss: 0.186070
+Train - Epoch 200, Batch: 1, Loss: 0.173805
+Train - Epoch 200, Batch: 2, Loss: 0.160556
+Train - Epoch 200, Batch: 3, Loss: 0.187147
+Train - Epoch 200, Batch: 4, Loss: 0.180125
+Train - Epoch 200, Batch: 5, Loss: 0.173751
+Train - Epoch 200, Batch: 6, Loss: 0.191680
+Train - Epoch 200, Batch: 7, Loss: 0.174594
+Train - Epoch 200, Batch: 8, Loss: 0.179576
+Train - Epoch 200, Batch: 9, Loss: 0.154289
+Train - Epoch 200, Batch: 10, Loss: 0.180450
+Train - Epoch 200, Batch: 11, Loss: 0.165928
+Train - Epoch 300, Batch: 0, Loss: 0.163994
+Train - Epoch 300, Batch: 1, Loss: 0.157898
+Train - Epoch 300, Batch: 2, Loss: 0.157557
+Train - Epoch 300, Batch: 3, Loss: 0.163049
+Train - Epoch 300, Batch: 4, Loss: 0.166890
+Train - Epoch 300, Batch: 5, Loss: 0.150189
+Train - Epoch 300, Batch: 6, Loss: 0.171357
+Train - Epoch 300, Batch: 7, Loss: 0.172147
+Train - Epoch 300, Batch: 8, Loss: 0.163332
+Train - Epoch 300, Batch: 9, Loss: 0.148903
+Train - Epoch 300, Batch: 10, Loss: 0.167355
+Train - Epoch 300, Batch: 11, Loss: 0.164314
+Train - Epoch 400, Batch: 0, Loss: 0.173244
+Train - Epoch 400, Batch: 1, Loss: 0.143577
+Train - Epoch 400, Batch: 2, Loss: 0.160296
+Train - Epoch 400, Batch: 3, Loss: 0.143836
+Train - Epoch 400, Batch: 4, Loss: 0.147188
+Train - Epoch 400, Batch: 5, Loss: 0.164635
+Train - Epoch 400, Batch: 6, Loss: 0.173777
+Train - Epoch 400, Batch: 7, Loss: 0.152646
+Train - Epoch 400, Batch: 8, Loss: 0.148964
+Train - Epoch 400, Batch: 9, Loss: 0.147931
+Train - Epoch 400, Batch: 10, Loss: 0.156793
+Train - Epoch 400, Batch: 11, Loss: 0.144083
+Train - Epoch 500, Batch: 0, Loss: 0.143951
+Train - Epoch 500, Batch: 1, Loss: 0.135777
+Train - Epoch 500, Batch: 2, Loss: 0.150165
+Train - Epoch 500, Batch: 3, Loss: 0.149075
+Train - Epoch 500, Batch: 4, Loss: 0.160102
+Train - Epoch 500, Batch: 5, Loss: 0.154553
+Train - Epoch 500, Batch: 6, Loss: 0.147439
+Train - Epoch 500, Batch: 7, Loss: 0.163022
+Train - Epoch 500, Batch: 8, Loss: 0.130619
+Train - Epoch 500, Batch: 9, Loss: 0.166710
+Train - Epoch 500, Batch: 10, Loss: 0.157058
+Train - Epoch 500, Batch: 11, Loss: 0.150301
+Train - Epoch 600, Batch: 0, Loss: 0.154499
+Train - Epoch 600, Batch: 1, Loss: 0.149178
+Train - Epoch 600, Batch: 2, Loss: 0.142031
+Train - Epoch 600, Batch: 3, Loss: 0.162711
+Train - Epoch 600, Batch: 4, Loss: 0.157243
+Train - Epoch 600, Batch: 5, Loss: 0.139721
+Train - Epoch 600, Batch: 6, Loss: 0.157663
+Train - Epoch 600, Batch: 7, Loss: 0.149176
+Train - Epoch 600, Batch: 8, Loss: 0.135162
+Train - Epoch 600, Batch: 9, Loss: 0.132825
+Train - Epoch 600, Batch: 10, Loss: 0.141485
+Train - Epoch 600, Batch: 11, Loss: 0.156921
+Train - Epoch 700, Batch: 0, Loss: 0.140386
+Train - Epoch 700, Batch: 1, Loss: 0.150804
+Train - Epoch 700, Batch: 2, Loss: 0.152736
+Train - Epoch 700, Batch: 3, Loss: 0.148117
+Train - Epoch 700, Batch: 4, Loss: 0.122409
+Train - Epoch 700, Batch: 5, Loss: 0.155529
+Train - Epoch 700, Batch: 6, Loss: 0.128902
+Train - Epoch 700, Batch: 7, Loss: 0.148450
+Train - Epoch 700, Batch: 8, Loss: 0.155879
+Train - Epoch 700, Batch: 9, Loss: 0.150703
+Train - Epoch 700, Batch: 10, Loss: 0.150223
+Train - Epoch 700, Batch: 11, Loss: 0.151145
+Train - Epoch 800, Batch: 0, Loss: 0.157707
+Train - Epoch 800, Batch: 1, Loss: 0.146611
+Train - Epoch 800, Batch: 2, Loss: 0.144243
+Train - Epoch 800, Batch: 3, Loss: 0.124582
+Train - Epoch 800, Batch: 4, Loss: 0.139440
+Train - Epoch 800, Batch: 5, Loss: 0.152976
+Train - Epoch 800, Batch: 6, Loss: 0.159948
+Train - Epoch 800, Batch: 7, Loss: 0.127193
+Train - Epoch 800, Batch: 8, Loss: 0.134529
+Train - Epoch 800, Batch: 9, Loss: 0.166191
+Train - Epoch 800, Batch: 10, Loss: 0.141160
+Train - Epoch 800, Batch: 11, Loss: 0.143228
+Train - Epoch 900, Batch: 0, Loss: 0.144855
+Train - Epoch 900, Batch: 1, Loss: 0.145902
+Train - Epoch 900, Batch: 2, Loss: 0.144487
+Train - Epoch 900, Batch: 3, Loss: 0.137028
+Train - Epoch 900, Batch: 4, Loss: 0.166014
+Train - Epoch 900, Batch: 5, Loss: 0.141738
+Train - Epoch 900, Batch: 6, Loss: 0.141998
+Train - Epoch 900, Batch: 7, Loss: 0.140236
+Train - Epoch 900, Batch: 8, Loss: 0.124310
+Train - Epoch 900, Batch: 9, Loss: 0.149152
+Train - Epoch 900, Batch: 10, Loss: 0.144212
+Train - Epoch 900, Batch: 11, Loss: 0.148799
+training_time:: 12.548421621322632
+training time full:: 12.548656225204468
+provenance prepare time:: 2.384185791015625e-07
+here
+Test Avg. Loss: 0.000122, Accuracy: 0.968750, F1 Score: 0.968205
+</training>
+torch.Size([11982, 784])
+tensor([ 3323,  5846,  6329,  ...,  6700, 11023,  9429])
+<results lr="1" epochs="1000" bz="1024" remove_ratio="0.2" sampling_type="targeted_informed">
+<baseline>
+data dimension:: [11982, 784]
+tensor([8199, 8200,   11, 4111, 4114,   21, 4122, 8235, 8236, 4141, 8241, 4146,
+        8257, 8275, 4191,   98,  111,  110, 4219, 4223,  130,  134,  135, 4234,
+         138, 8332, 4241, 4242,  148, 4251, 8353, 4264, 8361, 8362, 4268,  180,
+        4276,  184, 8381, 4285, 8391, 8406,  218, 8420, 8428, 8431, 8433, 4360,
+         268,  271])
+Epoch:0 Batch: 11 Baseline Loss 0.6329399585926359
+Epoch:100 Batch: 11 Baseline Loss 0.21589927034331907
+Epoch:200 Batch: 11 Baseline Loss 0.16021843476131498
+Epoch:300 Batch: 11 Baseline Loss 0.15941474453379256
+Epoch:400 Batch: 11 Baseline Loss 0.14736903073458751
+Epoch:500 Batch: 11 Baseline Loss 0.13027194458563984
+Epoch:600 Batch: 11 Baseline Loss 0.15198989814447958
+Epoch:700 Batch: 11 Baseline Loss 0.13922633433057718
+Epoch:800 Batch: 11 Baseline Loss 0.11689427326859911
+Epoch:900 Batch: 11 Baseline Loss 0.11989002469683703
+training time is 17.720694303512573
+overhead:: 0
+overhead2:: 3.555386781692505
+overhead3:: 0
+memory usage:: 823877632
+time_baseline:: 17.741828441619873
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(7.0651, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000378, Accuracy: 0.876043, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947672, F1 Score: 0.948143
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(7.7871, dtype=torch.float64)
+Test Avg. Loss: 0.000148, Accuracy: 0.957157, F1 Score: 0.957308
+Remove Test Avg. Loss: 0.000391, Accuracy: 0.871452, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000170, Accuracy: 0.946169, F1 Score: 0.946769
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(30.0621, dtype=torch.float64)
+Test Avg. Loss: 0.000174, Accuracy: 0.942540, F1 Score: 0.943676
+Remove Test Avg. Loss: 0.000552, Accuracy: 0.811770, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000201, Accuracy: 0.927892, F1 Score: 0.929870
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.9608, dtype=torch.float64)
+Test Avg. Loss: 0.001201, Accuracy: 0.772177, F1 Score: 0.800000
+Remove Test Avg. Loss: 0.004756, Accuracy: 0.358097, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001340, Accuracy: 0.739860, F1 Score: 0.777405
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2874.3310, dtype=torch.float64)
+Test Avg. Loss: 0.017031, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061529, Accuracy: 0.215359, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018095, Accuracy: 0.637957, F1 Score: 0.701610
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(7.0531, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000378, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947505, F1 Score: 0.947995
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(7.6705, dtype=torch.float64)
+Test Avg. Loss: 0.000149, Accuracy: 0.955645, F1 Score: 0.955912
+Remove Test Avg. Loss: 0.000395, Accuracy: 0.868948, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000171, Accuracy: 0.946002, F1 Score: 0.946639
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(29.5788, dtype=torch.float64)
+Test Avg. Loss: 0.000208, Accuracy: 0.925403, F1 Score: 0.928502
+Remove Test Avg. Loss: 0.000636, Accuracy: 0.767112, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000230, Accuracy: 0.914956, F1 Score: 0.918940
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.5744, dtype=torch.float64)
+Test Avg. Loss: 0.003322, Accuracy: 0.555948, F1 Score: 0.679753
+Remove Test Avg. Loss: 0.009484, Accuracy: 0.050501, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003085, Accuracy: 0.530880, F1 Score: 0.661732
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2853.0767, dtype=torch.float64)
+Test Avg. Loss: 0.045632, Accuracy: 0.464718, F1 Score: 0.611842
+Remove Test Avg. Loss: 0.119693, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042061, Accuracy: 0.437156, F1 Score: 0.589231
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(7.0584, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000377, Accuracy: 0.875626, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947588, F1 Score: 0.948073
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(7.6905, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.957157, F1 Score: 0.957351
+Remove Test Avg. Loss: 0.000383, Accuracy: 0.873539, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.946920, F1 Score: 0.947473
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(28.8821, dtype=torch.float64)
+Test Avg. Loss: 0.000166, Accuracy: 0.950101, F1 Score: 0.950820
+Remove Test Avg. Loss: 0.000461, Accuracy: 0.845576, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000186, Accuracy: 0.937990, F1 Score: 0.939243
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(277.0650, dtype=torch.float64)
+Test Avg. Loss: 0.001141, Accuracy: 0.736391, F1 Score: 0.773102
+Remove Test Avg. Loss: 0.002659, Accuracy: 0.538397, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001000, Accuracy: 0.747788, F1 Score: 0.779416
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.6094, dtype=torch.float64)
+Test Avg. Loss: 0.018221, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035748, Accuracy: 0.381886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015578, Accuracy: 0.577116, F1 Score: 0.632906
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(7.0306, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000376, Accuracy: 0.876043, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947755, F1 Score: 0.948230
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(7.4488, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957308
+Remove Test Avg. Loss: 0.000368, Accuracy: 0.878965, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948506, F1 Score: 0.948928
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.7041, dtype=torch.float64)
+Test Avg. Loss: 0.000132, Accuracy: 0.960685, F1 Score: 0.960526
+Remove Test Avg. Loss: 0.000306, Accuracy: 0.904007, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000155, Accuracy: 0.951678, F1 Score: 0.951544
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.5985, dtype=torch.float64)
+Test Avg. Loss: 0.000591, Accuracy: 0.836190, F1 Score: 0.812247
+Remove Test Avg. Loss: 0.000260, Accuracy: 0.929048, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000562, Accuracy: 0.818561, F1 Score: 0.791962
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.3278, dtype=torch.float64)
+Test Avg. Loss: 0.010958, Accuracy: 0.710685, F1 Score: 0.627756
+Remove Test Avg. Loss: 0.002665, Accuracy: 0.899416, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010592, Accuracy: 0.664580, F1 Score: 0.565373
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(7.0226, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000375, Accuracy: 0.876043, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947672, F1 Score: 0.948143
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(7.3865, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000367, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947755, F1 Score: 0.948205
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.8904, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.955141, F1 Score: 0.954845
+Remove Test Avg. Loss: 0.000297, Accuracy: 0.905676, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948590, F1 Score: 0.948313
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.3083, dtype=torch.float64)
+Test Avg. Loss: 0.001747, Accuracy: 0.614415, F1 Score: 0.482759
+Remove Test Avg. Loss: 0.000395, Accuracy: 0.908180, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001386, Accuracy: 0.635036, F1 Score: 0.542525
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.1990, dtype=torch.float64)
+Test Avg. Loss: 0.033849, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005822, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026674, Accuracy: 0.437823, F1 Score: 0.247374
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(7.0618, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000376, Accuracy: 0.876043, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947922, F1 Score: 0.948387
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(7.7188, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000376, Accuracy: 0.875626, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947421, F1 Score: 0.947899
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(28.8787, dtype=torch.float64)
+Test Avg. Loss: 0.000150, Accuracy: 0.952117, F1 Score: 0.952189
+Remove Test Avg. Loss: 0.000377, Accuracy: 0.871870, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000171, Accuracy: 0.941329, F1 Score: 0.941694
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(276.2389, dtype=torch.float64)
+Test Avg. Loss: 0.000558, Accuracy: 0.851310, F1 Score: 0.845469
+Remove Test Avg. Loss: 0.000844, Accuracy: 0.797162, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000574, Accuracy: 0.823569, F1 Score: 0.816302
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.5422, dtype=torch.float64)
+Test Avg. Loss: 0.009900, Accuracy: 0.662802, F1 Score: 0.619670
+Remove Test Avg. Loss: 0.009583, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009503, Accuracy: 0.647388, F1 Score: 0.603324
+</noise>
+</baseline>
+<deltagrad period="2">
+data dimension:: [11982, 784]
+overhead2:: 3.5056068897247314
+overhead3:: 5.096117734909058
+overhead4:: 3.3141565322875977
+overhead5:: 0
+memory usage:: 1075085312
+time_deltagrad:: 23.904486179351807
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.4084, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.948005, F1 Score: 0.948457
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.8758, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957157, F1 Score: 0.957308
+Remove Test Avg. Loss: 0.000384, Accuracy: 0.873957, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.946503, F1 Score: 0.947073
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7258, dtype=torch.float64)
+Test Avg. Loss: 0.000172, Accuracy: 0.944052, F1 Score: 0.945077
+Remove Test Avg. Loss: 0.000544, Accuracy: 0.813439, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000200, Accuracy: 0.928393, F1 Score: 0.930335
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3691, dtype=torch.float64)
+Test Avg. Loss: 0.001196, Accuracy: 0.772177, F1 Score: 0.800000
+Remove Test Avg. Loss: 0.004736, Accuracy: 0.359349, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001336, Accuracy: 0.739860, F1 Score: 0.777373
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8162, dtype=torch.float64)
+Test Avg. Loss: 0.017025, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061504, Accuracy: 0.215776, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018090, Accuracy: 0.638040, F1 Score: 0.701658
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.4137, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.948005, F1 Score: 0.948457
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.8645, dtype=torch.float64)
+Test Avg. Loss: 0.000148, Accuracy: 0.956149, F1 Score: 0.956435
+Remove Test Avg. Loss: 0.000389, Accuracy: 0.872287, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000170, Accuracy: 0.946670, F1 Score: 0.947264
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5258, dtype=torch.float64)
+Test Avg. Loss: 0.000206, Accuracy: 0.926915, F1 Score: 0.929850
+Remove Test Avg. Loss: 0.000627, Accuracy: 0.769616, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000228, Accuracy: 0.915373, F1 Score: 0.919306
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2823, dtype=torch.float64)
+Test Avg. Loss: 0.003316, Accuracy: 0.555948, F1 Score: 0.679753
+Remove Test Avg. Loss: 0.009456, Accuracy: 0.051336, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003080, Accuracy: 0.531047, F1 Score: 0.661852
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8625, dtype=torch.float64)
+Test Avg. Loss: 0.045627, Accuracy: 0.464718, F1 Score: 0.611842
+Remove Test Avg. Loss: 0.119665, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042057, Accuracy: 0.437072, F1 Score: 0.589145
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.4003, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000371, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947922, F1 Score: 0.948379
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.7674, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957831
+Remove Test Avg. Loss: 0.000377, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947421, F1 Score: 0.947934
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6486, dtype=torch.float64)
+Test Avg. Loss: 0.000165, Accuracy: 0.950605, F1 Score: 0.951292
+Remove Test Avg. Loss: 0.000454, Accuracy: 0.848915, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000184, Accuracy: 0.938741, F1 Score: 0.939954
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.6096, dtype=torch.float64)
+Test Avg. Loss: 0.001138, Accuracy: 0.736895, F1 Score: 0.773438
+Remove Test Avg. Loss: 0.002644, Accuracy: 0.540067, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000998, Accuracy: 0.747955, F1 Score: 0.779626
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2341, dtype=torch.float64)
+Test Avg. Loss: 0.018217, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035729, Accuracy: 0.381886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015575, Accuracy: 0.577283, F1 Score: 0.632998
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.4292, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000370, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947922, F1 Score: 0.948379
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.8569, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000362, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948840, F1 Score: 0.949226
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2105, dtype=torch.float64)
+Test Avg. Loss: 0.000131, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000301, Accuracy: 0.904841, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000154, Accuracy: 0.951761, F1 Score: 0.951632
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.8899, dtype=torch.float64)
+Test Avg. Loss: 0.000592, Accuracy: 0.835685, F1 Score: 0.811561
+Remove Test Avg. Loss: 0.000258, Accuracy: 0.930301, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000562, Accuracy: 0.818394, F1 Score: 0.791651
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.6980, dtype=torch.float64)
+Test Avg. Loss: 0.010960, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002663, Accuracy: 0.899416, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010594, Accuracy: 0.664580, F1 Score: 0.565373
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.4345, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000369, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948005, F1 Score: 0.948457
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(2.8995, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.880217, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948339, F1 Score: 0.948746
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6049, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.955645, F1 Score: 0.955330
+Remove Test Avg. Loss: 0.000292, Accuracy: 0.906928, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948840, F1 Score: 0.948544
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8003, dtype=torch.float64)
+Test Avg. Loss: 0.001751, Accuracy: 0.614415, F1 Score: 0.483457
+Remove Test Avg. Loss: 0.000392, Accuracy: 0.909432, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001389, Accuracy: 0.635119, F1 Score: 0.542582
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7685, dtype=torch.float64)
+Test Avg. Loss: 0.033853, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005818, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026677, Accuracy: 0.437907, F1 Score: 0.247570
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.3978, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000370, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948089, F1 Score: 0.948535
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.7555, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000370, Accuracy: 0.877295, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947838, F1 Score: 0.948300
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5543, dtype=torch.float64)
+Test Avg. Loss: 0.000149, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000371, Accuracy: 0.873122, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000170, Accuracy: 0.941496, F1 Score: 0.941850
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6911, dtype=torch.float64)
+Test Avg. Loss: 0.000556, Accuracy: 0.850806, F1 Score: 0.844864
+Remove Test Avg. Loss: 0.000837, Accuracy: 0.797579, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000572, Accuracy: 0.823819, F1 Score: 0.816578
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0747, dtype=torch.float64)
+Test Avg. Loss: 0.009899, Accuracy: 0.662802, F1 Score: 0.619670
+Remove Test Avg. Loss: 0.009573, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009502, Accuracy: 0.647388, F1 Score: 0.603324
+</noise>
+</deltagrad>
+<deltagrad period="5">
+data dimension:: [11982, 784]
+overhead2:: 1.4605650901794434
+overhead3:: 2.51326060295105
+overhead4:: 1.4195044040679932
+overhead5:: 0
+memory usage:: 1075052544
+time_deltagrad:: 19.731194257736206
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.5944, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000367, Accuracy: 0.879382, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948256, F1 Score: 0.948684
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9020, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957157, F1 Score: 0.957308
+Remove Test Avg. Loss: 0.000380, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.946670, F1 Score: 0.947229
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7223, dtype=torch.float64)
+Test Avg. Loss: 0.000171, Accuracy: 0.944556, F1 Score: 0.945545
+Remove Test Avg. Loss: 0.000538, Accuracy: 0.815109, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000199, Accuracy: 0.928810, F1 Score: 0.930735
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3626, dtype=torch.float64)
+Test Avg. Loss: 0.001192, Accuracy: 0.773185, F1 Score: 0.800709
+Remove Test Avg. Loss: 0.004720, Accuracy: 0.361018, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001333, Accuracy: 0.740277, F1 Score: 0.777619
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8094, dtype=torch.float64)
+Test Avg. Loss: 0.017020, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061484, Accuracy: 0.216194, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018086, Accuracy: 0.638124, F1 Score: 0.701706
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.5992, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000368, Accuracy: 0.878965, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948256, F1 Score: 0.948692
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.8931, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.956653, F1 Score: 0.956914
+Remove Test Avg. Loss: 0.000384, Accuracy: 0.872705, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.946587, F1 Score: 0.947177
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5245, dtype=torch.float64)
+Test Avg. Loss: 0.000204, Accuracy: 0.928427, F1 Score: 0.931202
+Remove Test Avg. Loss: 0.000620, Accuracy: 0.773372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000227, Accuracy: 0.916124, F1 Score: 0.919965
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2781, dtype=torch.float64)
+Test Avg. Loss: 0.003310, Accuracy: 0.556452, F1 Score: 0.680000
+Remove Test Avg. Loss: 0.009433, Accuracy: 0.052588, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003075, Accuracy: 0.531213, F1 Score: 0.661891
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8580, dtype=torch.float64)
+Test Avg. Loss: 0.045620, Accuracy: 0.464718, F1 Score: 0.611842
+Remove Test Avg. Loss: 0.119639, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042052, Accuracy: 0.437072, F1 Score: 0.589145
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.5862, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000367, Accuracy: 0.880217, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948256, F1 Score: 0.948684
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.7888, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.958669, F1 Score: 0.958794
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947672, F1 Score: 0.948160
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6392, dtype=torch.float64)
+Test Avg. Loss: 0.000163, Accuracy: 0.951109, F1 Score: 0.951765
+Remove Test Avg. Loss: 0.000449, Accuracy: 0.850584, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000183, Accuracy: 0.939242, F1 Score: 0.940435
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.5970, dtype=torch.float64)
+Test Avg. Loss: 0.001135, Accuracy: 0.736895, F1 Score: 0.773438
+Remove Test Avg. Loss: 0.002633, Accuracy: 0.540484, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000995, Accuracy: 0.748289, F1 Score: 0.779886
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2212, dtype=torch.float64)
+Test Avg. Loss: 0.018213, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035713, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015572, Accuracy: 0.577366, F1 Score: 0.633043
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.6193, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000365, Accuracy: 0.880217, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948423, F1 Score: 0.948833
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9052, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000357, Accuracy: 0.883973, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949424, F1 Score: 0.949785
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2294, dtype=torch.float64)
+Test Avg. Loss: 0.000130, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000297, Accuracy: 0.905259, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000153, Accuracy: 0.951928, F1 Score: 0.951799
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9058, dtype=torch.float64)
+Test Avg. Loss: 0.000592, Accuracy: 0.836190, F1 Score: 0.812247
+Remove Test Avg. Loss: 0.000256, Accuracy: 0.931970, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000562, Accuracy: 0.818561, F1 Score: 0.791762
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7137, dtype=torch.float64)
+Test Avg. Loss: 0.010961, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002660, Accuracy: 0.899833, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010594, Accuracy: 0.664664, F1 Score: 0.565434
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.6235, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000365, Accuracy: 0.880217, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948423, F1 Score: 0.948833
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(2.9484, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000356, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948756, F1 Score: 0.949139
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6249, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956149, F1 Score: 0.955815
+Remove Test Avg. Loss: 0.000289, Accuracy: 0.909850, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949424, F1 Score: 0.949118
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8173, dtype=torch.float64)
+Test Avg. Loss: 0.001752, Accuracy: 0.614415, F1 Score: 0.483457
+Remove Test Avg. Loss: 0.000389, Accuracy: 0.910267, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001389, Accuracy: 0.635203, F1 Score: 0.542543
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7852, dtype=torch.float64)
+Test Avg. Loss: 0.033853, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005814, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026677, Accuracy: 0.437907, F1 Score: 0.247570
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.5830, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000366, Accuracy: 0.879382, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948256, F1 Score: 0.948684
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.7741, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000365, Accuracy: 0.879382, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.947838, F1 Score: 0.948292
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5418, dtype=torch.float64)
+Test Avg. Loss: 0.000148, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000367, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.942080, F1 Score: 0.942407
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6756, dtype=torch.float64)
+Test Avg. Loss: 0.000555, Accuracy: 0.851310, F1 Score: 0.845469
+Remove Test Avg. Loss: 0.000831, Accuracy: 0.798831, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000571, Accuracy: 0.823819, F1 Score: 0.816515
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0589, dtype=torch.float64)
+Test Avg. Loss: 0.009897, Accuracy: 0.662802, F1 Score: 0.619670
+Remove Test Avg. Loss: 0.009564, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009500, Accuracy: 0.647555, F1 Score: 0.603511
+</noise>
+</deltagrad>
+<deltagrad period="10">
+data dimension:: [11982, 784]
+overhead2:: 0.7126681804656982
+overhead3:: 1.5781893730163574
+overhead4:: 0.7966969013214111
+overhead5:: 0
+memory usage:: 1075081216
+time_deltagrad:: 17.82003951072693
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.6733, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948673, F1 Score: 0.949060
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9156, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000373, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947254, F1 Score: 0.947769
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7200, dtype=torch.float64)
+Test Avg. Loss: 0.000169, Accuracy: 0.946573, F1 Score: 0.947421
+Remove Test Avg. Loss: 0.000530, Accuracy: 0.820117, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000197, Accuracy: 0.929811, F1 Score: 0.931620
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3587, dtype=torch.float64)
+Test Avg. Loss: 0.001187, Accuracy: 0.773185, F1 Score: 0.800709
+Remove Test Avg. Loss: 0.004698, Accuracy: 0.363105, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001328, Accuracy: 0.740778, F1 Score: 0.777953
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8054, dtype=torch.float64)
+Test Avg. Loss: 0.017014, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061457, Accuracy: 0.216611, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018080, Accuracy: 0.638207, F1 Score: 0.701754
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.6780, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948756, F1 Score: 0.949147
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.9078, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957661, F1 Score: 0.957874
+Remove Test Avg. Loss: 0.000378, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947338, F1 Score: 0.947856
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5234, dtype=torch.float64)
+Test Avg. Loss: 0.000202, Accuracy: 0.929940, F1 Score: 0.932557
+Remove Test Avg. Loss: 0.000609, Accuracy: 0.775876, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000225, Accuracy: 0.917460, F1 Score: 0.921126
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2754, dtype=torch.float64)
+Test Avg. Loss: 0.003300, Accuracy: 0.556452, F1 Score: 0.680000
+Remove Test Avg. Loss: 0.009400, Accuracy: 0.052588, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003067, Accuracy: 0.531047, F1 Score: 0.661649
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8551, dtype=torch.float64)
+Test Avg. Loss: 0.045611, Accuracy: 0.464214, F1 Score: 0.611335
+Remove Test Avg. Loss: 0.119605, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042044, Accuracy: 0.436989, F1 Score: 0.589059
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.6657, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948756, F1 Score: 0.949147
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.8021, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000366, Accuracy: 0.878130, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948005, F1 Score: 0.948466
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6360, dtype=torch.float64)
+Test Avg. Loss: 0.000162, Accuracy: 0.953125, F1 Score: 0.953662
+Remove Test Avg. Loss: 0.000441, Accuracy: 0.855175, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000182, Accuracy: 0.940160, F1 Score: 0.941263
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.5922, dtype=torch.float64)
+Test Avg. Loss: 0.001130, Accuracy: 0.737903, F1 Score: 0.774109
+Remove Test Avg. Loss: 0.002617, Accuracy: 0.542571, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000992, Accuracy: 0.748957, F1 Score: 0.780278
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2162, dtype=torch.float64)
+Test Avg. Loss: 0.018208, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035691, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015568, Accuracy: 0.577283, F1 Score: 0.632944
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.7016, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000359, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949090, F1 Score: 0.949461
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9337, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000351, Accuracy: 0.887730, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.950175, F1 Score: 0.950461
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2426, dtype=torch.float64)
+Test Avg. Loss: 0.000129, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000292, Accuracy: 0.906511, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000152, Accuracy: 0.951678, F1 Score: 0.951512
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9173, dtype=torch.float64)
+Test Avg. Loss: 0.000595, Accuracy: 0.835685, F1 Score: 0.811561
+Remove Test Avg. Loss: 0.000253, Accuracy: 0.932387, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000565, Accuracy: 0.818311, F1 Score: 0.791215
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7250, dtype=torch.float64)
+Test Avg. Loss: 0.010966, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002657, Accuracy: 0.900250, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010599, Accuracy: 0.664831, F1 Score: 0.565556
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.7055, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948840, F1 Score: 0.949226
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(2.9767, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000350, Accuracy: 0.886895, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949257, F1 Score: 0.949569
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6382, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956653, F1 Score: 0.956301
+Remove Test Avg. Loss: 0.000283, Accuracy: 0.911519, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.949591, F1 Score: 0.949244
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8290, dtype=torch.float64)
+Test Avg. Loss: 0.001758, Accuracy: 0.612903, F1 Score: 0.480379
+Remove Test Avg. Loss: 0.000385, Accuracy: 0.910267, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001394, Accuracy: 0.634285, F1 Score: 0.540863
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7967, dtype=torch.float64)
+Test Avg. Loss: 0.033861, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005807, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026683, Accuracy: 0.437823, F1 Score: 0.247374
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.6627, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000359, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948923, F1 Score: 0.949296
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.7870, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000359, Accuracy: 0.881052, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948423, F1 Score: 0.948833
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5381, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.878965, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.942664, F1 Score: 0.942916
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6702, dtype=torch.float64)
+Test Avg. Loss: 0.000554, Accuracy: 0.851310, F1 Score: 0.845307
+Remove Test Avg. Loss: 0.000823, Accuracy: 0.799666, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000571, Accuracy: 0.823903, F1 Score: 0.816458
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0533, dtype=torch.float64)
+Test Avg. Loss: 0.009898, Accuracy: 0.662802, F1 Score: 0.619670
+Remove Test Avg. Loss: 0.009554, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009501, Accuracy: 0.647555, F1 Score: 0.603511
+</noise>
+</deltagrad>
+<deltagrad period="20">
+data dimension:: [11982, 784]
+overhead2:: 0.3576326370239258
+overhead3:: 1.1602609157562256
+overhead4:: 0.4669685363769531
+overhead5:: 0
+memory usage:: 1075085312
+time_deltagrad:: 16.72501850128174
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.6811, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.949090, F1 Score: 0.949453
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9164, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000373, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947254, F1 Score: 0.947769
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7191, dtype=torch.float64)
+Test Avg. Loss: 0.000169, Accuracy: 0.946573, F1 Score: 0.947421
+Remove Test Avg. Loss: 0.000529, Accuracy: 0.819282, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000197, Accuracy: 0.929478, F1 Score: 0.931284
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3577, dtype=torch.float64)
+Test Avg. Loss: 0.001187, Accuracy: 0.773185, F1 Score: 0.800709
+Remove Test Avg. Loss: 0.004697, Accuracy: 0.363523, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001328, Accuracy: 0.740945, F1 Score: 0.778032
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8043, dtype=torch.float64)
+Test Avg. Loss: 0.017013, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061456, Accuracy: 0.216194, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018080, Accuracy: 0.638124, F1 Score: 0.701706
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.6903, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948923, F1 Score: 0.949296
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.9196, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.956653, F1 Score: 0.956827
+Remove Test Avg. Loss: 0.000377, Accuracy: 0.875209, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947338, F1 Score: 0.947856
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5337, dtype=torch.float64)
+Test Avg. Loss: 0.000202, Accuracy: 0.930444, F1 Score: 0.933010
+Remove Test Avg. Loss: 0.000609, Accuracy: 0.775876, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000225, Accuracy: 0.917376, F1 Score: 0.921040
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2854, dtype=torch.float64)
+Test Avg. Loss: 0.003299, Accuracy: 0.556452, F1 Score: 0.680000
+Remove Test Avg. Loss: 0.009399, Accuracy: 0.052588, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003066, Accuracy: 0.531213, F1 Score: 0.661688
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8651, dtype=torch.float64)
+Test Avg. Loss: 0.045609, Accuracy: 0.464214, F1 Score: 0.611335
+Remove Test Avg. Loss: 0.119604, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042043, Accuracy: 0.436989, F1 Score: 0.589059
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.6741, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949090, F1 Score: 0.949461
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.8044, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000366, Accuracy: 0.879800, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948256, F1 Score: 0.948701
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6365, dtype=torch.float64)
+Test Avg. Loss: 0.000162, Accuracy: 0.952621, F1 Score: 0.953187
+Remove Test Avg. Loss: 0.000441, Accuracy: 0.855175, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000182, Accuracy: 0.940077, F1 Score: 0.941167
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.5925, dtype=torch.float64)
+Test Avg. Loss: 0.001130, Accuracy: 0.738407, F1 Score: 0.774446
+Remove Test Avg. Loss: 0.002617, Accuracy: 0.543406, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000991, Accuracy: 0.748957, F1 Score: 0.780117
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2165, dtype=torch.float64)
+Test Avg. Loss: 0.018208, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035692, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015568, Accuracy: 0.577199, F1 Score: 0.632845
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.7096, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.882721, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949090, F1 Score: 0.949453
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9359, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000351, Accuracy: 0.887730, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.950175, F1 Score: 0.950452
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2431, dtype=torch.float64)
+Test Avg. Loss: 0.000130, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000292, Accuracy: 0.906928, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000153, Accuracy: 0.951594, F1 Score: 0.951416
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9177, dtype=torch.float64)
+Test Avg. Loss: 0.000596, Accuracy: 0.835181, F1 Score: 0.810873
+Remove Test Avg. Loss: 0.000253, Accuracy: 0.932387, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000566, Accuracy: 0.818060, F1 Score: 0.790827
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7254, dtype=torch.float64)
+Test Avg. Loss: 0.010969, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002657, Accuracy: 0.899833, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010601, Accuracy: 0.664747, F1 Score: 0.565495
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.7134, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949007, F1 Score: 0.949366
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(2.9787, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000350, Accuracy: 0.887730, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949591, F1 Score: 0.949884
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6385, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956653, F1 Score: 0.956301
+Remove Test Avg. Loss: 0.000283, Accuracy: 0.911519, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.949591, F1 Score: 0.949235
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8291, dtype=torch.float64)
+Test Avg. Loss: 0.001760, Accuracy: 0.611895, F1 Score: 0.478320
+Remove Test Avg. Loss: 0.000385, Accuracy: 0.910267, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001395, Accuracy: 0.634034, F1 Score: 0.540212
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7969, dtype=torch.float64)
+Test Avg. Loss: 0.033863, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005806, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026685, Accuracy: 0.437823, F1 Score: 0.247374
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.6720, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000359, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949007, F1 Score: 0.949366
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.7911, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948756, F1 Score: 0.949139
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5405, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.953125, F1 Score: 0.953196
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.879800, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.942497, F1 Score: 0.942722
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6724, dtype=torch.float64)
+Test Avg. Loss: 0.000554, Accuracy: 0.851310, F1 Score: 0.845307
+Remove Test Avg. Loss: 0.000822, Accuracy: 0.799666, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000571, Accuracy: 0.823986, F1 Score: 0.816465
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0555, dtype=torch.float64)
+Test Avg. Loss: 0.009899, Accuracy: 0.662298, F1 Score: 0.618885
+Remove Test Avg. Loss: 0.009552, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009502, Accuracy: 0.647471, F1 Score: 0.603380
+</noise>
+</deltagrad>
+<deltagrad period="50">
+data dimension:: [11982, 784]
+overhead2:: 0.14746522903442383
+overhead3:: 0.9271700382232666
+overhead4:: 0.2101457118988037
+overhead5:: 0
+memory usage:: 1075089408
+time_deltagrad:: 16.14346432685852
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.7697, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000357, Accuracy: 0.884808, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949341, F1 Score: 0.949672
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9437, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000370, Accuracy: 0.878548, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947672, F1 Score: 0.948143
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7274, dtype=torch.float64)
+Test Avg. Loss: 0.000168, Accuracy: 0.947581, F1 Score: 0.948361
+Remove Test Avg. Loss: 0.000525, Accuracy: 0.823038, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000196, Accuracy: 0.930312, F1 Score: 0.932031
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3640, dtype=torch.float64)
+Test Avg. Loss: 0.001184, Accuracy: 0.773690, F1 Score: 0.801063
+Remove Test Avg. Loss: 0.004683, Accuracy: 0.364775, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001325, Accuracy: 0.741279, F1 Score: 0.778223
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8104, dtype=torch.float64)
+Test Avg. Loss: 0.017008, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061436, Accuracy: 0.216611, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018075, Accuracy: 0.638291, F1 Score: 0.701803
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.7735, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.883556, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949174, F1 Score: 0.949523
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.9353, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957661, F1 Score: 0.957831
+Remove Test Avg. Loss: 0.000374, Accuracy: 0.878130, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.948005, F1 Score: 0.948474
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5300, dtype=torch.float64)
+Test Avg. Loss: 0.000200, Accuracy: 0.929940, F1 Score: 0.932557
+Remove Test Avg. Loss: 0.000603, Accuracy: 0.777963, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000223, Accuracy: 0.918127, F1 Score: 0.921689
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2799, dtype=torch.float64)
+Test Avg. Loss: 0.003289, Accuracy: 0.556956, F1 Score: 0.680247
+Remove Test Avg. Loss: 0.009373, Accuracy: 0.052588, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003057, Accuracy: 0.531547, F1 Score: 0.661806
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8593, dtype=torch.float64)
+Test Avg. Loss: 0.045598, Accuracy: 0.464214, F1 Score: 0.611335
+Remove Test Avg. Loss: 0.119577, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042033, Accuracy: 0.436989, F1 Score: 0.589059
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.7668, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000357, Accuracy: 0.884391, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949424, F1 Score: 0.949760
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.8417, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958669, F1 Score: 0.958753
+Remove Test Avg. Loss: 0.000362, Accuracy: 0.881052, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948673, F1 Score: 0.949094
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6542, dtype=torch.float64)
+Test Avg. Loss: 0.000161, Accuracy: 0.954133, F1 Score: 0.954613
+Remove Test Avg. Loss: 0.000437, Accuracy: 0.856427, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000181, Accuracy: 0.940327, F1 Score: 0.941360
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.6081, dtype=torch.float64)
+Test Avg. Loss: 0.001125, Accuracy: 0.739415, F1 Score: 0.775120
+Remove Test Avg. Loss: 0.002604, Accuracy: 0.543823, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000988, Accuracy: 0.749708, F1 Score: 0.780631
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2319, dtype=torch.float64)
+Test Avg. Loss: 0.018201, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035673, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015562, Accuracy: 0.577283, F1 Score: 0.632944
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.7933, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000355, Accuracy: 0.885643, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949675, F1 Score: 0.949988
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9585, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000348, Accuracy: 0.888982, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.950593, F1 Score: 0.950847
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2467, dtype=torch.float64)
+Test Avg. Loss: 0.000129, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000289, Accuracy: 0.908598, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000152, Accuracy: 0.952345, F1 Score: 0.952141
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9193, dtype=torch.float64)
+Test Avg. Loss: 0.000597, Accuracy: 0.836190, F1 Score: 0.812030
+Remove Test Avg. Loss: 0.000251, Accuracy: 0.932805, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000566, Accuracy: 0.817894, F1 Score: 0.790515
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7268, dtype=torch.float64)
+Test Avg. Loss: 0.010969, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002653, Accuracy: 0.900250, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010600, Accuracy: 0.664747, F1 Score: 0.565401
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.7962, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000355, Accuracy: 0.886060, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949591, F1 Score: 0.949909
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(2.9995, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000347, Accuracy: 0.887312, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949591, F1 Score: 0.949876
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6406, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956149, F1 Score: 0.955770
+Remove Test Avg. Loss: 0.000281, Accuracy: 0.911937, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.949508, F1 Score: 0.949130
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8293, dtype=torch.float64)
+Test Avg. Loss: 0.001760, Accuracy: 0.611895, F1 Score: 0.478320
+Remove Test Avg. Loss: 0.000383, Accuracy: 0.911937, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001394, Accuracy: 0.635119, F1 Score: 0.541431
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7968, dtype=torch.float64)
+Test Avg. Loss: 0.033861, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005802, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026683, Accuracy: 0.437907, F1 Score: 0.247402
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.7582, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000356, Accuracy: 0.885225, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949508, F1 Score: 0.949830
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.8104, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000355, Accuracy: 0.883556, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949174, F1 Score: 0.949540
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5396, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.942664, F1 Score: 0.942841
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6695, dtype=torch.float64)
+Test Avg. Loss: 0.000554, Accuracy: 0.852319, F1 Score: 0.846194
+Remove Test Avg. Loss: 0.000819, Accuracy: 0.799666, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000571, Accuracy: 0.823569, F1 Score: 0.815918
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0524, dtype=torch.float64)
+Test Avg. Loss: 0.009898, Accuracy: 0.662298, F1 Score: 0.618885
+Remove Test Avg. Loss: 0.009547, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009500, Accuracy: 0.647805, F1 Score: 0.603607
+</noise>
+</deltagrad>
+<deltagrad period="75">
+data dimension:: [11982, 784]
+overhead2:: 0.10215497016906738
+overhead3:: 0.8655498027801514
+overhead4:: 0.1440277099609375
+overhead5:: 0
+memory usage:: 1075077120
+time_deltagrad:: 16.222246885299683
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.8073, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.956149, F1 Score: 0.956347
+Remove Test Avg. Loss: 0.000374, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947338, F1 Score: 0.947847
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9735, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.954637, F1 Score: 0.954865
+Remove Test Avg. Loss: 0.000387, Accuracy: 0.872705, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.946253, F1 Score: 0.946856
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7509, dtype=torch.float64)
+Test Avg. Loss: 0.000173, Accuracy: 0.943548, F1 Score: 0.944664
+Remove Test Avg. Loss: 0.000547, Accuracy: 0.812604, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000200, Accuracy: 0.928142, F1 Score: 0.930131
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3867, dtype=torch.float64)
+Test Avg. Loss: 0.001199, Accuracy: 0.772681, F1 Score: 0.800354
+Remove Test Avg. Loss: 0.004741, Accuracy: 0.359349, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001338, Accuracy: 0.740694, F1 Score: 0.778151
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8331, dtype=torch.float64)
+Test Avg. Loss: 0.017028, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061511, Accuracy: 0.215776, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018092, Accuracy: 0.638040, F1 Score: 0.701658
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.7976, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.956149, F1 Score: 0.956347
+Remove Test Avg. Loss: 0.000375, Accuracy: 0.877713, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947254, F1 Score: 0.947769
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.9287, dtype=torch.float64)
+Test Avg. Loss: 0.000149, Accuracy: 0.956149, F1 Score: 0.956478
+Remove Test Avg. Loss: 0.000392, Accuracy: 0.871035, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000170, Accuracy: 0.946086, F1 Score: 0.946735
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5160, dtype=torch.float64)
+Test Avg. Loss: 0.000207, Accuracy: 0.926915, F1 Score: 0.929850
+Remove Test Avg. Loss: 0.000630, Accuracy: 0.769616, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000229, Accuracy: 0.914872, F1 Score: 0.918854
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.2651, dtype=torch.float64)
+Test Avg. Loss: 0.003319, Accuracy: 0.555444, F1 Score: 0.679506
+Remove Test Avg. Loss: 0.009462, Accuracy: 0.050501, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003082, Accuracy: 0.530880, F1 Score: 0.661895
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8445, dtype=torch.float64)
+Test Avg. Loss: 0.045628, Accuracy: 0.464718, F1 Score: 0.611842
+Remove Test Avg. Loss: 0.119672, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042057, Accuracy: 0.437156, F1 Score: 0.589231
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.7934, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.956149, F1 Score: 0.956347
+Remove Test Avg. Loss: 0.000374, Accuracy: 0.878130, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947505, F1 Score: 0.948004
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.8413, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.957157, F1 Score: 0.957393
+Remove Test Avg. Loss: 0.000380, Accuracy: 0.875626, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947087, F1 Score: 0.947638
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6462, dtype=torch.float64)
+Test Avg. Loss: 0.000165, Accuracy: 0.949093, F1 Score: 0.949876
+Remove Test Avg. Loss: 0.000457, Accuracy: 0.847245, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000185, Accuracy: 0.938324, F1 Score: 0.939609
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.5994, dtype=torch.float64)
+Test Avg. Loss: 0.001138, Accuracy: 0.735887, F1 Score: 0.772767
+Remove Test Avg. Loss: 0.002648, Accuracy: 0.538397, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000998, Accuracy: 0.747705, F1 Score: 0.779681
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2232, dtype=torch.float64)
+Test Avg. Loss: 0.018215, Accuracy: 0.573589, F1 Score: 0.636598
+Remove Test Avg. Loss: 0.035733, Accuracy: 0.381886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015573, Accuracy: 0.577283, F1 Score: 0.633051
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.8220, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.956149, F1 Score: 0.956347
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.878548, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947588, F1 Score: 0.948082
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9662, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.956149, F1 Score: 0.956303
+Remove Test Avg. Loss: 0.000365, Accuracy: 0.880634, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948339, F1 Score: 0.948779
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2474, dtype=torch.float64)
+Test Avg. Loss: 0.000131, Accuracy: 0.961694, F1 Score: 0.961538
+Remove Test Avg. Loss: 0.000303, Accuracy: 0.903589, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000154, Accuracy: 0.951344, F1 Score: 0.951258
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9193, dtype=torch.float64)
+Test Avg. Loss: 0.000589, Accuracy: 0.836190, F1 Score: 0.812464
+Remove Test Avg. Loss: 0.000258, Accuracy: 0.930301, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000559, Accuracy: 0.819479, F1 Score: 0.793232
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7267, dtype=torch.float64)
+Test Avg. Loss: 0.010953, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002663, Accuracy: 0.899416, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010586, Accuracy: 0.664747, F1 Score: 0.565683
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.8259, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.956149, F1 Score: 0.956347
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.878965, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947588, F1 Score: 0.948082
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(3.0105, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.956653, F1 Score: 0.956784
+Remove Test Avg. Loss: 0.000363, Accuracy: 0.880217, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948089, F1 Score: 0.948535
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6448, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.955141, F1 Score: 0.954845
+Remove Test Avg. Loss: 0.000295, Accuracy: 0.907346, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949257, F1 Score: 0.949010
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8328, dtype=torch.float64)
+Test Avg. Loss: 0.001743, Accuracy: 0.615423, F1 Score: 0.486195
+Remove Test Avg. Loss: 0.000393, Accuracy: 0.909015, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001383, Accuracy: 0.636622, F1 Score: 0.545606
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.8002, dtype=torch.float64)
+Test Avg. Loss: 0.033841, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005820, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026667, Accuracy: 0.438074, F1 Score: 0.247962
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.7840, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.955645, F1 Score: 0.955823
+Remove Test Avg. Loss: 0.000373, Accuracy: 0.878130, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947505, F1 Score: 0.948012
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.8069, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.956653, F1 Score: 0.956827
+Remove Test Avg. Loss: 0.000372, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947171, F1 Score: 0.947682
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5285, dtype=torch.float64)
+Test Avg. Loss: 0.000149, Accuracy: 0.952621, F1 Score: 0.952716
+Remove Test Avg. Loss: 0.000374, Accuracy: 0.872287, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000170, Accuracy: 0.941579, F1 Score: 0.941967
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6577, dtype=torch.float64)
+Test Avg. Loss: 0.000554, Accuracy: 0.850806, F1 Score: 0.845026
+Remove Test Avg. Loss: 0.000838, Accuracy: 0.797162, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000570, Accuracy: 0.824737, F1 Score: 0.817772
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0405, dtype=torch.float64)
+Test Avg. Loss: 0.009893, Accuracy: 0.662802, F1 Score: 0.619670
+Remove Test Avg. Loss: 0.009575, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009496, Accuracy: 0.647555, F1 Score: 0.603586
+</noise>
+</deltagrad>
+<deltagrad period="100">
+data dimension:: [11982, 784]
+overhead2:: 0.07663226127624512
+overhead3:: 0.8115236759185791
+overhead4:: 0.11287546157836914
+overhead5:: 0
+memory usage:: 1075048448
+time_deltagrad:: 16.056493997573853
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.8299, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.949174, F1 Score: 0.949532
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(2.9564, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957157, F1 Score: 0.957265
+Remove Test Avg. Loss: 0.000373, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.947588, F1 Score: 0.948073
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7250, dtype=torch.float64)
+Test Avg. Loss: 0.000169, Accuracy: 0.945565, F1 Score: 0.946482
+Remove Test Avg. Loss: 0.000529, Accuracy: 0.821369, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000197, Accuracy: 0.930062, F1 Score: 0.931814
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3600, dtype=torch.float64)
+Test Avg. Loss: 0.001187, Accuracy: 0.773690, F1 Score: 0.801063
+Remove Test Avg. Loss: 0.004698, Accuracy: 0.363105, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001328, Accuracy: 0.741112, F1 Score: 0.778143
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.8063, dtype=torch.float64)
+Test Avg. Loss: 0.017013, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061457, Accuracy: 0.216194, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018080, Accuracy: 0.638207, F1 Score: 0.701754
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.8438, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.949174, F1 Score: 0.949540
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(2.9775, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.956149, F1 Score: 0.956391
+Remove Test Avg. Loss: 0.000377, Accuracy: 0.875626, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.947505, F1 Score: 0.947995
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5582, dtype=torch.float64)
+Test Avg. Loss: 0.000202, Accuracy: 0.929435, F1 Score: 0.932105
+Remove Test Avg. Loss: 0.000609, Accuracy: 0.775042, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000224, Accuracy: 0.917376, F1 Score: 0.921015
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.3064, dtype=torch.float64)
+Test Avg. Loss: 0.003295, Accuracy: 0.556956, F1 Score: 0.680247
+Remove Test Avg. Loss: 0.009398, Accuracy: 0.052588, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003063, Accuracy: 0.531464, F1 Score: 0.661726
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.8858, dtype=torch.float64)
+Test Avg. Loss: 0.045606, Accuracy: 0.464214, F1 Score: 0.611335
+Remove Test Avg. Loss: 0.119603, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042040, Accuracy: 0.436989, F1 Score: 0.589059
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.8279, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.883139, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.949424, F1 Score: 0.949768
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.8567, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000366, Accuracy: 0.879800, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948423, F1 Score: 0.948850
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6536, dtype=torch.float64)
+Test Avg. Loss: 0.000162, Accuracy: 0.953125, F1 Score: 0.953662
+Remove Test Avg. Loss: 0.000441, Accuracy: 0.854758, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000182, Accuracy: 0.939659, F1 Score: 0.940743
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.6059, dtype=torch.float64)
+Test Avg. Loss: 0.001129, Accuracy: 0.738407, F1 Score: 0.774446
+Remove Test Avg. Loss: 0.002618, Accuracy: 0.543406, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000991, Accuracy: 0.748957, F1 Score: 0.779988
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2296, dtype=torch.float64)
+Test Avg. Loss: 0.018207, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035693, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015568, Accuracy: 0.577116, F1 Score: 0.632746
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(0.8497, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.883139, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949424, F1 Score: 0.949768
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(2.9649, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000351, Accuracy: 0.887312, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.950175, F1 Score: 0.950452
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2378, dtype=torch.float64)
+Test Avg. Loss: 0.000130, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000292, Accuracy: 0.907763, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000153, Accuracy: 0.951844, F1 Score: 0.951655
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9088, dtype=torch.float64)
+Test Avg. Loss: 0.000598, Accuracy: 0.835181, F1 Score: 0.810873
+Remove Test Avg. Loss: 0.000253, Accuracy: 0.931970, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000568, Accuracy: 0.817142, F1 Score: 0.789630
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7161, dtype=torch.float64)
+Test Avg. Loss: 0.010973, Accuracy: 0.710685, F1 Score: 0.627273
+Remove Test Avg. Loss: 0.002657, Accuracy: 0.899416, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010604, Accuracy: 0.664580, F1 Score: 0.565279
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(0.8563, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958165, F1 Score: 0.958228
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.883556, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949424, F1 Score: 0.949760
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(3.0171, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.958669, F1 Score: 0.958711
+Remove Test Avg. Loss: 0.000350, Accuracy: 0.886060, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949341, F1 Score: 0.949647
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6435, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956149, F1 Score: 0.955770
+Remove Test Avg. Loss: 0.000283, Accuracy: 0.911102, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.949508, F1 Score: 0.949147
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8306, dtype=torch.float64)
+Test Avg. Loss: 0.001761, Accuracy: 0.611391, F1 Score: 0.477288
+Remove Test Avg. Loss: 0.000383, Accuracy: 0.910684, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001395, Accuracy: 0.634034, F1 Score: 0.539729
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7980, dtype=torch.float64)
+Test Avg. Loss: 0.033864, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005803, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026685, Accuracy: 0.437907, F1 Score: 0.247402
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(0.8189, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000359, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949257, F1 Score: 0.949610
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.8226, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.957661, F1 Score: 0.957746
+Remove Test Avg. Loss: 0.000358, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.948673, F1 Score: 0.949060
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5360, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000360, Accuracy: 0.881052, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000168, Accuracy: 0.942914, F1 Score: 0.943114
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6643, dtype=torch.float64)
+Test Avg. Loss: 0.000554, Accuracy: 0.851815, F1 Score: 0.845588
+Remove Test Avg. Loss: 0.000821, Accuracy: 0.800501, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000570, Accuracy: 0.823819, F1 Score: 0.816131
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0471, dtype=torch.float64)
+Test Avg. Loss: 0.009899, Accuracy: 0.662298, F1 Score: 0.618885
+Remove Test Avg. Loss: 0.009550, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009501, Accuracy: 0.647805, F1 Score: 0.603607
+</noise>
+</deltagrad>
+<deltagrad period="200">
+data dimension:: [11982, 784]
+overhead2:: 0.04129838943481445
+overhead3:: 0.7502362728118896
+overhead4:: 0.0595088005065918
+overhead5:: 0
+memory usage:: 1075048448
+time_deltagrad:: 15.663221597671509
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(1.0504, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000363, Accuracy: 0.881886, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948673, F1 Score: 0.949051
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(3.0176, dtype=torch.float64)
+Test Avg. Loss: 0.000145, Accuracy: 0.957157, F1 Score: 0.957308
+Remove Test Avg. Loss: 0.000376, Accuracy: 0.876878, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000167, Accuracy: 0.947421, F1 Score: 0.947934
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(28.7228, dtype=torch.float64)
+Test Avg. Loss: 0.000170, Accuracy: 0.945565, F1 Score: 0.946535
+Remove Test Avg. Loss: 0.000533, Accuracy: 0.819699, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000198, Accuracy: 0.929728, F1 Score: 0.931534
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(287.3513, dtype=torch.float64)
+Test Avg. Loss: 0.001189, Accuracy: 0.773185, F1 Score: 0.800709
+Remove Test Avg. Loss: 0.004706, Accuracy: 0.363105, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001330, Accuracy: 0.741028, F1 Score: 0.778119
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(2873.7969, dtype=torch.float64)
+Test Avg. Loss: 0.017015, Accuracy: 0.654234, F1 Score: 0.711036
+Remove Test Avg. Loss: 0.061466, Accuracy: 0.216611, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.018082, Accuracy: 0.638291, F1 Score: 0.701803
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(1.0708, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000364, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948506, F1 Score: 0.948903
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(3.0711, dtype=torch.float64)
+Test Avg. Loss: 0.000146, Accuracy: 0.956149, F1 Score: 0.956391
+Remove Test Avg. Loss: 0.000380, Accuracy: 0.876461, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.947755, F1 Score: 0.948273
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(28.5911, dtype=torch.float64)
+Test Avg. Loss: 0.000203, Accuracy: 0.928427, F1 Score: 0.931202
+Remove Test Avg. Loss: 0.000614, Accuracy: 0.773790, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000226, Accuracy: 0.916375, F1 Score: 0.920159
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(285.3328, dtype=torch.float64)
+Test Avg. Loss: 0.003302, Accuracy: 0.556956, F1 Score: 0.680247
+Remove Test Avg. Loss: 0.009411, Accuracy: 0.053422, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.003070, Accuracy: 0.531380, F1 Score: 0.661645
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(2852.9115, dtype=torch.float64)
+Test Avg. Loss: 0.045612, Accuracy: 0.464214, F1 Score: 0.611335
+Remove Test Avg. Loss: 0.119615, Accuracy: 0.023372, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.042046, Accuracy: 0.437072, F1 Score: 0.589145
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(1.0564, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000362, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948756, F1 Score: 0.949139
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(2.9473, dtype=torch.float64)
+Test Avg. Loss: 0.000144, Accuracy: 0.957661, F1 Score: 0.957831
+Remove Test Avg. Loss: 0.000368, Accuracy: 0.878130, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000166, Accuracy: 0.948005, F1 Score: 0.948483
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(27.6802, dtype=torch.float64)
+Test Avg. Loss: 0.000163, Accuracy: 0.951613, F1 Score: 0.952239
+Remove Test Avg. Loss: 0.000444, Accuracy: 0.854341, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000183, Accuracy: 0.940077, F1 Score: 0.941167
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(276.6258, dtype=torch.float64)
+Test Avg. Loss: 0.001132, Accuracy: 0.737903, F1 Score: 0.774109
+Remove Test Avg. Loss: 0.002626, Accuracy: 0.542988, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000995, Accuracy: 0.748623, F1 Score: 0.779889
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(2766.2487, dtype=torch.float64)
+Test Avg. Loss: 0.018211, Accuracy: 0.573085, F1 Score: 0.636012
+Remove Test Avg. Loss: 0.035703, Accuracy: 0.382304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.015572, Accuracy: 0.577199, F1 Score: 0.632899
+</noise>
+<noise sigma="0.01" seed="3">
+model difference (l2 norm): tensor(1.0663, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.882721, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948840, F1 Score: 0.949209
+</noise>
+<noise sigma="0.1" seed="3">
+model difference (l2 norm): tensor(3.0267, dtype=torch.float64)
+Test Avg. Loss: 0.000141, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000353, Accuracy: 0.885643, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000163, Accuracy: 0.949758, F1 Score: 0.950066
+</noise>
+<noise sigma="1" seed="3">
+model difference (l2 norm): tensor(28.2364, dtype=torch.float64)
+Test Avg. Loss: 0.000130, Accuracy: 0.960685, F1 Score: 0.960486
+Remove Test Avg. Loss: 0.000294, Accuracy: 0.906928, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000153, Accuracy: 0.952262, F1 Score: 0.952086
+</noise>
+<noise sigma="10" seed="3">
+model difference (l2 norm): tensor(281.9007, dtype=torch.float64)
+Test Avg. Loss: 0.000596, Accuracy: 0.835685, F1 Score: 0.811561
+Remove Test Avg. Loss: 0.000254, Accuracy: 0.932387, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000566, Accuracy: 0.817977, F1 Score: 0.790751
+</noise>
+<noise sigma="100" seed="3">
+model difference (l2 norm): tensor(2818.7073, dtype=torch.float64)
+Test Avg. Loss: 0.010968, Accuracy: 0.711190, F1 Score: 0.628164
+Remove Test Avg. Loss: 0.002657, Accuracy: 0.899833, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.010601, Accuracy: 0.664747, F1 Score: 0.565495
+</noise>
+<noise sigma="0.01" seed="4">
+model difference (l2 norm): tensor(1.0714, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.882721, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948840, F1 Score: 0.949209
+</noise>
+<noise sigma="0.1" seed="4">
+model difference (l2 norm): tensor(3.0771, dtype=torch.float64)
+Test Avg. Loss: 0.000142, Accuracy: 0.958669, F1 Score: 0.958753
+Remove Test Avg. Loss: 0.000352, Accuracy: 0.885643, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000164, Accuracy: 0.949341, F1 Score: 0.949656
+</noise>
+<noise sigma="1" seed="4">
+model difference (l2 norm): tensor(28.6414, dtype=torch.float64)
+Test Avg. Loss: 0.000140, Accuracy: 0.956653, F1 Score: 0.956301
+Remove Test Avg. Loss: 0.000285, Accuracy: 0.909850, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000162, Accuracy: 0.949675, F1 Score: 0.949349
+</noise>
+<noise sigma="10" seed="4">
+model difference (l2 norm): tensor(285.8219, dtype=torch.float64)
+Test Avg. Loss: 0.001754, Accuracy: 0.612399, F1 Score: 0.479350
+Remove Test Avg. Loss: 0.000384, Accuracy: 0.911102, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.001391, Accuracy: 0.634368, F1 Score: 0.540246
+</noise>
+<noise sigma="100" seed="4">
+model difference (l2 norm): tensor(2857.7886, dtype=torch.float64)
+Test Avg. Loss: 0.033857, Accuracy: 0.417339, F1 Score: 0.183616
+Remove Test Avg. Loss: 0.005804, Accuracy: 0.835559, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.026680, Accuracy: 0.437907, F1 Score: 0.247402
+</noise>
+<noise sigma="0.01" seed="5">
+model difference (l2 norm): tensor(1.0413, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.957661, F1 Score: 0.957789
+Remove Test Avg. Loss: 0.000362, Accuracy: 0.882304, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948756, F1 Score: 0.949130
+</noise>
+<noise sigma="0.1" seed="5">
+model difference (l2 norm): tensor(2.8854, dtype=torch.float64)
+Test Avg. Loss: 0.000143, Accuracy: 0.958165, F1 Score: 0.958270
+Remove Test Avg. Loss: 0.000361, Accuracy: 0.881469, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000165, Accuracy: 0.948590, F1 Score: 0.948998
+</noise>
+<noise sigma="1" seed="5">
+model difference (l2 norm): tensor(27.5325, dtype=torch.float64)
+Test Avg. Loss: 0.000147, Accuracy: 0.952621, F1 Score: 0.952669
+Remove Test Avg. Loss: 0.000363, Accuracy: 0.879800, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000169, Accuracy: 0.942581, F1 Score: 0.942829
+</noise>
+<noise sigma="10" seed="5">
+model difference (l2 norm): tensor(275.6539, dtype=torch.float64)
+Test Avg. Loss: 0.000553, Accuracy: 0.852319, F1 Score: 0.846356
+Remove Test Avg. Loss: 0.000823, Accuracy: 0.800501, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.000570, Accuracy: 0.823819, F1 Score: 0.816163
+</noise>
+<noise sigma="100" seed="5">
+model difference (l2 norm): tensor(2757.0360, dtype=torch.float64)
+Test Avg. Loss: 0.009896, Accuracy: 0.662298, F1 Score: 0.618885
+Remove Test Avg. Loss: 0.009553, Accuracy: 0.699917, F1 Score: 0.000000
+Remain Test Avg. Loss: 0.009499, Accuracy: 0.647805, F1 Score: 0.603681
+</noise>
+</deltagrad>
+</results>
+</data>

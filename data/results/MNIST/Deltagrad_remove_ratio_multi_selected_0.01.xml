@@ -1,0 +1,1375 @@
+<data>
+<Generate_Dataset/>
+<Training>
+Class: 0 Train - Epoch 199, Batch: 118, Loss: 0.064242
+Class: 1 Train - Epoch 199, Batch: 118, Loss: 0.065521
+Class: 2 Train - Epoch 199, Batch: 118, Loss: 0.110005
+Class: 3 Train - Epoch 199, Batch: 118, Loss: 0.119517
+Class: 4 Train - Epoch 199, Batch: 118, Loss: 0.103770
+Class: 5 Train - Epoch 199, Batch: 118, Loss: 0.143007
+Class: 6 Train - Epoch 199, Batch: 118, Loss: 0.078787
+Class: 7 Train - Epoch 199, Batch: 118, Loss: 0.086144
+Class: 8 Train - Epoch 199, Batch: 118, Loss: 0.157528
+Class: 9 Train - Epoch 199, Batch: 118, Loss: 0.150680
+training_time:: 199.22509360313416
+training time full:: 199.2252380847931
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</Training>
+torch.Size([60000, 784])
+tensor([16676, 29391, 31962, 36149, 22204,  8475, 14692, 13519, 47689, 50500,
+         8455, 12967, 54357,  2652, 13208, 10984, 54377, 10453, 19386,  2796,
+         5967, 13658, 13577, 32401, 47655, 19655, 40483,  8551, 25291, 46246,
+        46689,  6033, 42669, 19215, 19231, 24451, 29014,  3314, 36189, 28391,
+         6069,  2200, 22643, 25311, 10511, 36623, 21525, 49117, 41883, 59383,
+         6089,  5987, 59356, 42681, 53903, 20544, 59440, 54397,  6081, 11874,
+         8830,  5332, 19333, 55791, 35333, 13607, 15246, 54487, 48139, 29383,
+        28343,  4694, 25728, 10493, 59366, 33022, 25331,  6185,  1290,  6007,
+        39489,  8259, 42605, 13543, 44903, 47669, 35870, 49896, 36295, 54534,
+        36761, 16220, 28485, 16530, 10405,  6057,    27, 55649, 21505, 52415,
+        54782, 55509, 17139, 47643, 56324,  6826,  1863, 47587,  5153,  7626,
+        10206,  6071,  1315, 36595,  8505, 21515, 28760, 24435, 47802, 16239,
+        16111,  5531, 21150, 19347, 39359,  6175, 41969, 14223,  5455, 13110,
+        42677, 42707, 28955, 42255,   111, 20051,  1241, 45008, 46953, 59394,
+        40427, 55771, 49324, 41843,  1201, 12645,  1843, 56053,  1233, 52435,
+        52464, 41171, 59375, 37205, 46555, 13099, 17271, 45340,   895, 32339,
+        37729, 17155, 35379, 29357, 54481, 47678, 37223, 54660,  7881, 36128,
+        21285, 48551, 38361, 59461, 49193, 52455,  6467, 19977, 39445, 19337,
+         1295,  6251, 31482, 10880, 41929, 48465, 36287, 19548, 22767, 29427,
+        47781, 55547,  1317, 29269, 35796, 10606, 47803, 16911,  8635, 17192,
+        36705, 17491, 29313, 36645, 22721, 27135, 16764, 32299, 42215, 28359,
+         5399, 33009, 56474, 32409, 16386, 58080, 21487, 12430, 19335,  4681,
+        53048, 19941, 25409, 24621, 32371,  7861, 43816, 29289,  7915, 36555,
+         8425, 22663, 36247, 44416,  7046, 13836, 36803, 23337, 36723,  1924,
+        54587, 17301, 57278, 56761, 28957, 19285, 36301, 40463,  3402,  8541,
+         5379, 29249, 11234, 59436, 38593, 45801, 36169, 19739, 21939, 27937,
+         5717,  7288, 50922, 17255, 34815, 21853, 27917, 36575, 24531, 36329,
+         1432, 34629, 56198, 55008, 30885, 22675, 20597, 28174, 54014, 10728,
+        59398, 10389,  3614, 47653,  4581,  5573,  2771, 39215,  1971, 55705,
+         4342, 20500,  7635,  6123,  1185, 14283,  9411, 21320, 59408,  5359,
+        24573, 10393, 56197, 42791, 34597, 40734, 22717, 45727, 21116, 51091,
+        19413, 35349, 27313, 13109, 13601, 22964, 49157, 39231, 56067, 21795,
+         1883, 40447, 32385, 36946, 48163, 32379, 34481,  5683, 49926, 38970,
+        49809, 49156, 19675, 12483, 28265, 17333, 12953, 12545, 47913, 46465,
+         8075,  4719, 24575, 36337, 39301,  8055, 38145, 10042, 11031, 17253,
+        32495, 21007, 56791, 21815, 33029, 44101, 57457, 35944,  7250,  4510,
+        39461,  1097, 23419, 55737, 27274, 27140, 27060, 48137, 42755,  8017,
+        55038, 37309, 36709, 48415, 31596, 23851, 21877, 48485, 47749, 28409,
+        12245, 12933, 18992,  6309, 17227, 36671, 24597, 25373, 13567, 33169,
+        22835, 56817,  6059, 25377, 45005, 47795, 54603, 47925, 48281, 47651,
+        14903, 38998,  8537, 16125, 57172, 39081, 20413, 37197, 45854, 54531,
+        56228, 42087, 33283, 46937, 44280,  8643, 27075, 33161, 10423, 48031,
+        31562, 34713, 36427, 38174, 36755, 24442, 59416, 42907, 28913,  9303,
+        24733,  9278, 33049, 33754, 38529, 28371, 47742, 55665, 27899, 37890,
+        35415,  8077, 36263, 34407, 51686, 52350, 47625,  1351, 55881, 32157,
+        27366, 39705, 45266, 26880,   874, 34672, 12063, 19734,  2803,  7841,
+        23778, 32539, 32319,  5491, 36227, 20023, 37271, 14883, 42251, 53123,
+        34461,   909, 39415, 53382,  8597, 54707, 14297, 56721, 39267,  6291,
+        39125, 31913, 55474, 12677, 36327, 59275, 13093, 41471, 51756, 19377,
+        26081, 42043, 21305, 14135, 43637, 49207, 33099, 12879, 41453, 10787,
+          875, 34605, 37169, 46295, 34366, 42585,  5511, 54730,  5433,  4491,
+        40858, 12451, 17103, 21381, 30897, 26057, 17105,  9491, 23799, 37827,
+        18805,  8946, 10369, 48445, 39619, 18108, 48324, 47841, 39061, 39553,
+        41378, 49183, 42823, 25453, 11999, 20989,  8557, 46666, 47895, 22459,
+        38399, 21156, 25417, 51617, 30986, 57680, 10887, 19307, 12345, 39285,
+        19247, 22408, 51428,  6347, 19793, 20259, 56207, 11979, 35030, 41943,
+        10585, 22957, 25535, 37439, 31065, 58558,  7987, 12117,  2886, 48628,
+        11037, 50308, 12333, 14045, 46570,  9078, 28571, 56139, 19200, 24066,
+        42083, 19905,  6894, 34427, 21447, 40005,  4615, 42775, 12211, 26534,
+        41543, 19549,  6213, 52747, 39900, 57990,  5442, 59808, 35801, 21861])
+<results lr="1" epochs="200" bz="512" remove_ratio="0.01" sampling_type="targeted_informed">
+<Baseline>
+Class: 0 epoch: 199 Baseline Loss 0.06419333070516586
+Class: 1 epoch: 199 Baseline Loss 0.06599055975675583
+Class: 2 epoch: 199 Baseline Loss 0.10959271341562271
+Class: 3 epoch: 199 Baseline Loss 0.11472929269075394
+Class: 4 epoch: 199 Baseline Loss 0.10454574227333069
+Class: 5 epoch: 199 Baseline Loss 0.14367233216762543
+Class: 6 epoch: 199 Baseline Loss 0.07925768941640854
+Class: 7 epoch: 199 Baseline Loss 0.08668352663516998
+Class: 8 epoch: 199 Baseline Loss 0.15776346623897552
+Class: 9 epoch: 199 Baseline Loss 0.1518642008304596
+training time is 186.91064286231995
+overhead:: 0
+overhead2:: 3.1445600986480713
+overhead3:: 0
+memory usage:: 4961992704
+time_baseline:: 186.93286061286926
+model difference (l2 norm): tensor(2.1620, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.887000, F1 Score: 0.886256
+Remove Test Avg. Loss: 0.003745, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879300, F1 Score: 0.878390
+</Baseline>
+<Deltagrad period="2">
+Detection overhead:: 0.5704803466796875
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 5.37486457824707
+Class: 0 overhead3:: 16.003825187683105
+Class: 0 overhead4:: 7.092223882675171
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 5.388250112533569
+Class: 1 overhead3:: 32.905327558517456
+Class: 1 overhead4:: 7.520175218582153
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 5.209662437438965
+Class: 2 overhead3:: 45.51365852355957
+Class: 2 overhead4:: 6.13106107711792
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 5.888786792755127
+Class: 3 overhead3:: 55.625998973846436
+Class: 3 overhead4:: 5.963586807250977
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 5.490284204483032
+Class: 4 overhead3:: 67.75479483604431
+Class: 4 overhead4:: 6.233884334564209
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 5.6395423412323
+Class: 5 overhead3:: 79.92040610313416
+Class: 5 overhead4:: 6.321728944778442
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 5.250968933105469
+Class: 6 overhead3:: 92.95690107345581
+Class: 6 overhead4:: 6.3206565380096436
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 5.903292655944824
+Class: 7 overhead3:: 102.38293528556824
+Class: 7 overhead4:: 5.766983985900879
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 5.230556964874268
+Class: 8 overhead3:: 115.15115690231323
+Class: 8 overhead4:: 6.218871831893921
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 5.203970432281494
+Class: 9 overhead3:: 128.3764042854309
+Class: 9 overhead4:: 6.32280969619751
+Class: 9 overhead5:: 0
+memory usage:: 4915613696
+time_deltagrad:: 452.001460313797
+model difference (l2 norm): tensor(0.0158, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.887000, F1 Score: 0.886256
+Remove Test Avg. Loss: 0.003744, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879300, F1 Score: 0.878390
+</Deltagrad>
+<Deltagrad period="5">
+Detection overhead:: 0.7316937446594238
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 2.090791702270508
+Class: 0 overhead3:: 3.5949487686157227
+Class: 0 overhead4:: 2.6681830883026123
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 2.061227321624756
+Class: 1 overhead3:: 6.43138575553894
+Class: 1 overhead4:: 2.592975378036499
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 2.0766983032226562
+Class: 2 overhead3:: 9.2620370388031
+Class: 2 overhead4:: 2.6411101818084717
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 2.3828818798065186
+Class: 3 overhead3:: 12.439993619918823
+Class: 3 overhead4:: 2.784351348876953
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 2.085120677947998
+Class: 4 overhead3:: 15.239614009857178
+Class: 4 overhead4:: 2.595325469970703
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 2.0953731536865234
+Class: 5 overhead3:: 18.079339265823364
+Class: 5 overhead4:: 2.6240644454956055
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 2.281151533126831
+Class: 6 overhead3:: 21.236112356185913
+Class: 6 overhead4:: 2.7646968364715576
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 2.113269329071045
+Class: 7 overhead3:: 24.133516550064087
+Class: 7 overhead4:: 2.660038471221924
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 2.1089534759521484
+Class: 8 overhead3:: 26.99204659461975
+Class: 8 overhead4:: 2.659301280975342
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 2.100261926651001
+Class: 9 overhead3:: 29.905179023742676
+Class: 9 overhead4:: 2.6318442821502686
+Class: 9 overhead5:: 0
+memory usage:: 4913537024
+time_deltagrad:: 283.57977652549744
+model difference (l2 norm): tensor(0.0354, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.886900, F1 Score: 0.886154
+Remove Test Avg. Loss: 0.003749, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879317, F1 Score: 0.878408
+</Deltagrad>
+<Deltagrad period="10">
+Detection overhead:: 0.8426768779754639
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 1.0501744747161865
+Class: 0 overhead3:: 2.4680910110473633
+Class: 0 overhead4:: 1.6879732608795166
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 1.06026291847229
+Class: 1 overhead3:: 3.980844259262085
+Class: 1 overhead4:: 1.7066376209259033
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 1.0563132762908936
+Class: 2 overhead3:: 5.467289447784424
+Class: 2 overhead4:: 1.6364405155181885
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 1.0560133457183838
+Class: 3 overhead3:: 6.911774635314941
+Class: 3 overhead4:: 1.6600656509399414
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 1.0779626369476318
+Class: 4 overhead3:: 8.46433401107788
+Class: 4 overhead4:: 1.6963536739349365
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 1.099926233291626
+Class: 5 overhead3:: 10.064604043960571
+Class: 5 overhead4:: 1.712284803390503
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 1.0817451477050781
+Class: 6 overhead3:: 11.58355188369751
+Class: 6 overhead4:: 1.6745734214782715
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 1.0900211334228516
+Class: 7 overhead3:: 13.24995493888855
+Class: 7 overhead4:: 1.720855712890625
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 1.0528862476348877
+Class: 8 overhead3:: 14.73099684715271
+Class: 8 overhead4:: 1.7043836116790771
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 1.0447282791137695
+Class: 9 overhead3:: 16.23624897003174
+Class: 9 overhead4:: 1.6780548095703125
+Class: 9 overhead5:: 0
+memory usage:: 4913487872
+time_deltagrad:: 242.7521288394928
+model difference (l2 norm): tensor(0.0418, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.886900, F1 Score: 0.886154
+Remove Test Avg. Loss: 0.003746, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879333, F1 Score: 0.878422
+</Deltagrad>
+<Deltagrad period="20">
+Detection overhead:: 0.9982881546020508
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.5468506813049316
+Class: 0 overhead3:: 2.3132920265197754
+Class: 0 overhead4:: 1.2929880619049072
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.5447812080383301
+Class: 1 overhead3:: 3.6184651851654053
+Class: 1 overhead4:: 1.2059969902038574
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.5364282131195068
+Class: 2 overhead3:: 4.920571565628052
+Class: 2 overhead4:: 1.2470512390136719
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.5501155853271484
+Class: 3 overhead3:: 6.316347599029541
+Class: 3 overhead4:: 1.2497844696044922
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.5477211475372314
+Class: 4 overhead3:: 7.654550552368164
+Class: 4 overhead4:: 1.311476707458496
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.5514671802520752
+Class: 5 overhead3:: 9.135430812835693
+Class: 5 overhead4:: 1.2762126922607422
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.5477523803710938
+Class: 6 overhead3:: 10.528800964355469
+Class: 6 overhead4:: 1.2956032752990723
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.5493669509887695
+Class: 7 overhead3:: 11.619837999343872
+Class: 7 overhead4:: 1.0426652431488037
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.5442285537719727
+Class: 8 overhead3:: 12.334453344345093
+Class: 8 overhead4:: 0.6411342620849609
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.5436763763427734
+Class: 9 overhead3:: 13.048735857009888
+Class: 9 overhead4:: 0.6455199718475342
+Class: 9 overhead5:: 0
+memory usage:: 4913364992
+time_deltagrad:: 229.35960221290588
+model difference (l2 norm): tensor(0.0608, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.886900, F1 Score: 0.886157
+Remove Test Avg. Loss: 0.003748, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879333, F1 Score: 0.878423
+</Deltagrad>
+<Deltagrad period="50">
+Detection overhead:: 0.67376708984375
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.24857521057128906
+Class: 0 overhead3:: 3.151214361190796
+Class: 0 overhead4:: 1.657240390777588
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.24509572982788086
+Class: 1 overhead3:: 5.672224044799805
+Class: 1 overhead4:: 1.777022123336792
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.24618053436279297
+Class: 2 overhead3:: 8.447664737701416
+Class: 2 overhead4:: 1.818610668182373
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.24976325035095215
+Class: 3 overhead3:: 11.034731149673462
+Class: 3 overhead4:: 1.7535359859466553
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.25179433822631836
+Class: 4 overhead3:: 13.698590517044067
+Class: 4 overhead4:: 1.7741296291351318
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.2556438446044922
+Class: 5 overhead3:: 16.36953353881836
+Class: 5 overhead4:: 1.831146240234375
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.2378678321838379
+Class: 6 overhead3:: 18.80591654777527
+Class: 6 overhead4:: 1.6764016151428223
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.2539558410644531
+Class: 7 overhead3:: 21.396219968795776
+Class: 7 overhead4:: 1.8225288391113281
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.25000786781311035
+Class: 8 overhead3:: 23.999127626419067
+Class: 8 overhead4:: 1.7503554821014404
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.24310016632080078
+Class: 9 overhead3:: 26.481072902679443
+Class: 9 overhead4:: 1.6089324951171875
+Class: 9 overhead5:: 0
+memory usage:: 4913315840
+time_deltagrad:: 267.4086403846741
+model difference (l2 norm): tensor(0.1017, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.886900, F1 Score: 0.886154
+Remove Test Avg. Loss: 0.003745, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879317, F1 Score: 0.878406
+</Deltagrad>
+<Deltagrad period="75">
+Detection overhead:: 0.7809138298034668
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.1755971908569336
+Class: 0 overhead3:: 2.5916643142700195
+Class: 0 overhead4:: 1.3047571182250977
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.17270326614379883
+Class: 1 overhead3:: 4.350391626358032
+Class: 1 overhead4:: 1.2869348526000977
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.16906356811523438
+Class: 2 overhead3:: 6.114191055297852
+Class: 2 overhead4:: 1.2862236499786377
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.17267704010009766
+Class: 3 overhead3:: 7.9239661693573
+Class: 3 overhead4:: 1.255424976348877
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.17532682418823242
+Class: 4 overhead3:: 9.760066032409668
+Class: 4 overhead4:: 1.3335692882537842
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.1742391586303711
+Class: 5 overhead3:: 11.492201089859009
+Class: 5 overhead4:: 1.3335328102111816
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.17100119590759277
+Class: 6 overhead3:: 13.380792379379272
+Class: 6 overhead4:: 1.341024398803711
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.17332673072814941
+Class: 7 overhead3:: 15.128964900970459
+Class: 7 overhead4:: 1.2786521911621094
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.18120336532592773
+Class: 8 overhead3:: 17.00696063041687
+Class: 8 overhead4:: 1.3601155281066895
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.17117953300476074
+Class: 9 overhead3:: 18.85618829727173
+Class: 9 overhead4:: 1.340749740600586
+Class: 9 overhead5:: 0
+memory usage:: 4913537024
+time_deltagrad:: 259.52671122550964
+model difference (l2 norm): tensor(0.1276, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.887200, F1 Score: 0.886455
+Remove Test Avg. Loss: 0.003722, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002123, Accuracy: 0.879267, F1 Score: 0.878355
+</Deltagrad>
+<Deltagrad period="100">
+Detection overhead:: 0.9228353500366211
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.12894153594970703
+Class: 0 overhead3:: 2.0633208751678467
+Class: 0 overhead4:: 0.8285114765167236
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.1121516227722168
+Class: 1 overhead3:: 2.257350444793701
+Class: 1 overhead4:: 0.17252326011657715
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.11161208152770996
+Class: 2 overhead3:: 2.413613796234131
+Class: 2 overhead4:: 0.14556622505187988
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.11157727241516113
+Class: 3 overhead3:: 2.569748878479004
+Class: 3 overhead4:: 0.14472556114196777
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.12189769744873047
+Class: 4 overhead3:: 3.6282544136047363
+Class: 4 overhead4:: 0.7512679100036621
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.13037681579589844
+Class: 5 overhead3:: 4.884549140930176
+Class: 5 overhead4:: 0.8884561061859131
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.12831425666809082
+Class: 6 overhead3:: 6.022044897079468
+Class: 6 overhead4:: 0.8434398174285889
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.12723278999328613
+Class: 7 overhead3:: 7.346818208694458
+Class: 7 overhead4:: 0.907844066619873
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.12848997116088867
+Class: 8 overhead3:: 8.63601803779602
+Class: 8 overhead4:: 0.8936233520507812
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.12397027015686035
+Class: 9 overhead3:: 10.029410362243652
+Class: 9 overhead4:: 0.9813475608825684
+Class: 9 overhead5:: 0
+memory usage:: 4915589120
+time_deltagrad:: 212.60867404937744
+model difference (l2 norm): tensor(0.1417, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.887000, F1 Score: 0.886257
+Remove Test Avg. Loss: 0.003734, Accuracy: 0.825000, F1 Score: 0.904110
+Remain Test Avg. Loss: 0.002124, Accuracy: 0.879300, F1 Score: 0.878388
+</Deltagrad>
+<Deltagrad period="200">
+Detection overhead:: 0.751837968826294
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 0 overhead2:: 0.07458281517028809
+Class: 0 overhead3:: 1.422562599182129
+Class: 0 overhead4:: 0.4795396327972412
+Class: 0 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 1 overhead2:: 0.0769340991973877
+Class: 1 overhead3:: 2.075998067855835
+Class: 1 overhead4:: 0.4655287265777588
+Class: 1 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 2 overhead2:: 0.0690007209777832
+Class: 2 overhead3:: 2.769686460494995
+Class: 2 overhead4:: 0.4671957492828369
+Class: 2 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 3 overhead2:: 0.07103896141052246
+Class: 3 overhead3:: 3.389051914215088
+Class: 3 overhead4:: 0.473435640335083
+Class: 3 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 4 overhead2:: 0.0769493579864502
+Class: 4 overhead3:: 4.002784490585327
+Class: 4 overhead4:: 0.5057833194732666
+Class: 4 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 5 overhead2:: 0.06880378723144531
+Class: 5 overhead3:: 4.508655786514282
+Class: 5 overhead4:: 0.4421882629394531
+Class: 5 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 6 overhead2:: 0.07300186157226562
+Class: 6 overhead3:: 5.207082033157349
+Class: 6 overhead4:: 0.47960948944091797
+Class: 6 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 7 overhead2:: 0.06931686401367188
+Class: 7 overhead3:: 5.834189414978027
+Class: 7 overhead4:: 0.4604160785675049
+Class: 7 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 8 overhead2:: 0.06966710090637207
+Class: 8 overhead3:: 6.413854360580444
+Class: 8 overhead4:: 0.4829564094543457
+Class: 8 overhead5:: 0
+end_tensor_id:: 2000
+end_tensor_id:: 4000
+end_tensor_id:: 6000
+end_tensor_id:: 8000
+end_tensor_id:: 10000
+end_tensor_id:: 12000
+end_tensor_id:: 14000
+end_tensor_id:: 16000
+end_tensor_id:: 18000
+end_tensor_id:: 20000
+end_tensor_id:: 22000
+Class: 9 overhead2:: 0.07061934471130371
+Class: 9 overhead3:: 7.209070205688477
+Class: 9 overhead4:: 0.5285239219665527
+Class: 9 overhead5:: 0
+memory usage:: 4913463296
+time_deltagrad:: 226.76554131507874
+model difference (l2 norm): tensor(0.2360, dtype=torch.float64)
+Test Avg. Loss: 0.001987, Accuracy: 0.887200, F1 Score: 0.886465
+Remove Test Avg. Loss: 0.003712, Accuracy: 0.826667, F1 Score: 0.905109
+Remain Test Avg. Loss: 0.002123, Accuracy: 0.879283, F1 Score: 0.878369
+</Deltagrad>
+</results>
+</data>

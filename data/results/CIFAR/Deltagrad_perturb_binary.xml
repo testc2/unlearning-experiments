@@ -1,0 +1,204 @@
+<data>
+<generate>
+torch.Size([10000, 3073])
+tensor([])
+</generate>
+<training>
+Train - Epoch 0, Batch: 0, Loss: 0.692837
+Train - Epoch 0, Batch: 1, Loss: 0.690935
+Train - Epoch 0, Batch: 2, Loss: 0.690472
+Train - Epoch 0, Batch: 3, Loss: 0.691518
+Train - Epoch 0, Batch: 4, Loss: 0.688056
+Train - Epoch 0, Batch: 5, Loss: 0.686263
+Train - Epoch 0, Batch: 6, Loss: 0.691398
+Train - Epoch 0, Batch: 7, Loss: 0.685603
+Train - Epoch 0, Batch: 8, Loss: 0.685913
+Train - Epoch 0, Batch: 9, Loss: 0.685974
+Train - Epoch 0, Batch: 10, Loss: 0.683409
+Train - Epoch 0, Batch: 11, Loss: 0.683235
+Train - Epoch 0, Batch: 12, Loss: 0.681757
+Train - Epoch 0, Batch: 13, Loss: 0.679531
+Train - Epoch 0, Batch: 14, Loss: 0.682017
+Train - Epoch 0, Batch: 15, Loss: 0.678869
+Train - Epoch 0, Batch: 16, Loss: 0.677265
+Train - Epoch 0, Batch: 17, Loss: 0.674526
+Train - Epoch 0, Batch: 18, Loss: 0.674653
+Train - Epoch 0, Batch: 19, Loss: 0.674083
+Train - Epoch 100, Batch: 0, Loss: 0.429979
+Train - Epoch 100, Batch: 1, Loss: 0.389980
+Train - Epoch 100, Batch: 2, Loss: 0.422229
+Train - Epoch 100, Batch: 3, Loss: 0.430833
+Train - Epoch 100, Batch: 4, Loss: 0.423740
+Train - Epoch 100, Batch: 5, Loss: 0.380221
+Train - Epoch 100, Batch: 6, Loss: 0.430550
+Train - Epoch 100, Batch: 7, Loss: 0.412171
+Train - Epoch 100, Batch: 8, Loss: 0.411830
+Train - Epoch 100, Batch: 9, Loss: 0.417961
+Train - Epoch 100, Batch: 10, Loss: 0.419496
+Train - Epoch 100, Batch: 11, Loss: 0.421584
+Train - Epoch 100, Batch: 12, Loss: 0.447545
+Train - Epoch 100, Batch: 13, Loss: 0.398783
+Train - Epoch 100, Batch: 14, Loss: 0.419202
+Train - Epoch 100, Batch: 15, Loss: 0.405018
+Train - Epoch 100, Batch: 16, Loss: 0.416035
+Train - Epoch 100, Batch: 17, Loss: 0.387771
+Train - Epoch 100, Batch: 18, Loss: 0.427691
+Train - Epoch 100, Batch: 19, Loss: 0.393746
+Train - Epoch 200, Batch: 0, Loss: 0.403144
+Train - Epoch 200, Batch: 1, Loss: 0.367710
+Train - Epoch 200, Batch: 2, Loss: 0.402386
+Train - Epoch 200, Batch: 3, Loss: 0.428240
+Train - Epoch 200, Batch: 4, Loss: 0.381811
+Train - Epoch 200, Batch: 5, Loss: 0.375507
+Train - Epoch 200, Batch: 6, Loss: 0.394344
+Train - Epoch 200, Batch: 7, Loss: 0.398856
+Train - Epoch 200, Batch: 8, Loss: 0.374911
+Train - Epoch 200, Batch: 9, Loss: 0.386251
+Train - Epoch 200, Batch: 10, Loss: 0.393847
+Train - Epoch 200, Batch: 11, Loss: 0.396964
+Train - Epoch 200, Batch: 12, Loss: 0.382572
+Train - Epoch 200, Batch: 13, Loss: 0.372882
+Train - Epoch 200, Batch: 14, Loss: 0.385844
+Train - Epoch 200, Batch: 15, Loss: 0.368845
+Train - Epoch 200, Batch: 16, Loss: 0.395858
+Train - Epoch 200, Batch: 17, Loss: 0.396995
+Train - Epoch 200, Batch: 18, Loss: 0.389796
+Train - Epoch 200, Batch: 19, Loss: 0.367178
+Train - Epoch 300, Batch: 0, Loss: 0.356292
+Train - Epoch 300, Batch: 1, Loss: 0.375939
+Train - Epoch 300, Batch: 2, Loss: 0.375713
+Train - Epoch 300, Batch: 3, Loss: 0.377163
+Train - Epoch 300, Batch: 4, Loss: 0.373513
+Train - Epoch 300, Batch: 5, Loss: 0.393181
+Train - Epoch 300, Batch: 6, Loss: 0.356830
+Train - Epoch 300, Batch: 7, Loss: 0.366620
+Train - Epoch 300, Batch: 8, Loss: 0.361304
+Train - Epoch 300, Batch: 9, Loss: 0.366303
+Train - Epoch 300, Batch: 10, Loss: 0.408592
+Train - Epoch 300, Batch: 11, Loss: 0.382601
+Train - Epoch 300, Batch: 12, Loss: 0.392312
+Train - Epoch 300, Batch: 13, Loss: 0.373725
+Train - Epoch 300, Batch: 14, Loss: 0.385421
+Train - Epoch 300, Batch: 15, Loss: 0.376711
+Train - Epoch 300, Batch: 16, Loss: 0.379516
+Train - Epoch 300, Batch: 17, Loss: 0.390188
+Train - Epoch 300, Batch: 18, Loss: 0.398010
+Train - Epoch 300, Batch: 19, Loss: 0.400997
+Train - Epoch 400, Batch: 0, Loss: 0.385156
+Train - Epoch 400, Batch: 1, Loss: 0.413691
+Train - Epoch 400, Batch: 2, Loss: 0.366517
+Train - Epoch 400, Batch: 3, Loss: 0.337757
+Train - Epoch 400, Batch: 4, Loss: 0.356913
+Train - Epoch 400, Batch: 5, Loss: 0.388612
+Train - Epoch 400, Batch: 6, Loss: 0.401297
+Train - Epoch 400, Batch: 7, Loss: 0.371181
+Train - Epoch 400, Batch: 8, Loss: 0.395385
+Train - Epoch 400, Batch: 9, Loss: 0.375168
+Train - Epoch 400, Batch: 10, Loss: 0.338765
+Train - Epoch 400, Batch: 11, Loss: 0.376394
+Train - Epoch 400, Batch: 12, Loss: 0.369854
+Train - Epoch 400, Batch: 13, Loss: 0.363584
+Train - Epoch 400, Batch: 14, Loss: 0.359840
+Train - Epoch 400, Batch: 15, Loss: 0.372043
+Train - Epoch 400, Batch: 16, Loss: 0.375009
+Train - Epoch 400, Batch: 17, Loss: 0.361076
+Train - Epoch 400, Batch: 18, Loss: 0.388145
+Train - Epoch 400, Batch: 19, Loss: 0.400817
+training_time:: 11.237137794494629
+training time full:: 11.23728322982788
+provenance prepare time:: 0.0
+here
+Test Avg. Loss: 0.000743, Accuracy: 0.853000, F1 Score: 0.850913
+</training>
+<deltagrad>
+data dimension:: [10000, 3073]
+tensor([6044, 2890, 9399, 1917, 4919, 1729,  429, 7532,  337, 8223,  981, 4869,
+         784, 4840, 5592, 6301, 2920, 4053, 8506, 1426, 7626, 8837, 4911, 8606,
+        2288, 5916,  297, 2751, 4237,  137, 3531, 3886, 6147, 1899, 5147, 8950,
+        3086,  684, 7245, 7645, 3858, 5334, 6624,  914, 8291, 8687, 9347, 4233,
+        4894, 4337])
+Epoch:0 Batch: 19 Baseline Loss 0.6740834153692543
+Epoch:100 Batch: 19 Baseline Loss 0.393746278879935
+Epoch:200 Batch: 19 Baseline Loss 0.3671783406336455
+Epoch:300 Batch: 19 Baseline Loss 0.40099652739493963
+Epoch:400 Batch: 19 Baseline Loss 0.400817143942238
+training time is 13.770245790481567
+overhead:: 0
+overhead2:: 0.12019705772399902
+overhead3:: 0
+memory usage:: 1099034624
+time_baseline:: 13.77556037902832
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.000743, Accuracy: 0.853000, F1 Score: 0.850913
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.5554, dtype=torch.float64)
+Test Avg. Loss: 0.000743, Accuracy: 0.852000, F1 Score: 0.850354
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(5.5542, dtype=torch.float64)
+Test Avg. Loss: 0.000744, Accuracy: 0.849000, F1 Score: 0.849301
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(55.5417, dtype=torch.float64)
+Test Avg. Loss: 0.000915, Accuracy: 0.771000, F1 Score: 0.804441
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(555.4172, dtype=torch.float64)
+Test Avg. Loss: 0.009234, Accuracy: 0.499500, F1 Score: 0.666222
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(5554.1718, dtype=torch.float64)
+Test Avg. Loss: 0.104418, Accuracy: 0.500000, F1 Score: 0.666667
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.000743, Accuracy: 0.853000, F1 Score: 0.850913
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.5676, dtype=torch.float64)
+Test Avg. Loss: 0.000744, Accuracy: 0.851000, F1 Score: 0.848577
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(5.6761, dtype=torch.float64)
+Test Avg. Loss: 0.000746, Accuracy: 0.846000, F1 Score: 0.840745
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(56.7614, dtype=torch.float64)
+Test Avg. Loss: 0.000870, Accuracy: 0.806000, F1 Score: 0.772033
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(567.6138, dtype=torch.float64)
+Test Avg. Loss: 0.006717, Accuracy: 0.506000, F1 Score: 0.027559
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(5676.1377, dtype=torch.float64)
+Test Avg. Loss: 0.078798, Accuracy: 0.499500, F1 Score: 0.001994
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.000743, Accuracy: 0.853000, F1 Score: 0.850913
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.5515, dtype=torch.float64)
+Test Avg. Loss: 0.000744, Accuracy: 0.853000, F1 Score: 0.850913
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(5.5148, dtype=torch.float64)
+Test Avg. Loss: 0.000745, Accuracy: 0.850000, F1 Score: 0.846311
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(55.1478, dtype=torch.float64)
+Test Avg. Loss: 0.000796, Accuracy: 0.834000, F1 Score: 0.816979
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(551.4781, dtype=torch.float64)
+Test Avg. Loss: 0.003971, Accuracy: 0.526000, F1 Score: 0.123845
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(5514.7805, dtype=torch.float64)
+Test Avg. Loss: 0.050060, Accuracy: 0.492500, F1 Score: 0.019324
+</noise>
+</deltagrad>
+</data>

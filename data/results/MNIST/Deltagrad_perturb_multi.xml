@@ -1,0 +1,111 @@
+<data>
+<generate>
+torch.Size([60000, 784])
+tensor([])
+</generate>
+<training>
+Class: 0 Train - Epoch 199, Batch: 118, Loss: 0.064242
+Class: 1 Train - Epoch 199, Batch: 118, Loss: 0.065521
+Class: 2 Train - Epoch 199, Batch: 118, Loss: 0.110005
+Class: 3 Train - Epoch 199, Batch: 118, Loss: 0.119517
+Class: 4 Train - Epoch 199, Batch: 118, Loss: 0.103770
+Class: 5 Train - Epoch 199, Batch: 118, Loss: 0.143007
+Class: 6 Train - Epoch 199, Batch: 118, Loss: 0.078787
+Class: 7 Train - Epoch 199, Batch: 118, Loss: 0.086144
+Class: 8 Train - Epoch 199, Batch: 118, Loss: 0.157528
+Class: 9 Train - Epoch 199, Batch: 118, Loss: 0.150680
+training_time:: 187.7822458744049
+training time full:: 187.78237342834473
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</training>
+<deltagrad>
+Class: 0 epoch: 199 Baseline Loss 0.0642416700720787
+Class: 1 epoch: 199 Baseline Loss 0.06552114337682724
+Class: 2 epoch: 199 Baseline Loss 0.11000490188598633
+Class: 3 epoch: 199 Baseline Loss 0.11951727420091629
+Class: 4 epoch: 199 Baseline Loss 0.10377004742622375
+Class: 5 epoch: 199 Baseline Loss 0.1430065631866455
+Class: 6 epoch: 199 Baseline Loss 0.07878653705120087
+Class: 7 epoch: 199 Baseline Loss 0.0861438512802124
+Class: 8 epoch: 199 Baseline Loss 0.15752771496772766
+Class: 9 epoch: 199 Baseline Loss 0.1506802886724472
+training time is 167.0622797012329
+overhead:: 0
+overhead2:: 0.24102449417114258
+overhead3:: 0
+memory usage:: 4539830272
+time_baseline:: 167.06947493553162
+<noise sigma="0" seed="0">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</noise>
+<noise sigma="0.01" seed="0">
+model difference (l2 norm): tensor(0.8880, dtype=torch.float64)
+Test Avg. Loss: 0.001985, Accuracy: 0.886200, F1 Score: 0.885373
+</noise>
+<noise sigma="0.1" seed="0">
+model difference (l2 norm): tensor(8.8801, dtype=torch.float64)
+Test Avg. Loss: 0.001984, Accuracy: 0.886100, F1 Score: 0.885272
+</noise>
+<noise sigma="1" seed="0">
+model difference (l2 norm): tensor(88.8008, dtype=torch.float64)
+Test Avg. Loss: 0.002119, Accuracy: 0.871300, F1 Score: 0.870101
+</noise>
+<noise sigma="10" seed="0">
+model difference (l2 norm): tensor(888.0084, dtype=torch.float64)
+Test Avg. Loss: 0.023681, Accuracy: 0.327700, F1 Score: 0.297563
+</noise>
+<noise sigma="100" seed="0">
+model difference (l2 norm): tensor(8880.0843, dtype=torch.float64)
+Test Avg. Loss: 0.478666, Accuracy: 0.119400, F1 Score: 0.104267
+</noise>
+<noise sigma="0" seed="1">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</noise>
+<noise sigma="0.01" seed="1">
+model difference (l2 norm): tensor(0.8913, dtype=torch.float64)
+Test Avg. Loss: 0.001985, Accuracy: 0.886000, F1 Score: 0.885183
+</noise>
+<noise sigma="0.1" seed="1">
+model difference (l2 norm): tensor(8.9130, dtype=torch.float64)
+Test Avg. Loss: 0.001986, Accuracy: 0.886500, F1 Score: 0.885694
+</noise>
+<noise sigma="1" seed="1">
+model difference (l2 norm): tensor(89.1303, dtype=torch.float64)
+Test Avg. Loss: 0.002133, Accuracy: 0.875000, F1 Score: 0.874030
+</noise>
+<noise sigma="10" seed="1">
+model difference (l2 norm): tensor(891.3032, dtype=torch.float64)
+Test Avg. Loss: 0.025464, Accuracy: 0.287200, F1 Score: 0.260645
+</noise>
+<noise sigma="100" seed="1">
+model difference (l2 norm): tensor(8913.0324, dtype=torch.float64)
+Test Avg. Loss: 0.522536, Accuracy: 0.112500, F1 Score: 0.099661
+</noise>
+<noise sigma="0" seed="2">
+model difference (l2 norm): tensor(0., dtype=torch.float64)
+Test Avg. Loss: 0.001985, Accuracy: 0.886400, F1 Score: 0.885570
+</noise>
+<noise sigma="0.01" seed="2">
+model difference (l2 norm): tensor(0.8800, dtype=torch.float64)
+Test Avg. Loss: 0.001986, Accuracy: 0.886100, F1 Score: 0.885276
+</noise>
+<noise sigma="0.1" seed="2">
+model difference (l2 norm): tensor(8.8003, dtype=torch.float64)
+Test Avg. Loss: 0.001989, Accuracy: 0.886200, F1 Score: 0.885396
+</noise>
+<noise sigma="1" seed="2">
+model difference (l2 norm): tensor(88.0027, dtype=torch.float64)
+Test Avg. Loss: 0.002138, Accuracy: 0.871800, F1 Score: 0.871187
+</noise>
+<noise sigma="10" seed="2">
+model difference (l2 norm): tensor(880.0268, dtype=torch.float64)
+Test Avg. Loss: 0.020033, Accuracy: 0.270900, F1 Score: 0.258492
+</noise>
+<noise sigma="100" seed="2">
+model difference (l2 norm): tensor(8800.2680, dtype=torch.float64)
+Test Avg. Loss: 0.432983, Accuracy: 0.059800, F1 Score: 0.057643
+</noise>
+</deltagrad>
+</data>
