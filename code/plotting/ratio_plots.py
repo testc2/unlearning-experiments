@@ -20,7 +20,6 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
 import pandas as pd
-import numpy as np
 from parse import get_deltagrad_dist_dataframes
 #%%
 
@@ -55,9 +54,6 @@ def plot_class_ratio(sampling_type:str,y:str,ratio_df:pd.DataFrame,ax=None):
 def load_dfs(results_dir:Path,dataset:str,ovr_str:str,suffix:str=""):
     file = results_dir/dataset/f"Ratio_{ovr_str+suffix}.csv"
     ratio_df = pd.read_csv(file)
-    if dataset == "MNIST" and ovr_str == "multi":
-        ratio_df.loc[(ratio_df.sampling_type.isin(["targeted_informed","targeted_random"]))&(ratio_df.remove_ratio>0.11),"test_accuracy"]=np.nan
-        ratio_df.loc[(ratio_df.sampling_type.isin(["targeted_informed","targeted_random"]))&(ratio_df.remove_ratio>0.11),"remove_accuracy"]=np.nan
     return ratio_df
 
 def plot_ratio(results_dir:Path,dataset:str,ovr:bool,save_fig:bool=False):
