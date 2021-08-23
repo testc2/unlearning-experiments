@@ -289,6 +289,9 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
             axis[1].set_ylabel(del_ylabel)#,fontsize=30)
         axis[0].set_xlabel("")
         axis[1].set_xlabel("")
+        if dataset_base_names[j] == "mnist_multi" and not extended:
+            axis[0].set_xticks([0,0.1,0.5])
+            axis[1].set_xticks([0,0.1,0.5])
         axis[0].set_title(dataset_names[j])#fontsize=30)
         axis[0].tick_params(axis="both",which="major")#,labelsize=30)
         axis[0].tick_params(axis="both",which="major")#,labelsize=30)
