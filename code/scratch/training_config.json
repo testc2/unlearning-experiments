@@ -6,7 +6,8 @@
         "lr":1,
         "ovr":"",
         "num_sampler_seeds":6,
-        "remove_ratios":[0.2, 0.3, 0.375]
+        "remove_ratios":[0.2, 0.3, 0.375],
+        "deletion_batch_size":100
     },
     "MNIST_ovr":{
         "dataset":"MNIST",
@@ -24,7 +25,8 @@
         "lr":1,
         "ovr":"",
         "num_sampler_seeds":3,
-        "remove_ratios":[0.05,0.10,0.15]
+        "remove_ratios":[0.05,0.10,0.15],
+        "deletion_batch_size":1000
     },
     "HIGGS_binary":{
         "dataset":"HIGGS",
@@ -42,7 +44,8 @@
         "lr":1,
         "ovr":"",
         "num_sampler_seeds":3,
-        "remove_ratios":[0.05,0.125,0.2]
+        "remove_ratios":[0.05,0.125,0.2],
+        "deletion_batch_size":100
     },
     "EPSILON_binary":{
         "dataset":"EPSILON",
