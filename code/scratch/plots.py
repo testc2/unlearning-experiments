@@ -40,7 +40,7 @@ import re
 current_dir = project_dir/"code"/"scratch"
 with open(current_dir/"training_config.json") as fp:
     training_configs = json.load(fp)
-dataset = "MNIST"
+dataset = "CIFAR"
 ovr_str= "binary"
 training_config = training_configs[f"{dataset}_{ovr_str}"]
 remove_ratio=training_config["remove_ratios"][2]
@@ -62,7 +62,6 @@ rettrain_bz = int(nothing_file.stem.split("_")[1])
 nothing_df = pd.read_csv(nothing_file)
 
 #%%
-
 def SAPE(a,b):
     numerator = np.abs(a-b)
     denominator = (np.abs(a)+np.abs(b))
@@ -70,7 +69,7 @@ def SAPE(a,b):
     sae = np.array(numerator/denominator,ndmin=1)
     sae[both_zero] = 1 
     return sae*100
-#%%`Ω
+#%%
 window_size = 15
 for df in gol_frames+[nothing_df]:
     df["acc_dis"] = SAPE(df["cum_remove_accuracy"].values,retrain_df.loc[df.batch,"cum_remove_accuracy"].values)
@@ -83,6 +82,8 @@ for df in gol_frames+[nothing_df]:
     df["cum_time"] = df.time.cumsum()
     df["acc_dis_cumsum"] = df.acc_dis.cumsum()
     df["acc_dis_cumsum_avg"] = df.acc_dis_cumsum.values/df.batch
+    df["acc_dis_batch_cumsum"] = df.acc_dis_batch.cumsum()
+    df["acc_dis_batch_cumsum_avg"] = df.acc_dis_batch_cumsum.values/df.batch
     df["acc_err_cumsum"] = df.acc_err.cumsum()
     df["acc_err_cumsum_avg"] = df.acc_err_cumsum.values/df.batch
 
@@ -113,17 +114,19 @@ ax3.set_xlabel("# deletions")
 ax3.set_ylabel("AccErr % (rolling avg)")
 plt.suptitle(dataset)
 #%%
-
 df = pd.concat(gol_frames)
 # df = pd.concat(gol_frames+[nothing_df])
 # df = pd.concat(gol_frames+[retrain_df.loc[gol_frames[0].batch].reset_index()])
-# df.pipeline_acc_err.fillna(0,inplace=True)
 
-sns.lineplot(data=df,x="batch",y="acc_err_cumsum_avg",hue="method")
+sns.lineplot(data=df,x="batch",y="pipeline_acc_err",hue="method")
 plt.legend(bbox_to_anchor=(1.05,0.5),loc="upper left")
-# plt.axhline(y=0.1,linestyle="--",alpha=0.5,color="black")
-# plt.axhline(y=0.5,linestyle="--",alpha=0.5,color="black")
-# plt.axhline(y=1,linestyle="--",alpha=0.5,color="black")
+plt.axhline(y=0.1,linestyle="--",alpha=0.5,color="black")
+plt.axhline(y=0.5,linestyle="--",alpha=0.5,color="black")
+plt.axhline(y=1,linestyle="--",alpha=0.5,color="black")
 plt.xlabel("# deletions")
 
 # %%
+sns.lineplot(data=df,x="batch",y="acc_dis_batch_cumsum",hue="method")
+plt.legend(bbox_to_anchor=(1.05,0.5),loc="upper left")
+plt.xlabel("# deletions")
+#%%

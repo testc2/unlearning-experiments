@@ -260,30 +260,37 @@ def gol_acc_test_retrain(w,unlearning_bz,threshold,args,sampling_type,remove_rat
     X_train_temp = torch.cat((X_remove,X_prime))
     y_train_temp = torch.cat((y_remove,y_prime))
     num_removes = X_remove.shape[0]
-    guo_rows =[]
+    gol_rows =[]
     args.verbose = False
-    retrain = False
     test_acc_init = accuracy_score(y_test,predict(w,X_test))
     for batch in trange(0,num_removes,unlearning_bz):
+        retrain = False
         X_batch_remove = X_remove[batch:batch+unlearning_bz]
         y_batch_remove = y_remove[batch:batch+unlearning_bz]
         X_batch_prime = X_train_temp[batch+unlearning_bz:]
         y_batch_prime = y_train_temp[batch+unlearning_bz:]
-        if retrain:
-            start = time()
-            w_approx =  lr_optimize_sgd_batch(X_batch_prime,y_batch_prime,params,args)
-            running_time = time()-start
-            retrain = False
-            test_acc_init = accuracy_score(y_test,predict(w_approx,X_test))
-        else:
-            start = time()
-            w_approx,added_noise = scrub(w_approx,X_batch_prime,y_batch_prime,args.lam,noise=0,noise_seed=0)
-            running_time = time() - start
+        start = time()
+        w_approx,added_noise = scrub(w_approx,X_batch_prime,y_batch_prime,args.lam,noise=0,noise_seed=0)
+        running_time = time() - start
+        # compute test accuracy
         test_accuracy = accuracy_score(y_test,predict(w_approx,X_test))
+        # find the SAPE wrt to test accuracy of last checkpoint
         acc_err_init = SAPE(test_accuracy,test_acc_init)[0]
+        # if the unlearned model exceeds acc_test threshold then retrain 
         if acc_err_init > threshold:
             retrain = True
-        guo_rows.append({
+            start = time()
+            w_approx =  lr_optimize_sgd_batch(X_batch_prime,y_batch_prime,params,args)
+            # add retraining time to run time
+            running_time += (time()-start)
+            # update checkpoint test accuracy
+            test_acc_init = accuracy_score(y_test,predict(w_approx,X_test))
+            
+            test_accuracy = accuracy_score(y_test,predict(w_approx,X_test)) 
+            acc_err_init = SAPE(test_accuracy,test_acc_init)[0]
+            
+        
+        gol_rows.append({
             "method":f"Golatkar threshold: {threshold}%",
             "unlearning_bz":unlearning_bz,
             "num_removes":num_removes,
@@ -299,7 +306,7 @@ def gol_acc_test_retrain(w,unlearning_bz,threshold,args,sampling_type,remove_rat
             }
         )
 
-    guo_df = pd.DataFrame(guo_rows)
+    guo_df = pd.DataFrame(gol_rows)
     guo_df.to_csv(f"gol_threshold_{threshold}_{unlearning_bz}_{args.dataset}_{remove_ratio}.csv")
 #%%
 
