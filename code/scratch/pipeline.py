@@ -50,7 +50,7 @@ def SAPE(a,b):
 def get_memory_usage():
     return psutil.Process(os.getpid()).memory_info().rss /1024 **2
 #%%
-args = parser.parse_args(["--optim","SGD","--step-size","1","dist","COVTYPE","--l2-norm"])
+args = parser.parse_args(["--optim","SGD","--step-size","1","dist","EPSILON","--l2-norm"])
 # args = parser.parse_args(["--optim","Adam","remove","COVTYPE"])
 if args.dataset == "MNIST":
     X_train, X_test, y_train, y_test = load_mnist(data_dir,ovr=args.ovr,l2_norm=args.l2_norm)

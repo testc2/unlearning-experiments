@@ -54,6 +54,7 @@
         "lr":1,
         "ovr":"",
         "num_sampler_seeds":3,
-        "remove_ratios":[0.1,0.2,0.25]
+        "remove_ratios":[0.1,0.2,0.25],
+        "deletion_batch_size":500
     }
 }

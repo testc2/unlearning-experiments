@@ -105,16 +105,16 @@ ax1.set_xlabel("# deletions")
 ax1.set_ylabel("Cumulative Running Time")
 ax1.set_yscale("symlog")
 
-ax2 = sns.lineplot(data=df,x="batch",y="acc_dis_rolling_avg",hue="method",ax=ax2,legend=False)
+ax2 = sns.lineplot(data=df,x="batch",y="acc_dis_cumsum",hue="method",ax=ax2,legend=False)
 ax2.set_xlabel("# deletions")
-ax2.set_ylabel("AccDis % (rolling avg)")
+ax2.set_ylabel("Cumulative AccDis %")
 
-ax3 = sns.lineplot(data=df,x="batch",y="acc_err_rolling_avg",hue="method",ax=ax3,legend=False)
+ax3 = sns.lineplot(data=df,x="batch",y="acc_err_cumsum",hue="method",ax=ax3,legend=False)
 ax3.set_xlabel("# deletions")
-ax3.set_ylabel("AccErr % (rolling avg)")
+ax3.set_ylabel("Cumulative AccErr % ")
 plt.suptitle(dataset)
 #%%
-df = pd.concat(gol_frames)
+df = pd.concat(gol_frames[1:])
 # df = pd.concat(gol_frames+[nothing_df])
 # df = pd.concat(gol_frames+[retrain_df.loc[gol_frames[0].batch].reset_index()])
 
@@ -126,7 +126,10 @@ plt.axhline(y=1,linestyle="--",alpha=0.5,color="black")
 plt.xlabel("# deletions")
 
 # %%
-sns.lineplot(data=df,x="batch",y="acc_dis_batch_cumsum",hue="method")
+df = pd.concat(gol_frames)
+# df = pd.concat(gol_frames+[nothing_df])
+sns.lineplot(data=df,x="batch",y="acc_dis_cumsum",hue="method")
 plt.legend(bbox_to_anchor=(1.05,0.5),loc="upper left")
 plt.xlabel("# deletions")
+# plt.yscale("symlog")
 #%%
