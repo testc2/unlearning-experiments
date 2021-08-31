@@ -290,3 +290,97 @@ def add_unlearn_subparser(subparser):
     )
 
     return unlearn_parser
+
+
+
+def add_golatkar_test_thresh_subparser(subparser):
+    gol_subparser = subparser.add_parser("golatkar_test_thresh")
+    gol_subparser.add_argument(
+        "--thresholds",
+        type=float,
+        nargs="+",
+        default=[1,0.5,0.1]
+        )
+
+
+
+
+
+def add_when_subparser(subparser):
+    when_parser = subparser.add_parser("when")
+    when_parser.add_argument(
+        "dataset",
+        type=str,
+        choices=["MNIST","COVTYPE","HIGGS","CIFAR","EPSILON"]
+    )
+    when_parser.add_argument(
+        "remove_ratio",
+        type=float,
+    )
+    when_parser.add_argument(
+        "deletion_batch_size",
+        type=int,
+        help="The number of deletions after which a decision is to be made",
+    )
+    when_parser.add_argument(
+        "sampling_type",
+        type=str,
+        choices=["uniform_random","uniform_informed","targeted_random","targeted_informed"],
+        default=["targeted_informed"]
+    )
+    when_parser.add_argument(
+        "--ovr",
+        action="store_true",
+        default=False,
+        help="if multi-class or binary"
+    )
+    when_parser.add_argument(
+        "--num-processes",
+        type=int,
+        default=4
+    )
+    when_parser.add_argument(
+        "--sgd-seed",
+        type=int,
+        default=0,
+        help="seeds for adam"
+    )
+    
+    when_parser.add_argument(
+        "--sampler-seed",
+        type = int,
+        default = 0,
+        help = "The seed for the random sampling distributions"
+    )
+    # General arguments
+    when_parser.add_argument(
+        "--overwrite-mode",
+        type=str,
+        default="w",
+        choices=["w", "a"]
+    )
+    when_parser.add_argument(
+        "--l2-norm",
+        action="store_true",
+        default=False,
+        help="Whether to L2 normalize the data or not"
+    )
+    when_parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=data_dir / "results"
+    )
+    when_parser.add_argument(
+        "--suffix",
+        type=str,
+        default="",
+        help="suffix to file"
+    )
+
+
+    subsubparser = when_parser.add_subparsers(description="Additional arguments for strategy",dest="strategy")
+    subsubparser.add_parser("retrain")
+    subsubparser.add_parser("golatkar")
+    add_golatkar_test_thresh_subparser(subsubparser)
+
+    return when_parser

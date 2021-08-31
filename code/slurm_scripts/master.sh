@@ -78,6 +78,10 @@ for dataset in $datasets; do
         4b)
             sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/slurm_scripts/deltagrad_array_job.sh $dataset $2
             ;;
+    # When to retrain experiments
+        5)
+            $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain_main.sh $dataset $mem $time $cores
+            ;;
         *)
             echo -n "Error Usage: ./master.sh (MNISTBinary|MNISTOVR|COVTYPEBinary|HIGGS|CIFARBinary|EPSILON) (1|2a|2b|3a|3b|4a|4b)"
             exit 1

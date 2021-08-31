@@ -15,7 +15,8 @@ from experiments.removal_distribution import execute_distribution_exp
 from experiments.unlearn import execute_unlearning_exp
 from experiments.perturbation import execute_perturbation_exp
 from experiments.removal_ratio import execute_ratio_exp
-from experiments.args import add_perturb_subparser, add_ratio_subparser, add_dist_subparser, add_unlearn_subparser
+from experiments.when_to_retrain import execute_when_to_retrain
+from experiments.args import add_perturb_subparser, add_ratio_subparser, add_dist_subparser, add_unlearn_subparser, add_when_subparser
 
 # set project dir relative to the file 
 project_dir = Path(__file__).resolve().parent.parent
@@ -37,11 +38,12 @@ dist_parser = add_dist_subparser(subparser)
 perturb_parser = add_perturb_subparser(subparser)
 ratio_parser = add_ratio_subparser(subparser)
 unlearn_parser = add_unlearn_subparser(subparser)
+when_parser = add_when_subparser(subparser)
 #%%
 if __name__ == "__main__":
     # to test the script in the interactive notebook
     if notebook:
-        args = parser.parse_args(["dist", "MNIST","--l2-norm"])
+        args = parser.parse_args("--optim SGD --step-size 1 --batch-size 1024 --num-steps 1000 --verbose when MNIST 0.375 100 targeted_informed --num-processes 12 --l2-norm golatkar".split())
     else:
         args = parser.parse_args()
     
@@ -79,4 +81,7 @@ if __name__ == "__main__":
     # "unlearn" is the complete experiments
     elif args.experiment == "unlearn":
         execute_unlearning_exp(args,data)
+    # when to retrain experiments 
+    elif args.experiment == "when":
+        execute_when_to_retrain(args,data)
 #%%
