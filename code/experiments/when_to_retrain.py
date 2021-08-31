@@ -1,5 +1,5 @@
 from functools import partial
-from os import error
+from os import error, stat
 from typing import Callable
 from methods.multiclass_utils import predict_ovr, predict_proba_ovr, lr_ovr_optimize_sgd
 from methods.pytorch_utils import (
@@ -24,13 +24,14 @@ from experiments.removal_ratio import sample
 from tqdm import tqdm, trange
 header = [
     # removal method and regularization
-    "method","lam","l2_norm",
+    "strategy","lam","l2_norm",
     # deletion details
     "remove_ratio","deletion_batch_size","sampler_seed","remove_class","sampling_type",  
     "sgd_seed","optim","step_size","lr_schedule","batch_size","num_steps",  # training details
-    "running_time",  # running time details
+    "running_time","unlearning_time","retraining_time","other_time",  # running time details
     "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err",  #  metrics
-    "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance" # additional metrics
+    "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance", # additional metrics
+    "threshold"
 ]
 
 rows = OrderedDict({k: None for k in header})
@@ -73,10 +74,16 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
     y_train_temp = torch.cat((y_remove,y_prime))
     num_removes = X_remove.shape[0]
     metrics = []
-    state_dict ={}
-    state_dict["test_acc_init"] = accuracy_score(y_test,predict(w,X_test))
-    state_dict["retrained"]=False
+    state_dict ={
+        "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
+        "retrained":False,
+        "unlearning_time":0,
+        "retraining_time":0,
+        "other_time":0
+    }
+
     for batch in trange(0,num_removes,batch_size):
+        _metrics = {}
         X_batch_remove = data["X_batch_remove"] = X_remove[batch:batch+batch_size]
         y_batch_remove = data["y_batch_remove"] = y_remove[batch:batch+batch_size]
         X_batch_prime = data["X_batch_prime"] = X_train_temp[batch+batch_size:]
@@ -86,11 +93,18 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
         w_temp = strategy(w,args,params,data,state_dict)
         running_time = time() - start 
 
+        # compute time metrics 
+        state_dict["other_time"] = running_time - (state_dict["retraining_time"]+state_dict["unlearning_time"])
+        # update current metrics 
+        _metrics.update(state_dict)
+
+        # compute performance metrics
         test_accuracy = accuracy_score(y_test,predict(w_temp,X_test))
         acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
         cum_remove_accuracy = accuracy_score(y_remove[:batch+batch_size],predict(w_temp,X_remove[:batch+batch_size]))
         batch_remove_accuracy = accuracy_score(y_batch_remove,predict(w_temp,X_batch_remove))
         num_deletions = min(batch+batch_size,num_removes)
+
         if args.ovr:
             #TODO implement logic for multi-class class balance 
             pass
@@ -98,17 +112,19 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
             batch_class_balance = ((y_batch_remove == 0).sum()/y_batch_remove.shape[0]).item()
             cum_class_balance = ((y_remove[:batch+batch_size]==0).sum()/(num_deletions)).item()
         
-        metrics.append({
+        # add performance and other metrics
+        _metrics.update({
             "running_time":running_time,
             "test_accuracy":test_accuracy,
             "batch_remove_accuracy":batch_remove_accuracy,
             "cum_remove_accuracy":cum_remove_accuracy,
             "pipeline_acc_err":acc_err_init,
             "num_deletions":num_deletions,
-            "retrained":state_dict["retrained"],
             "batch_deleted_class_balance":batch_class_balance,
             "cum_deleted_class_balance":cum_class_balance,
         })
+
+        metrics.append(_metrics)
     return metrics
 
 
@@ -117,15 +133,18 @@ def do_nothing(w,args,params,data,state_dict):
 
 def always_retrain(w,args,params,data,state_dict):
     state_dict["retrained"]=True
+    start = time()
     w_prime =  lr_optimize_sgd_batch(
         data["X_batch_prime"],
         data["y_batch_prime"],
         params,
         args
     )
+    state_dict["retraining_time"] = time() - start
     return w_prime
 
 def always_unlearn_gol(w,args,params,data,state_dict):
+    start = time()
     w_approx,_ = scrub(
         w,
         data["X_batch_prime"],
@@ -134,10 +153,12 @@ def always_unlearn_gol(w,args,params,data,state_dict):
         noise=0,
         noise_seed=0
     )
+    state_dict["unlearning_time"]= time() - start
     return w_approx
 
 def gol_test_acc_thresh(w,args,params,data,state_dict):
     # always unlearn 
+    start = time()
     w_approx,added_noise = scrub(
         w,
         data["X_batch_prime"],
@@ -146,6 +167,8 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         noise=0,
         noise_seed=0
     )
+    state_dict["unlearning_time"] = time() - start
+    
     # compute test accuracy
     test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
     # find the SAPE wrt to test accuracy of last checkpoint
@@ -153,16 +176,18 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
     # if the unlearned model exceeds acc_test threshold then retrain 
     if acc_err_init > params["threshold"]:
         state_dict["retrained"]=True
+        
         start = time()
         w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
-        # update checkpoint test accuracy
-        test_acc_init = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+        state_dict["retraining_time"] = time() - start
 
+        # update checkpoint test accuracy
+        state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
     return w_approx
 
 def run_pipeline(w,args,params,data):
     # begin pipeline
-    method = params["method"]
+    method = args.strategy
     if method == "nothing":
         strat_fn = do_nothing
     elif method == "retrain":
@@ -215,16 +240,13 @@ def execute_when_to_retrain(args,data):
 
     param_grid_dict = {
             "remove_class":[remove_class],
-
+            "sgd_seed":[args.sgd_seed]
     }
 
     if args.strategy == "golatkar_test_thresh":
         param_grid_dict.update({
-            "method":[f"Golatkar Test Threshold {t}%" for t in args.thresholds],
             "threshold":args.thresholds,
         })
-    else: 
-        param_grid_dict.update({"method":[args.strategy]})
     
     param_grid = ParameterGrid(param_grid_dict)
 

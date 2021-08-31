@@ -381,6 +381,7 @@ def add_when_subparser(subparser):
     subsubparser = when_parser.add_subparsers(description="Additional arguments for strategy",dest="strategy")
     subsubparser.add_parser("retrain")
     subsubparser.add_parser("golatkar")
+    subsubparser.add_parser("nothing")
     add_golatkar_test_thresh_subparser(subsubparser)
 
     return when_parser
