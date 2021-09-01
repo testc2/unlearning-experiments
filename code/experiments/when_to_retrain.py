@@ -90,7 +90,7 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
         y_batch_prime = data["y_batch_prime"] = y_train_temp[batch+batch_size:]
         
         start = time()
-        w_temp = strategy(w,args,params,data,state_dict)
+        w_temp = strategy(w_temp,args,params,data,state_dict)
         running_time = time() - start 
 
         # compute time metrics 
