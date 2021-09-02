@@ -1,5 +1,6 @@
 #%%
 from IPython import get_ipython
+from numpy.lib.npyio import save
 if get_ipython() is not None and __name__ == "__main__":
     notebook = True
     get_ipython().run_line_magic("load_ext", "autoreload")
@@ -50,11 +51,14 @@ new_rc_params = {
         'font.family': 'serif',
          }
 new_rc_params.update(default)
+# mpl.rcParams.update(new_rc_params)
 save_fig = False
+if not save_fig:
+    new_rc_params["text.usetex"]=False
 data_dir = project_dir/"data"
 results_dir = data_dir/"results"
 #%%
-dataset = "MNIST"
+dataset = "HIGGS"
 ovr_str = "binary"
 exp_dir = results_dir/dataset/"when_to_retrain"
 
@@ -118,6 +122,7 @@ def compute_metrics(retrain_df,method_df,nothing_df,window_size=10):
         m_df["acc_dis_batch_cumsum_avg"] = m_df.acc_dis_batch_cumsum.values/m_df.num_deletions
         m_df["acc_err_cumsum"] = m_df.acc_err.cumsum()
         m_df["acc_err_cumsum_avg"] = m_df.acc_err_cumsum.values/m_df.num_deletions
+        m_df["speedup"] = r_df.running_time.cumsum().values/ m_df.cum_running_time.values
         temp.append(m_df)
     return pd.concat(temp)
 
@@ -143,15 +148,16 @@ fig.subplots_adjust(bottom=0.015,top=0.85,wspace=0.3,hspace=0.3)
 for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_random","targeted_informed"]):
     temp = combined[combined.sampling_type == sampling_type]
     ax1,ax2,ax3 = ax[:,j]    
-    ax1 = sns.lineplot(data=temp,x="num_deletions",y="cum_running_time",hue="strategy",ax=ax1)
+    num_strategy = temp.strategy.nunique()
+    ax1 = sns.lineplot(data=temp,x="num_deletions",y="speedup",hue="strategy",ax=ax1,style="strategy")
     ax1.set_xlabel("")
     ax1.set_yscale("log")
     ax1.set_title(" ".join(sampling_type.split("_")))
 
-    ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False)
+    ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False,style="strategy")
     ax2.set_xlabel("")
 
-    ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False)
+    ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False,style="strategy")
     
     if j ==0 :
         ax1.legend(
@@ -160,9 +166,9 @@ for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_
             bbox_transform=fig.transFigure,
             ncol=4
         )
-        ax1.set_ylabel("Cum. Total Time")
-        ax2.set_ylabel("Cum. AccDis \%")
-        ax3.set_ylabel("Cum. AccErr \%")
+        ax1.set_ylabel("Speed-Up")
+        ax2.set_ylabel("Cum. \n AccDis \%")
+        ax3.set_ylabel("Cum. \n AccErr \%")
     else:
         ax1.get_legend().remove()
         ax1.set_ylabel("")
@@ -171,15 +177,30 @@ for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_
     ax3.set_xlabel("\# deletions")
 plt.suptitle(dataset)
 fig.align_ylabels(ax[:,0])
-plt.show()
+if save_fig:
+    plt.savefig(f"{dataset}_{ovr_str}_pipeline_strategies.pdf",bbox_inches="tight")
+else:
+    plt.show()
 #%%
 filter = gol_test_df[gol_test_df.threshold==0.1]
 sns.lineplot(data=filter,x="num_deletions",y="cum_running_time",hue="sampling_type")
-plt.yscale("log")# %%
+# plt.yscale("log")# %%
 #%%
-filter = gol_test_df[gol_test_df.sampling_type=="uniform_informed"]
-filter = filter[filter.threshold.isin([1,0.5])]
-sns.lineplot(data=filter,x="num_deletions",y="acc_dis_cumsum",hue="threshold")
-plt.yscale("log")# %%
+filter = gol_test_df[gol_test_df.sampling_type=="targeted_informed"]
+# filter = filter[filter.threshold.isin([1,0.5])]
+sns.lineplot(data=filter,x="num_deletions",y="pipeline_acc_err",hue="threshold")
+plt.show()
+
+sns.lineplot(data=filter,x="num_deletions",y="acc_err",hue="threshold")
+# plt.yscale("log")
+plt.show()
+# %%
+filter = gol_df[gol_df.sampling_type=="targeted_informed"]
+sns.lineplot(data=filter,x="num_deletions",y="pipeline_acc_err")
+plt.show()
+
+sns.lineplot(data=filter,x="num_deletions",y="acc_err")
+# plt.yscale("log")
+plt.show()
 
 # %%
