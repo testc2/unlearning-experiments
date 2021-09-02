@@ -76,14 +76,17 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
     metrics = []
     state_dict ={
         "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
-        "retrained":False,
-        "unlearning_time":0,
-        "retraining_time":0,
-        "other_time":0
     }
 
     for batch in trange(0,num_removes,batch_size):
         _metrics = {}
+        # reset metrics 
+        state_dict.update({
+            "retrained":False,
+            "unlearning_time":0,
+            "retraining_time":0,
+            "other_time":0
+        })
         X_batch_remove = data["X_batch_remove"] = X_remove[batch:batch+batch_size]
         y_batch_remove = data["y_batch_remove"] = y_remove[batch:batch+batch_size]
         X_batch_prime = data["X_batch_prime"] = X_train_temp[batch+batch_size:]
