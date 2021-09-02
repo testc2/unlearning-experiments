@@ -46,6 +46,7 @@ case $1 in
         ovr=""
         num_noise_seeds="3"
         remove_ratios=(0.01 0.05 0.10)
+        deletion_batch_size="10000"
         ;;
     CIFARBinary)
         dataset="CIFAR"

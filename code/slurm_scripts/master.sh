@@ -80,7 +80,8 @@ for dataset in $datasets; do
             ;;
     # When to retrain experiments
         5)
-            $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain_main.sh $dataset $mem $time $cores
+            strategy=$3
+            $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain_main.sh $dataset $mem $time $cores $strategy
             ;;
         *)
             echo -n "Error Usage: ./master.sh (MNISTBinary|MNISTOVR|COVTYPEBinary|HIGGS|CIFARBinary|EPSILON) (1|2a|2b|3a|3b|4a|4b)"
