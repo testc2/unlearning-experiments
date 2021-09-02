@@ -365,6 +365,7 @@ def add_when_subparser(subparser):
         default=False,
         help="Whether to L2 normalize the data or not"
     )
+    
     when_parser.add_argument(
         "--results-dir",
         type=Path,
@@ -376,10 +377,24 @@ def add_when_subparser(subparser):
         default="",
         help="suffix to file"
     )
+    # noise args 
+    when_parser.add_argument(
+        "--noise-seeds",
+        type=int,
+        nargs="+",
+        default=[0]
+    )
+    when_parser.add_argument(
+        "--noise-levels",
+        type=float,
+        nargs="+",
+        default=[0]
+    )
 
 
     subsubparser = when_parser.add_subparsers(description="Additional arguments for strategy",dest="strategy")
-    subsubparser.add_parser("retrain")
+    retrain = subsubparser.add_parser("retrain")
+    
     subsubparser.add_parser("golatkar")
     subsubparser.add_parser("nothing")
     add_golatkar_test_thresh_subparser(subsubparser)

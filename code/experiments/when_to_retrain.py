@@ -9,7 +9,7 @@ from methods.pytorch_utils import (
     lr_grad,
 )
 from methods.remove import remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
-from methods.scrub import scrub
+from methods.scrub import scrub, compute_noise
 from methods.common_utils import get_f1_score, get_roc_score
 import torch
 from sklearn.metrics import accuracy_score
@@ -28,6 +28,7 @@ header = [
     # deletion details
     "remove_ratio","deletion_batch_size","sampler_seed","remove_class","sampling_type",  
     "sgd_seed","optim","step_size","lr_schedule","batch_size","num_steps",  # training details
+    "noise","noise_seed",  # privacy noise details
     "running_time","unlearning_time","retraining_time","other_time",  # running time details
     "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err",  #  metrics
     "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance", # additional metrics
@@ -143,6 +144,16 @@ def always_retrain(w,args,params,data,state_dict):
         params,
         args
     )
+    # compute noise to be added 
+    noise_scrub = compute_noise(
+        w_prime,
+        data["X_batch_prime"],
+        data["y_batch_prime"],
+        args.lam,
+        params["noise"],
+        params["noise_seed"]
+    )
+    w_prime += noise_scrub
     state_dict["retraining_time"] = time() - start
     return w_prime
 
@@ -153,8 +164,8 @@ def always_unlearn_gol(w,args,params,data,state_dict):
         data["X_batch_prime"],
         data["y_batch_prime"],
         args.lam,
-        noise=0,
-        noise_seed=0
+        noise=params["noise"],
+        noise_seed=params["noise_seed"]
     )
     state_dict["unlearning_time"]= time() - start
     return w_approx
@@ -167,8 +178,8 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         data["X_batch_prime"],
         data["y_batch_prime"],
         args.lam,
-        noise=0,
-        noise_seed=0
+        noise=params["noise_seed"],
+        noise_seed=params["noise_seed"]
     )
     state_dict["unlearning_time"] = time() - start
     
@@ -182,13 +193,40 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         
         start = time()
         w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
+        # compute noise to be added
+        noise_scrub = compute_noise(
+            w_approx,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w_approx += noise_scrub
         state_dict["retraining_time"] = time() - start
 
         # update checkpoint test accuracy
         state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
     return w_approx
 
-def run_pipeline(w,args,params,data):
+def run_pipeline(args,params,data):
+    # train model with no noise
+    if args.ovr: 
+        pass
+    else:
+        w = lr_optimize_sgd_batch(data["X_train"],data["y_train"],params,args)
+        # compute noise to be added
+        noise_scrub = compute_noise(
+            w,
+            data["X_train"],
+            data["y_train"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w += noise_scrub
+
+
     # begin pipeline
     method = args.strategy
     if method == "nothing":
@@ -243,7 +281,9 @@ def execute_when_to_retrain(args,data):
 
     param_grid_dict = {
             "remove_class":[remove_class],
-            "sgd_seed":[args.sgd_seed]
+            "sgd_seed":[args.sgd_seed],
+            "noise_seed":args.noise_seeds,
+            "noise":args.noise_levels
     }
 
     if args.strategy == "golatkar_test_thresh":
@@ -253,17 +293,10 @@ def execute_when_to_retrain(args,data):
     
     param_grid = ParameterGrid(param_grid_dict)
 
-
-    # train model with no noise
-    if args.ovr: 
-        pass
-    else:
-        w = lr_optimize_sgd_batch(data["X_train"],data["y_train"],{"sgd_seed":args.sgd_seed},args)
-
     with open(results_file,mode=args.overwrite_mode,encoding="utf-8") as fp:
         if args.overwrite_mode == "w":
             fp.write(",".join(rows.keys())+"\n")
         for params in tqdm(param_grid,total=len(param_grid)):    
-            strings = run_pipeline(w,args,params,data)
+            strings = run_pipeline(args,params,data)
             [fp.write(s) for s in strings]
             fp.flush()
