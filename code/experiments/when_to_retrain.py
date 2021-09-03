@@ -178,7 +178,7 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         data["X_batch_prime"],
         data["y_batch_prime"],
         args.lam,
-        noise=params["noise_seed"],
+        noise=params["noise"],
         noise_seed=params["noise_seed"]
     )
     state_dict["unlearning_time"] = time() - start
