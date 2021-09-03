@@ -4,7 +4,6 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ananth.mahadevan@helsinki.fi
 #SBATCH --ntasks=1
-#SBATCH --array=0-5
 
 repo_name="unlearning-experiments"
 
@@ -75,12 +74,27 @@ case $1 in
 esac
 
 strategy=$2
+noise=$3
 echo "$1 Dataset Selected"
 echo "Check $WRKDIR/${repo_name}/data/results/$dataset/when_to_retrain for results"
 echo "Performing When to Retrain Experiments"
 
+# parameter grid hack 
+# sampling_type x sampler_seed x noise_seed x noise_level
+if [ "$3" = "noise" ]; then
+# 12 grid locations if noise is added 
+sampling_type=(uniform_random  uniform_random uniform_random  uniform_random targeted_random targeted_random targeted_random targeted_random uniform_informed uniform_informed targeted_informed targeted_informed)
+sampler_seeds=(0 0 1 1 0 0 1 1 0 0 0 0)
+noise_seeds=(0 1 0 1 0 1 0 1 0 1 0 1 0 1 )
+noise_levels=(1 1 1 1 1 1 1 1 1 1 1 1 )
+suffix="--suffix _noise_$SLURM_ARRAY_TASK_ID"
+else
+# 6 grid locations
 sampling_type=(uniform_random uniform_random targeted_random targeted_random uniform_informed targeted_informed)
 sampler_seeds=(0 1 0 1 0 0)
-
-# echo "srun python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --suffix "_$SLURM_ARRAY_TASK_ID" $strategy"
-srun python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --suffix "_$SLURM_ARRAY_TASK_ID" $strategy
+noise_seeds=(0 0 0 0 0 0 0)
+noise_levels=(0 0 0 0 0 0)
+suffix="--suffix _$SLURM_ARRAY_TASK_ID"
+fi
+# echo "python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --noise-levels ${noise_levels[$SLURM_ARRAY_TASK_ID]} --noise-seeds ${noise_seeds[$SLURM_ARRAY_TASK_ID]} $suffix $strategy"
+srun python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --noise-levels ${noise_levels[$SLURM_ARRAY_TASK_ID]} --noise-seeds ${noise_seeds[$SLURM_ARRAY_TASK_ID]} $suffix $strategy
