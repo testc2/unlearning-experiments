@@ -53,26 +53,28 @@ new_rc_params = {
          }
 new_rc_params.update(default)
 # mpl.rcParams.update(new_rc_params)
-save_fig = True
+save_fig = False
 if not save_fig:
     new_rc_params["text.usetex"]=False
 data_dir = project_dir/"data"
 results_dir = data_dir/"results"
 #%%
-dataset = "MNIST"
+dataset = "CIFAR"
 ovr_str = "binary"
 exp_dir = results_dir/dataset/"when_to_retrain"
 
 temp = []
 for file in exp_dir.glob(f"retrain_{ovr_str}*.csv"):
-    temp.append(pd.read_csv(file))
+    df = pd.read_csv(file)
+    print(file.stem,len(df))
+    temp.append(df)
 
 retrain_df = pd.concat(temp)     
 # to make the NaN noise and noise seed 0
 retrain_df.noise.fillna(0,inplace=True)
 retrain_df.noise_seed.fillna(0,inplace=True)
 retrain_df = retrain_df.infer_objects()
-retrain_df = retrain_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
+# retrain_df = retrain_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
 retrain_df["strategy"] = "retrain"
 
 
@@ -84,7 +86,7 @@ gol_df = pd.concat(temp)
 # to make the NaN noise and noise seed 0
 gol_df.noise.fillna(0,inplace=True)
 gol_df.noise_seed.fillna(0,inplace=True)
-gol_df = gol_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
+# gol_df = gol_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
 gol_df["strategy"] = "Golatkar"
 
 temp = []
@@ -95,28 +97,30 @@ nothing_df = pd.concat(temp)
 # to make the NaN noise and noise seed 0
 nothing_df.noise.fillna(0,inplace=True)
 nothing_df.noise_seed.fillna(0,inplace=True)
-nothing_df = nothing_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
+# nothing_df = nothing_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
 nothing_df["strategy"] = "nothing"
 
 temp = []
 for file in exp_dir.glob(f"golatkar_test_thresh_{ovr_str}_*.csv"):
-    temp.append(pd.read_csv(file))
+    df = pd.read_csv(file)
+    print(file.stem,len(df))
+    temp.append(df)
 
 gol_test_df = pd.concat(temp)
 # to make the NaN noise and noise seed 0
 gol_test_df.noise.fillna(0,inplace=True)
 gol_test_df.noise_seed.fillna(0,inplace=True) 
-gol_test_df = gol_test_df.groupby(["num_deletions","sampling_type","noise","threshold"]).mean().reset_index()
+gol_test_df = gol_test_df.infer_objects()
+# gol_test_df = gol_test_df.groupby(["num_deletions","sampling_type","noise","threshold"]).mean().reset_index()
 gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Golatkar Threshold {t} %")
 # %%
 
 def compute_metrics(retrain_df,method_df,nothing_df,window_size=10):
     temp = []
-    groupby_cols = ["sampling_type","noise"]
-    for ((s1,n1),r_df),((s2,n2),m_df),((s3,n3),n_df) in zip(retrain_df.groupby(groupby_cols),method_df.groupby(groupby_cols),nothing_df.groupby(groupby_cols)):
-        assert s1==s2==s3
-        assert n1==n2==n3
-        # print(s1,"noise: ",n1)
+    groupby_cols = ["sampling_type","sampler_seed","noise","noise_seed"]
+    for (g1,r_df),(g2,m_df),(g3,n_df) in zip(retrain_df.groupby(groupby_cols),method_df.groupby(groupby_cols),nothing_df.groupby(groupby_cols)):
+        assert g1 == g2 == g3
+        print(g1,len(r_df),len(m_df),len(n_df))
         r_df.set_index("num_deletions",inplace=True)
         m_df["acc_dis"] = SAPE(m_df["cum_remove_accuracy"].values,r_df.loc[m_df.num_deletions,"cum_remove_accuracy"].values)
         m_df["acc_dis_rolling_avg"] = m_df.acc_dis.rolling(window=window_size).mean()
@@ -144,13 +148,13 @@ gol_test_df = pd.concat([compute_metrics(retrain_df,df,nothing_df) for _,df in g
 nothing_df = compute_metrics(retrain_df,gol_df,nothing_df)
 retrain_df = compute_metrics(retrain_df,retrain_df,nothing_df)
 #%%
-
 noise_filter = lambda df,noise: df[df.noise==noise]
 threshold_filter = lambda df,threshold : df[df.threshold==threshold]
 sampling_type_filter = lambda df,sampling_type : df[df.sampling_type == sampling_type]
 # %%
 combined = pd.concat([gol_df,gol_test_df,retrain_df])
-combined = noise_filter(combined,noise=1)
+noise = 1
+combined = noise_filter(combined,noise=noise)
 fig_width_pt = 234.8775
 scale = 3
 scaled_params = {k:v*scale for k,v in get_default(3).items()}
@@ -194,7 +198,7 @@ for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_
         ax2.set_ylabel("")
         ax3.set_ylabel("")
     ax3.set_xlabel("\# deletions")
-plt.suptitle(dataset)
+plt.suptitle(f"{dataset} $\sigma={noise}$")
 fig.align_ylabels(ax[:,0])
 if save_fig:
     plt.savefig(f"{dataset}_{ovr_str}_pipeline_strategies.pdf",bbox_inches="tight")
@@ -255,9 +259,9 @@ else:
     plt.show()
 
 #%%
-df = noise_filter( threshold_filter(gol_test_df,0.1), noise= 1)
+df = noise_filter( threshold_filter(gol_test_df,1), noise= 1)
 sns.lineplot(data=df,x="num_deletions",y="cum_running_time",hue="sampling_type")
-# plt.yscale("log")
+plt.yscale("log")
 #%%
 df = noise_filter(sampling_type_filter(gol_test_df,"targeted_informed"),noise=1)
 # filter = filter[filter.threshold.isin([1,0.5])]
@@ -267,4 +271,20 @@ plt.show()
 sns.lineplot(data=df,x="num_deletions",y="acc_err",hue="threshold")
 # plt.yscale("log")
 plt.show()
+# %%
+df = pd.concat([gol_test_df,retrain_df])
+df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=1)
+# filter = filter[filter.threshold.isin([1,0.5])]
+sns.lineplot(data=df,x="num_deletions",y="cum_remove_accuracy",hue="strategy")
+plt.show()
+
+# %%
+df = noise_filter(sampling_type_filter(gol_test_df,"targeted_informed"),0)
+# df = sampling_type_filter(retrain_df,"targeted_informed")
+sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="threshold",style="threshold")
+# %%
+df = sampling_type_filter(threshold_filter(gol_test_df,1),"targeted_informed")
+sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="noise")
+
+
 # %%
