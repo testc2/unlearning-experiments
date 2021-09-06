@@ -82,11 +82,11 @@ echo "Performing When to Retrain Experiments"
 # parameter grid hack 
 # sampling_type x sampler_seed x noise_seed x noise_level
 if [ "$3" = "noise" ]; then
-# 12 grid locations if noise is added 
-sampling_type=(uniform_random  uniform_random uniform_random  uniform_random targeted_random targeted_random targeted_random targeted_random uniform_informed uniform_informed targeted_informed targeted_informed)
-sampler_seeds=(0 0 1 1 0 0 1 1 0 0 0 0)
-noise_seeds=(0 1 0 1 0 1 0 1 0 1 0 1 0 1 )
-noise_levels=(1 1 1 1 1 1 1 1 1 1 1 1 )
+out=$(python $WRKDIR/$repo_name/param_grid.py)
+sampling_type=($(echo "$out" | awk -F "|" '{print($1)}'))
+sampler_seeds=($(echo "$out" | awk -F "|" '{print($2)}'))
+noise_seeds=($(echo "$out" | awk -F "|" '{print($3)}'))
+noise_levels=($(echo "$out" | awk -F "|" '{print($4)}'))
 suffix="--suffix _noise_$SLURM_ARRAY_TASK_ID"
 else
 # 6 grid locations

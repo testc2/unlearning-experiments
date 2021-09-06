@@ -8,22 +8,22 @@ case $5 in
 
     retrain|all)
         # retrain results
-        sbatch --mem $2 -t $3 -c $4 -J "$1_Retrain" --array=0-11 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 retrain $6
+        sbatch --mem $2 -t $3 -c $4 -J "$1_Retrain" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 retrain $6
         flag=true
         ;;&
     nothing|all)
         # nothing results 
-        sbatch --mem $2 -t $3 -c $4 -J "$1_Nothing" --array=0-11 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 nothing $6
+        sbatch --mem $2 -t $3 -c $4 -J "$1_Nothing" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 nothing $6
         flag=true
         ;;&
     golatkar|all)
         # golatkar results
-        sbatch --mem $2 -t $3 -c $4 -J "$1_Gol" --array=0-11 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar $6
+        sbatch --mem $2 -t $3 -c $4 -J "$1_Gol" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar $6
         flag=true
         ;;&
     golatkar_test|all)
         # golatkar threshold results
-        sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Test" --array=0-11 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_test_thresh $6
+        sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Test" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_test_thresh $6
         flag=true
         ;;
 
