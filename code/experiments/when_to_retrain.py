@@ -1,6 +1,6 @@
 from functools import partial
 from os import error, stat
-from typing import Callable
+from typing import Callable, Optional
 from methods.multiclass_utils import predict_ovr, predict_proba_ovr, lr_ovr_optimize_sgd
 from methods.pytorch_utils import (
     lr_optimize_sgd_batch,
@@ -9,7 +9,7 @@ from methods.pytorch_utils import (
     lr_grad,
 )
 from methods.remove import remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
-from methods.scrub import scrub, compute_noise
+from methods.scrub import scrub, compute_noise, scrub_minibatch_pytorch, scrub_ovr_minibatch_pytorch
 from methods.common_utils import get_f1_score, get_roc_score
 import torch
 from sklearn.metrics import accuracy_score
@@ -30,9 +30,9 @@ header = [
     "sgd_seed","optim","step_size","lr_schedule","batch_size","num_steps",  # training details
     "noise","noise_seed",  # privacy noise details
     "running_time","unlearning_time","retraining_time","other_time",  # running time details
-    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err",  #  metrics
+    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err","pipeline_acc_dis_est",  #  metrics
     "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance", # additional metrics
-    "threshold"
+    "threshold","prop_const"
 ]
 
 rows = OrderedDict({k: None for k in header})
@@ -60,7 +60,7 @@ def SAPE(a,b):
     return sae*100
 
 
-def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
+def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pre_computed_data:dict={}):
     # clone the trained weights to ensure it is not changed 
     w_temp = w.clone()
     X_remove = data["X_remove"]
@@ -78,7 +78,7 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict):
     state_dict ={
         "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
     }
-
+    state_dict.update(pre_computed_data)
     for batch in trange(0,num_removes,batch_size):
         _metrics = {}
         # reset metrics 
@@ -209,6 +209,141 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
     return w_approx
 
+def gol_disparity_thresh(w,args,params,data,state_dict):
+    # always unlearn 
+    start = time()
+    w_approx,added_noise = scrub(
+        w,
+        data["X_batch_prime"],
+        data["y_batch_prime"],
+        args.lam,
+        noise=params["noise"],
+        noise_seed=params["noise_seed"]
+    )
+    state_dict["unlearning_time"] = time() - start
+    
+    # compute test accuracy
+    test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+    # find the SAPE wrt to test accuracy of last checkpoint
+    acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
+    # estimate the AccDis using the proportionality const
+    acc_dis_est = acc_err_init * state_dict["prop_const"]
+    state_dict["pipeline_acc_dis_est"] = acc_dis_est
+
+    # if the estimated disparity of the unlearned model exceeds the threshold then retrain 
+    if acc_dis_est > params["threshold"]:
+        state_dict["retrained"]=True
+        
+        start = time()
+        w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
+        # compute noise to be added
+        noise_scrub = compute_noise(
+            w_approx,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w_approx += noise_scrub
+        state_dict["retraining_time"] = time() - start
+
+        # update checkpoint test accuracy
+        state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+    return w_approx
+
+
+def obtain_proportionality_const(w,args,params,data):
+    X_test = data["X_test"]
+    y_test = data["y_test"]
+    # For AccDis Strategy retrain at large deletion ratio and compute proportionality
+    if args.ovr:
+        deletion_ratio = 0.09
+    else :
+        deletion_ratio = 0.45
+    
+    # generate most adversarial examples 
+    X_remove,y_remove,X_prime,y_prime = sample(
+        data,
+        deletion_ratio,
+        params["remove_class"],
+        sampler_seed=0,
+        sampling_type="targeted_informed"
+    )
+
+    # obtain unlearned model 
+    if args.ovr:
+        w_approc, _ = scrub_ovr_minibatch_pytorch(
+            w,
+            data,
+            minibatch_size=args.deletion_batch_size,
+            args=args,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"],
+            X_remove=X_remove,
+            X_prime=X_prime,
+            y_remove=y_remove,
+            y_prime=y_prime 
+        )
+    else:
+        w_approx,_ = scrub_minibatch_pytorch(
+            w,
+            data,
+            minibatch_size=args.deletion_batch_size,
+            args=args,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"],
+            X_remove=X_remove,
+            X_prime=X_prime,
+            y_remove=y_remove,
+            y_prime=y_prime
+            
+        )
+
+    # obtain retrained model 
+    if args.ovr:
+        pass
+    else:
+        w_prime = lr_optimize_sgd_batch(X_prime,y_prime,params,args)
+        # compute noise to be added
+        if params["noise"]>0:
+            _,noise_scrub = scrub_minibatch_pytorch(
+                w_prime,
+                data,
+                args.deletion_batch_size,
+                args,
+                params["noise"],
+                params["noise_seed"],
+                X_remove=X_remove,
+                X_prime=X_prime,
+                y_remove=y_remove,
+                y_prime=y_prime
+            )
+        else:
+            noise_scrub = torch.zeros_like(w_prime)
+        w_prime += noise_scrub
+    
+    # compute metrics
+    if args.ovr:
+        pass
+    else:
+        # get test accuracies
+        retrain_test_acc = accuracy_score(y_test,predict(w_prime,X_test))
+        gol_test_acc = accuracy_score(y_test,predict(w_approx,X_test))
+        init_test_acc = accuracy_score(y_test,predict(w,X_test))
+        # get deleted samples accuracy 
+        retrain_del_acc = accuracy_score(y_remove,predict(w_prime,X_remove))
+        gol_del_acc = accuracy_score(y_remove,predict(w_approx,X_remove))
+    
+    # compute AccDis and AccErr_init
+    acc_dis = SAPE(retrain_del_acc,gol_del_acc)[0]
+    acc_err_init = SAPE(init_test_acc,gol_test_acc)[0]
+
+    c = acc_dis/acc_err_init
+
+    return c
+
+
 def run_pipeline(args,params,data):
     # train model with no noise
     if args.ovr: 
@@ -225,8 +360,8 @@ def run_pipeline(args,params,data):
             params["noise_seed"]
         )
         w += noise_scrub
-
-
+    
+    pre_computed_data={}
     # begin pipeline
     method = args.strategy
     if method == "nothing":
@@ -237,14 +372,16 @@ def run_pipeline(args,params,data):
         strat_fn = always_unlearn_gol
     elif method == "golatkar_test_thresh":
         strat_fn = gol_test_acc_thresh
+    elif method == "golatkar_disparity_thresh":
+        strat_fn = gol_disparity_thresh
+        c = obtain_proportionality_const(w,args,params,data)
+        pre_computed_data["prop_const"]=c
     else:
         raise ValueError(f"Strategy {method} is not supported")
     
-    metrics = pipeline(w,strat_fn,args,params,data)
+    metrics = pipeline(w,strat_fn,args,params,data,pre_computed_data)
 
     return dict_2_string(rows,args,params,metrics)
-
-
 
 
 def execute_when_to_retrain(args,data):
@@ -286,7 +423,7 @@ def execute_when_to_retrain(args,data):
             "noise":args.noise_levels
     }
 
-    if args.strategy == "golatkar_test_thresh":
+    if args.strategy in ["golatkar_test_thresh","golatkar_disparity_thresh"]:
         param_grid_dict.update({
             "threshold":args.thresholds,
         })
