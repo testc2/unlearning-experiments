@@ -397,3 +397,24 @@ def load_epsilon(data_dir,l2_norm=True):
     X_train = torch.cat((X_train,torch.ones(X_train.size(0),1)),dim=1)
     X_test = torch.cat((X_test,torch.ones(X_test.size(0),1)),dim=1)
     return X_train,X_test,y_train,y_test
+
+
+def SAPE(a,b):
+    numerator = np.abs(a-b)
+    denominator = (np.abs(a)+np.abs(b))
+    both_zero = np.array((numerator==0)&(denominator==0),ndmin=1)
+    sae = np.array(numerator/denominator,ndmin=1)
+    sae[both_zero] = 0
+    return sae*100
+
+
+def SMAPE(a,b):
+    numerator = np.abs(a-b)
+    denominator = (np.abs(a)+np.abs(b))
+    both_zero = (numerator==0)&(denominator==0)
+    sae = numerator/denominator
+    if sae.size > 1:
+        sae[both_zero] = 0 
+    elif both_zero:
+        sae = np.array(0)
+    return sae*100
