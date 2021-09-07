@@ -10,7 +10,7 @@ from methods.pytorch_utils import (
 )
 from methods.remove import remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
 from methods.scrub import scrub, compute_noise, scrub_minibatch_pytorch, scrub_ovr_minibatch_pytorch
-from methods.common_utils import get_f1_score, get_roc_score
+from methods.common_utils import SAPE, get_f1_score, get_roc_score
 import torch
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import ParameterGrid
@@ -30,7 +30,7 @@ header = [
     "sgd_seed","optim","step_size","lr_schedule","batch_size","num_steps",  # training details
     "noise","noise_seed",  # privacy noise details
     "running_time","unlearning_time","retraining_time","other_time",  # running time details
-    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err","pipeline_acc_dis_est",  #  metrics
+    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err","pipeline_acc_dis_est","pipeline_abs_err",  #  metrics
     "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance", # additional metrics
     "threshold","prop_const"
 ]
@@ -50,14 +50,6 @@ def dict_2_string(row,args,params,metrics_list):
         print_str += "\n"
         strings.append(print_str)
     return strings
-
-def SAPE(a,b):
-    numerator = np.abs(a-b)
-    denominator = (np.abs(a)+np.abs(b))
-    both_zero = np.array((numerator==0)&(denominator==0),ndmin=1)
-    sae = np.array(numerator/denominator,ndmin=1)
-    sae[both_zero] = 1 
-    return sae*100
 
 
 def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pre_computed_data:dict={}):
@@ -92,7 +84,8 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         y_batch_remove = data["y_batch_remove"] = y_remove[batch:batch+batch_size]
         X_batch_prime = data["X_batch_prime"] = X_train_temp[batch+batch_size:]
         y_batch_prime = data["y_batch_prime"] = y_train_temp[batch+batch_size:]
-        
+        X_remove_cum = data["X_remove_cum"] = X_remove[:batch+batch_size]
+        y_remove_cum = data["y_remove_cum"] = y_remove[:batch+batch_size]
         start = time()
         w_temp = strategy(w_temp,args,params,data,state_dict)
         running_time = time() - start 
@@ -105,7 +98,8 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         # compute performance metrics
         test_accuracy = accuracy_score(y_test,predict(w_temp,X_test))
         acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
-        cum_remove_accuracy = accuracy_score(y_remove[:batch+batch_size],predict(w_temp,X_remove[:batch+batch_size]))
+        abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
+        cum_remove_accuracy = accuracy_score(y_remove_cum,predict(w_temp,X_remove_cum))
         batch_remove_accuracy = accuracy_score(y_batch_remove,predict(w_temp,X_batch_remove))
         num_deletions = min(batch+batch_size,num_removes)
 
@@ -123,6 +117,7 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
             "batch_remove_accuracy":batch_remove_accuracy,
             "cum_remove_accuracy":cum_remove_accuracy,
             "pipeline_acc_err":acc_err_init,
+            "pipeline_abs_err":abs_err_init,
             "num_deletions":num_deletions,
             "batch_deleted_class_balance":batch_class_balance,
             "cum_deleted_class_balance":cum_class_balance,
@@ -224,11 +219,19 @@ def gol_disparity_thresh(w,args,params,data,state_dict):
     
     # compute test accuracy
     test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
-    # find the SAPE wrt to test accuracy of last checkpoint
-    acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
-    # estimate the AccDis using the proportionality const
-    acc_dis_est = acc_err_init * state_dict["prop_const"]
-    state_dict["pipeline_acc_dis_est"] = acc_dis_est
+    # find the absolute error wrt to test accuracy of last checkpoint
+    abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
+    # find accuracy on deleted sample (cumulative) of the unlearned model
+    acc_del_u = accuracy_score(data["y_remove_cum"],predict(w_approx,data["X_remove_cum"]))
+
+
+    # estimate the deleted sample accuracy of retrained model using the proportionality const
+    term = state_dict["prop_const"]*abs_err_init
+    acc_del_retrained = [acc_del_u+term,acc_del_u-term]
+    # compute the disparity as SAPE of both cases 
+    sape_del = SAPE(acc_del_u,acc_del_retrained)
+    # select the largest SAPE as the disparity  
+    acc_dis_est = max(sape_del)
 
     # if the estimated disparity of the unlearned model exceeds the threshold then retrain 
     if acc_dis_est > params["threshold"]:
@@ -250,6 +253,9 @@ def gol_disparity_thresh(w,args,params,data,state_dict):
 
         # update checkpoint test accuracy
         state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+        acc_dis_est = 0
+    
+    state_dict["pipeline_acc_dis_est"] = acc_dis_est
     return w_approx
 
 
@@ -268,15 +274,15 @@ def obtain_proportionality_const(w,args,params,data):
         deletion_ratio,
         params["remove_class"],
         sampler_seed=0,
-        sampling_type="targeted_informed"
+        sampling_type="targeted_random"
     )
 
     # obtain unlearned model 
     if args.ovr:
-        w_approc, _ = scrub_ovr_minibatch_pytorch(
+        w_approx, _ = scrub_ovr_minibatch_pytorch(
             w,
             data,
-            minibatch_size=args.deletion_batch_size,
+            minibatch_size=X_remove.shape[0],
             args=args,
             noise=params["noise"],
             noise_seed=params["noise_seed"],
@@ -289,7 +295,7 @@ def obtain_proportionality_const(w,args,params,data):
         w_approx,_ = scrub_minibatch_pytorch(
             w,
             data,
-            minibatch_size=args.deletion_batch_size,
+            minibatch_size=X_remove.shape[0],
             args=args,
             noise=params["noise"],
             noise_seed=params["noise_seed"],
@@ -310,7 +316,7 @@ def obtain_proportionality_const(w,args,params,data):
             _,noise_scrub = scrub_minibatch_pytorch(
                 w_prime,
                 data,
-                args.deletion_batch_size,
+                X_remove.shape[0],
                 args,
                 params["noise"],
                 params["noise_seed"],
@@ -335,12 +341,12 @@ def obtain_proportionality_const(w,args,params,data):
         retrain_del_acc = accuracy_score(y_remove,predict(w_prime,X_remove))
         gol_del_acc = accuracy_score(y_remove,predict(w_approx,X_remove))
     
-    # compute AccDis and AccErr_init
-    acc_dis = SAPE(retrain_del_acc,gol_del_acc)[0]
-    acc_err_init = SAPE(init_test_acc,gol_test_acc)[0]
+    # compute AbsDis and AbsErr_init
+    abs_dis = np.abs(retrain_del_acc-gol_del_acc)
+    abs_err_init = np.abs(init_test_acc-gol_test_acc)
 
-    c = acc_dis/acc_err_init
-
+    c = abs_dis/abs_err_init
+    print("Proportionality const : ",c)
     return c
 
 
