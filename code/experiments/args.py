@@ -303,13 +303,17 @@ def add_golatkar_test_thresh_subparser(subparser):
         )
 
 
-def add_golatkar_disparity_thresh_subparser(subparser):
-    gol_subparser = subparser.add_parser("golatkar_disparity_thresh")
+def add_golatkar_disparity_thresh_subparser(subparser,v2=False):
+    if v2:
+        version_str = "v2"
+    else:
+        version_str = "v1"
+    gol_subparser = subparser.add_parser(f"golatkar_disparity_thresh_{version_str}")
     gol_subparser.add_argument(
         "--thresholds",
         type=float,
         nargs="+",
-        default=[1,0.5,0.1]
+        default=[5,2,1,0.5]
         )
 
 
@@ -408,6 +412,7 @@ def add_when_subparser(subparser):
     subsubparser.add_parser("golatkar")
     subsubparser.add_parser("nothing")
     add_golatkar_test_thresh_subparser(subsubparser)
-    add_golatkar_disparity_thresh_subparser(subsubparser)
+    add_golatkar_disparity_thresh_subparser(subsubparser,v2=False)
+    add_golatkar_disparity_thresh_subparser(subsubparser,v2=True)
 
     return when_parser

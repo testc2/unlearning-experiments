@@ -204,7 +204,7 @@ def gol_test_acc_thresh(w,args,params,data,state_dict):
         state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
     return w_approx
 
-def gol_disparity_thresh(w,args,params,data,state_dict):
+def gol_disparity_thresh(w,args,params,data,state_dict,v2=False):
     # always unlearn 
     start = time()
     w_approx,added_noise = scrub(
@@ -219,19 +219,26 @@ def gol_disparity_thresh(w,args,params,data,state_dict):
     
     # compute test accuracy
     test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
-    # find the absolute error wrt to test accuracy of last checkpoint
-    abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
-    # find accuracy on deleted sample (cumulative) of the unlearned model
-    acc_del_u = accuracy_score(data["y_remove_cum"],predict(w_approx,data["X_remove_cum"]))
+    if v2:
+        # find the absolute error wrt to test accuracy of last checkpoint
+        abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
+        # find accuracy on deleted sample (cumulative) of the unlearned model
+        acc_del_u = accuracy_score(data["y_remove_cum"],predict(w_approx,data["X_remove_cum"]))
 
 
-    # estimate the deleted sample accuracy of retrained model using the proportionality const
-    term = state_dict["prop_const"]*abs_err_init
-    acc_del_retrained = [acc_del_u+term,acc_del_u-term]
-    # compute the disparity as SAPE of both cases 
-    sape_del = SAPE(acc_del_u,acc_del_retrained)
-    # select the largest SAPE as the disparity  
-    acc_dis_est = max(sape_del)
+        # estimate the deleted sample accuracy of retrained model using the proportionality const
+        term = state_dict["prop_const"]*abs_err_init
+        acc_del_retrained = [acc_del_u+term,acc_del_u-term]
+        # compute the disparity as SAPE of both cases 
+        sape_del = SAPE(acc_del_u,acc_del_retrained)
+        # select the largest SAPE as the disparity  
+        acc_dis_est = max(sape_del)
+    
+    else:
+        # find the SAPE wrt to test accuracy of last checkpoint
+        acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
+        # estimate the AccDis using the proportionality const
+        acc_dis_est = acc_err_init * state_dict["prop_const"]
 
     # if the estimated disparity of the unlearned model exceeds the threshold then retrain 
     if acc_dis_est > params["threshold"]:
@@ -259,7 +266,19 @@ def gol_disparity_thresh(w,args,params,data,state_dict):
     return w_approx
 
 
-def obtain_proportionality_const(w,args,params,data):
+def obtain_proportionality_const(w,args,params,data,v2=False):
+    """Function that computes the proportionality constant for the estimation of accuracy disparity
+
+    Args:
+        w (torch.tensor): The initial trained model
+        args (argparse): the arguments for the method
+        params (dict): the paramters for the current run of the experiment
+        data (dict): A collection of the test, train and other data
+        v2 (bool, optional): To choose the absolute difference based estimation or not. Defaults to False.
+
+    Returns:
+        [type]: [description]
+    """
     X_test = data["X_test"]
     y_test = data["y_test"]
     # For AccDis Strategy retrain at large deletion ratio and compute proportionality
@@ -341,12 +360,17 @@ def obtain_proportionality_const(w,args,params,data):
         retrain_del_acc = accuracy_score(y_remove,predict(w_prime,X_remove))
         gol_del_acc = accuracy_score(y_remove,predict(w_approx,X_remove))
     
-    # compute AbsDis and AbsErr_init
-    abs_dis = np.abs(retrain_del_acc-gol_del_acc)
-    abs_err_init = np.abs(init_test_acc-gol_test_acc)
+    if v2:
+        # compute AbsDis and AbsErr_init
+        abs_dis = np.abs(retrain_del_acc-gol_del_acc)
+        abs_err_init = np.abs(init_test_acc-gol_test_acc)
+        c = abs_dis/abs_err_init
+    else:
+        # compute AccDis and AccErr_init
+        acc_dis = SAPE(retrain_del_acc,gol_del_acc)[0]
+        acc_err_init = SAPE(init_test_acc,gol_test_acc)[0]
 
-    c = abs_dis/abs_err_init
-    print("Proportionality const : ",c)
+        c = acc_dis/acc_err_init
     return c
 
 
@@ -378,9 +402,13 @@ def run_pipeline(args,params,data):
         strat_fn = always_unlearn_gol
     elif method == "golatkar_test_thresh":
         strat_fn = gol_test_acc_thresh
-    elif method == "golatkar_disparity_thresh":
+    elif method == "golatkar_disparity_thresh_v1":
         strat_fn = gol_disparity_thresh
-        c = obtain_proportionality_const(w,args,params,data)
+        c = obtain_proportionality_const(w,args,params,data,v2=False)
+        pre_computed_data["prop_const"]=c
+    elif method == "golatkar_disparity_thresh_v2":
+        strat_fn = gol_disparity_thresh
+        c = obtain_proportionality_const(w,args,params,data,v2=True)
         pre_computed_data["prop_const"]=c
     else:
         raise ValueError(f"Strategy {method} is not supported")
@@ -429,7 +457,7 @@ def execute_when_to_retrain(args,data):
             "noise":args.noise_levels
     }
 
-    if args.strategy in ["golatkar_test_thresh","golatkar_disparity_thresh"]:
+    if args.strategy in ["golatkar_test_thresh","golatkar_disparity_thresh_v1","golatkar_disparity_thresh_v2"]:
         param_grid_dict.update({
             "threshold":args.thresholds,
         })
