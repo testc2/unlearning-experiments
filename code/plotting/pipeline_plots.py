@@ -1,6 +1,7 @@
 #%%
 from IPython import get_ipython
 from numpy.lib.npyio import save
+from torch import threshold_
 from torch.nn.functional import threshold
 if get_ipython() is not None and __name__ == "__main__":
     notebook = True
@@ -46,7 +47,7 @@ new_rc_params = {
          }
 new_rc_params.update(default)
 # mpl.rcParams.update(new_rc_params)
-save_fig = False
+save_fig = True
 if not save_fig:
     new_rc_params["text.usetex"]=False
 data_dir = project_dir/"data"
@@ -306,10 +307,10 @@ plt.show()
 
 # %%
 # plots to compare impact of threshold on a metric for particular noise level and sampling type 
-sampling_type = "uniform_informed"
+sampling_type = "targeted_informed"
 noise_level = 0
-metric = "error_acc_dis_cumsum"
-dataframe = gol_dis_df
+metric = "acc_dis"
+dataframe = gol_df
 df = noise_filter(sampling_type_filter(dataframe,sampling_type),noise_level)
 sns.lineplot(data=df,x="num_deletions",y=metric,hue="threshold",style="threshold")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
@@ -359,17 +360,10 @@ plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level
 
 plt.show()
 # %%
-
-sampling_type = "uniform_informed"
+sampling_type = "targeted_informed"
 noise_level = 0
-threshold = 1
-m_df = noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level)
-r_df = noise_filter(sampling_type_filter(retrain_df,sampling_type),noise_level)
-n_df = noise_filter(sampling_type_filter(nothing_df,sampling_type),noise_level)
-g_df = noise_filter(sampling_type_filter(gol_df,sampling_type),noise_level)
-df = pd.concat([compute_metrics(r_df,df,n_df) for _,df in m_df.groupby("threshold")])
-df = threshold_filter(df,threshold)
-c = df.prop_const.unique()[0]
+threshold = 0.5
+df = threshold_filter(noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level),threshold)
 sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_dis_est",label="pipeline estimate",marker="s")
 sns.lineplot(data=df,x="num_deletions",y="acc_dis",label="true",marker="s")
 plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
@@ -379,12 +373,7 @@ plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level
 sampling_type = "targeted_informed"
 noise_level = 0
 threshold = 1
-m_df = noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level)
-r_df = noise_filter(sampling_type_filter(retrain_df,sampling_type),noise_level)
-n_df = noise_filter(sampling_type_filter(nothing_df,sampling_type),noise_level)
-g_df = noise_filter(sampling_type_filter(gol_df,sampling_type),noise_level)
-df = pd.concat([compute_metrics(r_df,df,n_df) for _,df in m_df.groupby("threshold")])
-df = threshold_filter(df,threshold)
+df = threshold_filter(noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level),threshold)
 c = df.prop_const.unique()[0]
 c = 4.69518422
 
@@ -405,13 +394,32 @@ plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
 plt.ylabel("")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
 # %%
-sampling_type = "targeted_informed"
+fig,(ax1,ax2,ax3) = plt.subplots(1,3,figsize=(15,5))
 noise_level = 0
-df = noise_filter(sampling_type_filter(gol_test_df,sampling_type),noise_level)
-# sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_err",label="pipeline",hue="threshold")
-sns.lineplot(data=df,x="num_deletions",y="acc_err",label="pipeline",hue="threshold")
+sampling_type = "targeted_informed"
+df = noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level)
 
-# sns.lineplot(data=df,x="num_deletions",y="abs_dis",label="abs dis")
-# sns.lineplot(data=df,x="num_deletions",y="abs_err_init",label="abs err init ")
+df1 = threshold_filter(df,1)
+df1.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax1,marker="s")
+df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax1,marker="s")
+ax1.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
+ax1.set_title("Threshold = 1")
 
+df2 = threshold_filter(df,0.5)
+df2.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax2,marker="s")
+df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax2,marker="s")
+ax2.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
+ax2.set_title("Threshold = 0.5")
+
+df3 = threshold_filter(df,0.1)
+df3.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax3,marker="s")
+df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax3,marker="s")
+ax3.axhline(0.1,linestyle="--",color="black",alpha=0.5,marker="s")
+ax3.set_title("Threshold = 0.1")
+
+plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
+if save_fig:
+    plt.savefig(f"Disparity_{dataset}_{' '.join(sampling_type.split('_'))}.pdf",bbox_inches="tight")
+else:
+    plt.show()
 # %%
