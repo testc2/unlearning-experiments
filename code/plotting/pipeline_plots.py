@@ -1,6 +1,8 @@
 #%%
+from collections import namedtuple
+from typing import Optional
 from IPython import get_ipython
-from numpy.lib.npyio import save
+from numpy.lib.npyio import load, save
 from torch import threshold_
 from torch.nn.functional import threshold
 if get_ipython() is not None and __name__ == "__main__":
@@ -53,75 +55,38 @@ if not save_fig:
 data_dir = project_dir/"data"
 results_dir = data_dir/"results"
 #%%
-dataset = "COVTYPE"
-ovr_str = "binary"
-exp_dir = results_dir/dataset/"when_to_retrain"
 
-temp = []
-for file in exp_dir.glob(f"retrain_{ovr_str}*.csv"):
-    df = pd.read_csv(file)
-    # print(file.stem,len(df))
-    temp.append(df)
+Data = namedtuple('Data', ["dataset","ovr_str",'retrain', 'gol', 'nothing', 'gol_test', 'gol_dis_v1', 'gol_dis_v2'])
 
-retrain_df = pd.concat(temp)     
-# to make the NaN noise and noise seed 0
-retrain_df.noise.fillna(0,inplace=True)
-retrain_df.noise_seed.fillna(0,inplace=True)
-retrain_df = retrain_df.infer_objects()
-# retrain_df = retrain_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
-retrain_df["strategy"] = "retrain"
+def load_df(exp_dir:Path,ovr_str:str,strategy_file_prefix:str,strategy_name:str):
+    temp = []
+    for file in exp_dir.glob(f"{strategy_file_prefix}_{ovr_str}*.csv"):
+        df = pd.read_csv(file)
+        # print(file.stem,len(df))
+        temp.append(df)
 
-
-temp = []
-for file in exp_dir.glob(f"golatkar_{ovr_str}*.csv"):
-    temp.append(pd.read_csv(file))
-
-gol_df = pd.concat(temp)
-# to make the NaN noise and noise seed 0
-gol_df.noise.fillna(0,inplace=True)
-gol_df.noise_seed.fillna(0,inplace=True)
-gol_df = gol_df.infer_objects()
-# gol_df = gol_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
-gol_df["strategy"] = "Golatkar"
-
-temp = []
-for file in exp_dir.glob(f"nothing_{ovr_str}_*.csv"):
-    temp.append(pd.read_csv(file))
-
-nothing_df = pd.concat(temp)
-# to make the NaN noise and noise seed 0
-nothing_df.noise.fillna(0,inplace=True)
-nothing_df.noise_seed.fillna(0,inplace=True)
-# nothing_df = nothing_df.groupby(["num_deletions","sampling_type","noise"]).mean().reset_index()
-nothing_df["strategy"] = "nothing"
-
-temp = []
-for file in exp_dir.glob(f"golatkar_test_thresh_{ovr_str}_*.csv"):
-    df = pd.read_csv(file)
-    # print(file.stem,len(df))
-    temp.append(df)
-
-gol_test_df = pd.concat(temp)
-# to make the NaN noise and noise seed 0
-gol_test_df.noise.fillna(0,inplace=True)
-gol_test_df.noise_seed.fillna(0,inplace=True) 
-gol_test_df = gol_test_df.infer_objects()
-# gol_test_df = gol_test_df.groupby(["num_deletions","sampling_type","noise","threshold"]).mean().reset_index()
-gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Golatkar Threshold {t} %")
-
-temp = []
-for file in exp_dir.glob(f"golatkar_disparity_thresh_{ovr_str}*.csv"):
-    df = pd.read_csv(file)
-    # print(file.st`em,len(df))
-    temp.append(df)
-if len(temp):
-    gol_dis_df = pd.concat(temp)
+    df = pd.concat(temp)     
     # to make the NaN noise and noise seed 0
-    gol_dis_df.noise.fillna(0,inplace=True)
-    gol_dis_df.noise_seed.fillna(0,inplace=True) 
-    gol_dis_df = gol_dis_df.infer_objects()
-    # gol_dis_df = gol_dis_df.groupby(["num_deletions","sampling_type","noise","threshold"]).mean().reset_index()
-    gol_dis_df["strategy"] = gol_dis_df.threshold.apply(lambda t: f"Golatkar Dis Threshold {t} %")
+    df.noise.fillna(0,inplace=True)
+    df.noise_seed.fillna(0,inplace=True)
+    df = df.infer_objects()
+    df["strategy"] = strategy_name
+
+    return df
+
+def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
+    exp_dir = results_dir/dataset/"when_to_retrain"
+    retrain_df = load_df(exp_dir,ovr_str,"retrain","retrain")
+    gol_df = load_df(exp_dir,ovr_str,"golatkar","Golatkar")
+    nothing_df = load_df(exp_dir,ovr_str,"nothing","nothing")
+    gol_test_df = load_df(exp_dir,ovr_str,"golatkar_test_thresh","Golatkar Test")
+    gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Golatkar Threshold {t} %")
+    gol_dis_v1_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v1","Golatkar Disparity")
+    gol_dis_v1_df["strategy"] = gol_dis_v1_df.threshold.apply(lambda t: f"Golatkar V1 Dis Threshold {t} %")
+    gol_dis_v2_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v2","Golatkar Disparity")
+    gol_dis_v2_df["strategy"] = gol_dis_v2_df.threshold.apply(lambda t: f"Golatkar V2 Dis Threshold {t} %")
+    
+    return Data(dataset,ovr_str,retrain_df,gol_df,nothing_df,gol_test_df,gol_dis_v1_df,gol_dis_v2_df)
 # %%
 noise_filter = lambda df,noise: df[df.noise==noise]
 threshold_filter = lambda df,threshold : df[df.threshold==threshold]
@@ -172,12 +137,46 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=1
                 temp.append(m_df)
     return pd.concat(temp)
 
+def compute_all_metrics(data:Data):
+    gol = compute_metrics(data.retrain,data.gol,data.nothing)
+    gol_test = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_test.groupby("threshold")])
+    gol_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v1.groupby("threshold")])
+    gol_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v2.groupby("threshold")])
+    nothing = compute_metrics(data.retrain,data.nothing,data.nothing)
+    retrain = compute_metrics(data.retrain,data.retrain,data.nothing)
+    
+    return Data(data.dataset,data.ovr_str,retrain,gol,nothing,gol_test,gol_dis_v1,gol_dis_v2)
 #%%
-gol_df = compute_metrics(retrain_df,gol_df,nothing_df)
-gol_test_df = pd.concat([compute_metrics(retrain_df,df,nothing_df,threshold=t) for t,df in gol_test_df.groupby("threshold")])
-gol_dis_df = pd.concat([compute_metrics(retrain_df,df,nothing_df,threshold=t) for t,df in gol_dis_df.groupby("threshold")])
-nothing_df = compute_metrics(retrain_df,gol_df,nothing_df)
-retrain_df = compute_metrics(retrain_df,retrain_df,nothing_df)
+
+def plot_acc_dis_estimation(df:pd.DataFrame,sampling_type:str,noise_level:float,threshold:float,ax:Optional[plt.axes]=None):
+    if ax is None:
+        fig, ax = plt.subplots()
+    temp = threshold_filter(noise_filter(sampling_type_filter(df,sampling_type),noise_level),threshold)
+    temp.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax,marker="s")
+    temp.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax,marker="s")
+    ax.axhline(threshold,linestyle="--",color="black",alpha=0.5,marker="s")
+
+    return ax
+
+def plot_acc_dis_versions(data,sampling_type:str,noise_level:float,threshold:float):
+    fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,5))
+    ax1 = plot_acc_dis_estimation(data.gol_dis_v1,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax1)
+    ax1.set_title("V1 Strategy")
+    ax2 = plot_acc_dis_estimation(data.gol_dis_v2,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax2)
+    ax2.set_title("V2 Strategy")
+
+    plt.suptitle(f"{data.dataset}, {' '.join(sampling_type.split('_'))}, $\sigma={noise_level}$ threshold={threshold}")  
+
+#%%
+if __name__ == "__main__":
+    dataset = "CIFAR"
+    ovr_str = "binary"
+    data = load_dfs(results_dir,dataset,ovr_str)
+    data = compute_all_metrics(data)
+
+#%%
+    plot_acc_dis_versions(data,"targeted_informed",noise_level=0,threshold=2)
+    
 # %%
 combined = pd.concat([gol_df,gol_test_df,retrain_df])
 noise = 0
@@ -299,23 +298,25 @@ sns.lineplot(data=df,x="num_deletions",y="acc_err",hue="threshold")
 # plt.yscale("log")
 plt.show()
 # %%
-df = pd.concat([gol_test_df,retrain_df])
-df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=1)
+df = pd.concat([gol_dis_df,gol_df])
+df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=0)
 # filter = filter[filter.threshold.isin([1,0.5])]
-sns.lineplot(data=df,x="num_deletions",y="cum_remove_accuracy",hue="strategy")
+sns.lineplot(data=df,x="num_deletions",y="acc_err_cumsum",hue="strategy")
 plt.show()
 
 # %%
 # plots to compare impact of threshold on a metric for particular noise level and sampling type 
-sampling_type = "targeted_informed"
+sampling_type = "targeted_random"
 noise_level = 0
-metric = "acc_dis"
-dataframe = gol_df
+metric = "error_acc_dis_cumsum"
+dataframe = gol_dis_df
 df = noise_filter(sampling_type_filter(dataframe,sampling_type),noise_level)
 sns.lineplot(data=df,x="num_deletions",y=metric,hue="threshold",style="threshold")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
-
+# plt.yscale("log")
+# plt.axhline(1)
 plt.show()
+print(df.groupby("threshold").error_acc_dis.sum())
 #%%
 
 # plots to compare the impact of noise on AccDis and AccErr for a threshold and sampling type 
@@ -348,7 +349,6 @@ sns.lineplot(x=df.abs_err_init,y=c*df.abs_err_init)
 plt.xscale("log")
 plt.yscale("log")
 # %%
-
 
 sampling_type = "targeted_informed"
 noise_level = 0
@@ -422,4 +422,5 @@ if save_fig:
     plt.savefig(f"Disparity_{dataset}_{' '.join(sampling_type.split('_'))}.pdf",bbox_inches="tight")
 else:
     plt.show()
+
 # %%
