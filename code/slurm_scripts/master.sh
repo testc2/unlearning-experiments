@@ -11,7 +11,7 @@ for dataset in $datasets; do
     # select memory requirements, time limits and cores based on dataset
     case $dataset in 
         MNISTBinary)
-            mem="4000M"
+            mem="1000M"
             time="5:00:00"
             cores="24"
             ;;

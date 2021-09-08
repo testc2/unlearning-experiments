@@ -81,7 +81,7 @@ echo "Performing When to Retrain Experiments"
 
 # parameter grid hack 
 # sampling_type x sampler_seed x noise_seed x noise_level
-if [ "$3" = "noise" ]; then
+if [ "$3" == "noise" ]; then
 out=$(python $WRKDIR/$repo_name/param_grid.py)
 sampling_type=($(echo "$out" | awk -F "|" '{print($1)}'))
 sampler_seeds=($(echo "$out" | awk -F "|" '{print($2)}'))
