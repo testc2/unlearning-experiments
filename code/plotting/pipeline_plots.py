@@ -49,14 +49,14 @@ new_rc_params = {
          }
 new_rc_params.update(default)
 # mpl.rcParams.update(new_rc_params)
-save_fig = True
+save_fig = False
 if not save_fig:
     new_rc_params["text.usetex"]=False
 data_dir = project_dir/"data"
 results_dir = data_dir/"results"
 #%%
 
-Data = namedtuple('Data', ["dataset","ovr_str",'retrain', 'gol', 'nothing', 'gol_test', 'gol_dis_v1', 'gol_dis_v2'])
+Data = namedtuple('Data', ["dataset","ovr_str",'retrain', 'gol', 'nothing', 'gol_test', 'gol_dis_v1', 'gol_dis_v2', 'guo_dis_v1', 'guo_dis_v2'])
 
 def load_df(exp_dir:Path,ovr_str:str,strategy_file_prefix:str,strategy_name:str):
     temp = []
@@ -64,14 +64,15 @@ def load_df(exp_dir:Path,ovr_str:str,strategy_file_prefix:str,strategy_name:str)
         df = pd.read_csv(file)
         # print(file.stem,len(df))
         temp.append(df)
-
-    df = pd.concat(temp)     
-    # to make the NaN noise and noise seed 0
-    df.noise.fillna(0,inplace=True)
-    df.noise_seed.fillna(0,inplace=True)
-    df = df.infer_objects()
-    df["strategy"] = strategy_name
-
+    if len(temp):
+        df = pd.concat(temp)     
+        # to make the NaN noise and noise seed 0
+        df.noise.fillna(0,inplace=True)
+        df.noise_seed.fillna(0,inplace=True)
+        df = df.infer_objects()
+        df["strategy"] = strategy_name
+    else:
+        df = pd.DataFrame()
     return df
 
 def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
@@ -81,12 +82,20 @@ def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
     nothing_df = load_df(exp_dir,ovr_str,"nothing","nothing")
     gol_test_df = load_df(exp_dir,ovr_str,"golatkar_test_thresh","Golatkar Test")
     gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Golatkar Threshold {t} %")
+   
     gol_dis_v1_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v1","Golatkar Disparity")
     gol_dis_v1_df["strategy"] = gol_dis_v1_df.threshold.apply(lambda t: f"Golatkar V1 Dis Threshold {t} %")
     gol_dis_v2_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v2","Golatkar Disparity")
     gol_dis_v2_df["strategy"] = gol_dis_v2_df.threshold.apply(lambda t: f"Golatkar V2 Dis Threshold {t} %")
+
+    guo_dis_v1_df = load_df(exp_dir,ovr_str,"guo_disparity_thresh_v1","Guo Disparity")
+    if len(guo_dis_v1_df):
+        guo_dis_v1_df["strategy"] = guo_dis_v1_df.threshold.apply(lambda t: f"Guo V1 Dis Threshold {t} %")
+    guo_dis_v2_df = load_df(exp_dir,ovr_str,"guo_disparity_thresh_v2","Guo Disparity")
+    if len(guo_dis_v2_df):
+        guo_dis_v2_df["strategy"] = guo_dis_v2_df.threshold.apply(lambda t: f"Guo V2 Dis Threshold {t} %")
     
-    return Data(dataset,ovr_str,retrain_df,gol_df,nothing_df,gol_test_df,gol_dis_v1_df,gol_dis_v2_df)
+    return Data(dataset,ovr_str,retrain_df,gol_df,nothing_df,gol_test_df,gol_dis_v1_df,gol_dis_v2_df,guo_dis_v1_df,guo_dis_v2_df)
 # %%
 noise_filter = lambda df,noise: df[df.noise==noise]
 threshold_filter = lambda df,threshold : df[df.threshold==threshold]
@@ -142,30 +151,186 @@ def compute_all_metrics(data:Data):
     gol_test = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_test.groupby("threshold")])
     gol_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v1.groupby("threshold")])
     gol_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v2.groupby("threshold")])
+    if len(data.guo_dis_v1):
+        guo_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.guo_dis_v1.groupby("threshold")])
+    else:
+        guo_dis_v1 = data.guo_dis_v1
+    if len(data.guo_dis_v2):
+        guo_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.guo_dis_v2.groupby("threshold")])
+    else:
+        guo_dis_v2 = data.guo_dis_v2
     nothing = compute_metrics(data.retrain,data.nothing,data.nothing)
     retrain = compute_metrics(data.retrain,data.retrain,data.nothing)
     
-    return Data(data.dataset,data.ovr_str,retrain,gol,nothing,gol_test,gol_dis_v1,gol_dis_v2)
+    return Data(data.dataset,data.ovr_str,retrain,gol,nothing,gol_test,gol_dis_v1,gol_dis_v2,guo_dis_v1,guo_dis_v2)
 #%%
+
+def plot_grid(data:Data,strategy:str,noise_level:float):
+    if strategy == "test":
+        df = data.gol_test
+    elif strategy == "dis_v1":
+        df = data.gol_dis_v1
+    elif strategy == "dis_v1":
+        df = data.gol_dis_v2
+    else:
+        raise ValueError(f"stragtegy={strategy} is not valid options")
+    
+
+    combined = pd.concat([data.gol,df,data.retrain])
+    combined = noise_filter(combined,noise=noise_level)
+    fig_width_pt = 234.8775
+    scale = 3
+    scaled_params = {k:v*scale for k,v in get_default(3).items()}
+    # scale["legend.markerscale"]=2
+    new_rc_params.update(scaled_params)
+    mpl.rcParams.update(new_rc_params)
+    subplots = (3,4)
+    figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
+    figsize = np.array(figsize)*scale
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(bottom=0.015,top=0.85,wspace=0.3,hspace=0.3)
+
+    for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_random","targeted_informed"]):
+        temp = sampling_type_filter(combined,sampling_type)
+        ax1,ax2,ax3 = ax[:,j]    
+        num_strategy = temp.strategy.nunique()
+        ax1 = sns.lineplot(data=temp,x="num_deletions",y="speedup",hue="strategy",ax=ax1,style="strategy")
+        ax1.set_xlabel("")
+        ax1.set_yscale("log")
+        ax1.set_title(" ".join(sampling_type.split("_")))
+
+        ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False,style="strategy")
+        ax2.set_xlabel("")
+
+        ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False,style="strategy")
+        
+        if j ==0 :
+            ax1.legend(
+                bbox_to_anchor=(0.5,-0.1),
+                loc="upper center",
+                bbox_transform=fig.transFigure,
+                ncol=4
+            )
+            ax1.set_ylabel("Speed-Up")
+            # ax1.set_ylabel("Cum. Time")
+            ax2.set_ylabel("Cum. \n AccDis \%")
+            ax3.set_ylabel("Cum. \n AccErr \%")
+        else:
+            ax1.get_legend().remove()
+            ax1.set_ylabel("")
+            ax2.set_ylabel("")
+            ax3.set_ylabel("")
+        ax3.set_xlabel("\# deletions")
+    plt.suptitle(f"{dataset} $\sigma={noise_level}$ strategy={' '.join(strategy.split('_'))}")
+    fig.align_ylabels(ax[:,0])
+    if save_fig:
+        plt.savefig(f"{dataset}_{ovr_str}_pipeline_{strategy}_noise_{noise_level}_grid.pdf",bbox_inches="tight")
+    else:
+        plt.show()
+
+
+def compare_noise(data:Data,strategy:"str",sampling_type:str):
+    if strategy == "test":
+        df = data.gol_test
+    elif strategy == "dis_v1":
+        df = data.gol_dis_v1
+    elif strategy == "dis_v1":
+        df = data.gol_dis_v2
+    else:
+        raise ValueError(f"stragtegy={strategy} is not valid options")
+    
+
+    combined = pd.concat([data.gol,df,data.retrain])
+    combined = sampling_type_filter(combined,sampling_type)
+    fig_width_pt = 234.8775
+    scale = 3
+    scaled_params = {k:v*scale for k,v in get_default(3).items()}
+    # scale["legend.markerscale"]=2
+    new_rc_params.update(scaled_params)
+    mpl.rcParams.update(new_rc_params)
+    subplots = (3,2)
+    figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
+    figsize = np.array(figsize)*scale
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(bottom=0.015,top=0.85,wspace=0.3,hspace=0.3)
+
+    for j,noise in enumerate([0,1]):
+        temp = noise_filter(combined,noise)
+        ax1,ax2,ax3 = ax[:,j]    
+        num_strategy = temp.strategy.nunique()
+        ax1 = sns.lineplot(data=temp,x="num_deletions",y="speedup",hue="strategy",ax=ax1,style="strategy")
+        ax1.set_xlabel("")
+        ax1.set_yscale("log")
+        ax1.set_title(f"$\sigma= {noise}$")
+
+        ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False,style="strategy")
+        ax2.set_xlabel("")
+
+        ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False,style="strategy")
+        
+        if j ==0 :
+            ax1.legend(
+                bbox_to_anchor=(0.5,-0.1),
+                loc="upper center",
+                bbox_transform=fig.transFigure,
+                ncol=4
+            )
+            ax1.set_ylabel("Speed-Up")
+            # ax1.set_ylabel("Cum. Time")
+            ax2.set_ylabel("Cum. \n AccDis \%")
+            ax3.set_ylabel("Cum. \n AccErr \%")
+        else:
+            ax1.get_legend().remove()
+            ax1.set_ylabel("")
+            ax2.set_ylabel("")
+            ax3.set_ylabel("")
+        ax3.set_xlabel("\# deletions")
+    plt.suptitle(f"{dataset} {' '.join(sampling_type.split('_'))} strategy={' '.join(strategy.split('_'))}")
+    fig.align_ylabels(ax[:,0])
+    if save_fig:
+        plt.savefig(f"{dataset}_{ovr_str}_pipeline_noise_strategies.pdf",bbox_inches="tight")
+    else:
+        plt.show()
 
 def plot_acc_dis_estimation(df:pd.DataFrame,sampling_type:str,noise_level:float,threshold:float,ax:Optional[plt.axes]=None):
     if ax is None:
         fig, ax = plt.subplots()
     temp = threshold_filter(noise_filter(sampling_type_filter(df,sampling_type),noise_level),threshold)
+    temp = temp.groupby(["num_deletions","noise_seed","sampler_seed"]).mean().reset_index()
+    if not len(temp):
+        print("Filtered Dataframe seems to be empty, check the filters")
     temp.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax,marker="s")
     temp.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax,marker="s")
     ax.axhline(threshold,linestyle="--",color="black",alpha=0.5,marker="s")
 
     return ax
 
-def plot_acc_dis_versions(data,sampling_type:str,noise_level:float,threshold:float):
+def plot_acc_dis_versions(data,unlearning_method:str,sampling_type:str,noise_level:float,threshold:float):
     fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,5))
-    ax1 = plot_acc_dis_estimation(data.gol_dis_v1,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax1)
+    if unlearning_method == "Golatkar":
+        df1=data.gol_dis_v1
+        df2=data.gol_dis_v2
+    elif unlearning_method == "Guo":
+        df1=data.guo_dis_v1
+        df2=data.guo_dis_v2
+    else:
+        raise ValueError(f"Unlearning method: {unlearning_method} not recognized")
+
+    ax1 = plot_acc_dis_estimation(df1,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax1)
     ax1.set_title("V1 Strategy")
-    ax2 = plot_acc_dis_estimation(data.gol_dis_v2,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax2)
+    ax2 = plot_acc_dis_estimation(df2,sampling_type,noise_level=noise_level,threshold=threshold,ax=ax2)
     ax2.set_title("V2 Strategy")
 
     plt.suptitle(f"{data.dataset}, {' '.join(sampling_type.split('_'))}, $\sigma={noise_level}$ threshold={threshold}")  
+
+def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,threshold:Optional[float]=None,ax:Optional[plt.axes]=None):
+    if ax is None:
+        fig, ax = plt.subplots()
+    temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
+    if threshold is not None:
+        temp = threshold_filter(temp,threshold)
+    sns.lineplot(data=temp,x="num_deletions",y=metric,hue="strategy")
+    return ax
 
 #%%
 if __name__ == "__main__":
@@ -175,141 +340,28 @@ if __name__ == "__main__":
     data = compute_all_metrics(data)
 
 #%%
-    plot_acc_dis_versions(data,"targeted_informed",noise_level=0,threshold=2)
-    
+    plot_acc_dis_versions(data,"Golatkar","targeted_informed",noise_level=0,threshold=1)
+#%%
+    plot_metric(data.gol_dis_v1,"error_acc_err_cumsum","targeted_informed",noise_level=0)
+#%%
+    plot_grid(data,"dis_v1",noise_level=0)
 # %%
-combined = pd.concat([gol_df,gol_test_df,retrain_df])
-noise = 0
-combined = noise_filter(combined,noise=noise)
-fig_width_pt = 234.8775
-scale = 3
-scaled_params = {k:v*scale for k,v in get_default(3).items()}
-# scale["legend.markerscale"]=2
-new_rc_params.update(scaled_params)
-mpl.rcParams.update(new_rc_params)
-subplots = (3,4)
-figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
-figsize = np.array(figsize)*scale
-fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-fig.subplots_adjust(bottom=0.015,top=0.85,wspace=0.3,hspace=0.3)
-
-for j,sampling_type in enumerate(["uniform_random","uniform_informed","targeted_random","targeted_informed"]):
-    temp = sampling_type_filter(combined,sampling_type)
-    ax1,ax2,ax3 = ax[:,j]    
-    num_strategy = temp.strategy.nunique()
-    ax1 = sns.lineplot(data=temp,x="num_deletions",y="speedup",hue="strategy",ax=ax1,style="strategy")
-    ax1.set_xlabel("")
-    ax1.set_yscale("log")
-    ax1.set_title(" ".join(sampling_type.split("_")))
-
-    ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False,style="strategy")
-    ax2.set_xlabel("")
-
-    ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False,style="strategy")
-    
-    if j ==0 :
-        ax1.legend(
-            bbox_to_anchor=(0.5,-0.1),
-            loc="upper center",
-            bbox_transform=fig.transFigure,
-            ncol=4
-        )
-        ax1.set_ylabel("Speed-Up")
-        # ax1.set_ylabel("Cum. Time")
-        ax2.set_ylabel("Cum. \n AccDis \%")
-        ax3.set_ylabel("Cum. \n AccErr \%")
-    else:
-        ax1.get_legend().remove()
-        ax1.set_ylabel("")
-        ax2.set_ylabel("")
-        ax3.set_ylabel("")
-    ax3.set_xlabel("\# deletions")
-plt.suptitle(f"{dataset} $\sigma={noise}$")
-fig.align_ylabels(ax[:,0])
-if save_fig:
-    plt.savefig(f"{dataset}_{ovr_str}_pipeline_strategies.pdf",bbox_inches="tight")
-else:
-    plt.show()
-#%%
-combined = pd.concat([gol_df,gol_test_df,retrain_df])
-sampling_type = "targeted_informed"
-combined = sampling_type_filter(combined,sampling_type)
-fig_width_pt = 234.8775
-scale = 3
-scaled_params = {k:v*scale for k,v in get_default(3).items()}
-# scale["legend.markerscale"]=2
-new_rc_params.update(scaled_params)
-mpl.rcParams.update(new_rc_params)
-subplots = (3,2)
-figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
-figsize = np.array(figsize)*scale
-fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-fig.subplots_adjust(bottom=0.015,top=0.85,wspace=0.3,hspace=0.3)
-
-for j,noise in enumerate([0,1]):
-    temp = noise_filter(combined,noise)
-    ax1,ax2,ax3 = ax[:,j]    
-    num_strategy = temp.strategy.nunique()
-    ax1 = sns.lineplot(data=temp,x="num_deletions",y="speedup",hue="strategy",ax=ax1,style="strategy")
-    ax1.set_xlabel("")
-    ax1.set_yscale("log")
-    ax1.set_title(f"$\sigma= {noise}$")
-
-    ax2 = sns.lineplot(data=temp,x="num_deletions",y="acc_dis_cumsum",hue="strategy",ax=ax2,legend=False,style="strategy")
-    ax2.set_xlabel("")
-
-    ax3 = sns.lineplot(data=temp,x="num_deletions",y="acc_err_cumsum",hue="strategy",ax=ax3,legend=False,style="strategy")
-    
-    if j ==0 :
-        ax1.legend(
-            bbox_to_anchor=(0.5,-0.1),
-            loc="upper center",
-            bbox_transform=fig.transFigure,
-            ncol=4
-        )
-        ax1.set_ylabel("Speed-Up")
-        # ax1.set_ylabel("Cum. Time")
-        ax2.set_ylabel("Cum. \n AccDis \%")
-        ax3.set_ylabel("Cum. \n AccErr \%")
-    else:
-        ax1.get_legend().remove()
-        ax1.set_ylabel("")
-        ax2.set_ylabel("")
-        ax3.set_ylabel("")
-    ax3.set_xlabel("\# deletions")
-plt.suptitle(f"{dataset} {' '.join(sampling_type.split('_'))}")
-fig.align_ylabels(ax[:,0])
-if save_fig:
-    plt.savefig(f"{dataset}_{ovr_str}_pipeline_noise_strategies.pdf",bbox_inches="tight")
-else:
-    plt.show()
-
-#%%
-df = noise_filter( threshold_filter(gol_test_df,1), noise= 1)
+df = noise_filter( threshold_filter(data.gol_test,0.1), noise= 1)
 sns.lineplot(data=df,x="num_deletions",y="cum_running_time",hue="sampling_type")
 plt.yscale("log")
-#%%
-df = noise_filter(sampling_type_filter(gol_test_df,"targeted_informed"),noise=1)
-# filter = filter[filter.threshold.isin([1,0.5])]
-sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_err",hue="threshold")
-plt.show()
-
-sns.lineplot(data=df,x="num_deletions",y="acc_err",hue="threshold")
-# plt.yscale("log")
-plt.show()
 # %%
-df = pd.concat([gol_dis_df,gol_df])
+df = pd.concat([data.gol_dis_v1,data.gol])
 df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=0)
 # filter = filter[filter.threshold.isin([1,0.5])]
-sns.lineplot(data=df,x="num_deletions",y="acc_err_cumsum",hue="strategy")
+sns.lineplot(data=df,x="num_deletions",y="error_acc_dis_cumsum",hue="strategy")
 plt.show()
 
 # %%
 # plots to compare impact of threshold on a metric for particular noise level and sampling type 
-sampling_type = "targeted_random"
+sampling_type = "targeted_informed"
 noise_level = 0
 metric = "error_acc_dis_cumsum"
-dataframe = gol_dis_df
+dataframe = data.gol_dis_v1
 df = noise_filter(sampling_type_filter(dataframe,sampling_type),noise_level)
 sns.lineplot(data=df,x="num_deletions",y=metric,hue="threshold",style="threshold")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
@@ -323,7 +375,7 @@ print(df.groupby("threshold").error_acc_dis.sum())
 threshold = 0.1
 sampling_type = "targeted_informed"
 fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,5))
-df = sampling_type_filter(threshold_filter(gol_test_df,threshold),sampling_type)
+df = sampling_type_filter(threshold_filter(data.gol_test,threshold),sampling_type)
 ax1= sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="noise",ax=ax1)
 ax2= sns.lineplot(data=df,x="num_deletions",y="acc_err_cumsum",hue="noise",ax=ax2)
 ax1.set_xlabel("Num Deletions")
@@ -337,7 +389,7 @@ plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))}, Golatkar AccErr 
 # plot to explore the linearity between the AccErr_init and AccDis
 noise_level=0
 sampling_type="targeted_informed"
-df = sampling_type_filter(noise_filter(gol_df,noise_level),sampling_type)
+df = sampling_type_filter(noise_filter(data.gol,noise_level),sampling_type)
 c = 0.61517267784659
 # c = df.abs_dis.values[-1]/df.abs_err_init.values[-1]
 print(c)
@@ -349,46 +401,40 @@ sns.lineplot(x=df.abs_err_init,y=c*df.abs_err_init)
 plt.xscale("log")
 plt.yscale("log")
 # %%
-
-sampling_type = "targeted_informed"
-noise_level = 0
-threshold = 1
-metric = "acc_dis"
-df = threshold_filter(noise_filter(sampling_type_filter(gol_test_df,sampling_type),noise_level),threshold)
-sns.lineplot(data=df,x="num_deletions",y=metric)
-plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
-
-plt.show()
-# %%
+# plots to check the true and estimated pipeline AccDis
 sampling_type = "targeted_informed"
 noise_level = 0
 threshold = 0.5
-df = threshold_filter(noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level),threshold)
+df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
 sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_dis_est",label="pipeline estimate",marker="s")
 sns.lineplot(data=df,x="num_deletions",y="acc_dis",label="true",marker="s")
 plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
 # sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="threshold")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
 # %%
+
+# Code to rerun the computations of the pipeline estimations
 sampling_type = "targeted_informed"
 noise_level = 0
 threshold = 1
-df = threshold_filter(noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level),threshold)
+df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
+r_df = noise_filter(sampling_type_filter(data.retrain,sampling_type),noise_level)
 c = df.prop_const.unique()[0]
-c = 4.69518422
+# c = 4.69518422
 
-acc_dis_pred = df.pipeline_acc_err * c
-# predictions = df.cum_remove_accuracy.values + c * df.pipeline_abs_err
-# errors = SAPE(predictions,r_df.cum_remove_accuracy.values)
-# acc_dis_pred = SAPE(df.cum_remove_accuracy,predictions)
+acc_dis_pred_v1 = df.pipeline_acc_err * c
+predictions = df.cum_remove_accuracy.values + c * df.pipeline_abs_err
+errors = SAPE(predictions,r_df.cum_remove_accuracy.values)
+acc_dis_pred_v2 = SAPE(df.cum_remove_accuracy,predictions)
 
-# sns.lineplot(x=df.num_deletions.values,y=r_df.cum_remove_accuracy.values,label="Retrained acc_del",marker="s")
+sns.lineplot(x=df.num_deletions.values,y=r_df.cum_remove_accuracy.values,label="Retrained acc_del",marker="s")
 # sns.lineplot(x=df.num_deletions.values,y=predictions,label="Predictions",marker="s")
+sns.lineplot(x=df.num_deletions.values,y=errors,label="Errors",marker="s")
 
-# sns.lineplot(x=df.num_deletions.values,y=errors,label="Errors",marker="s")
-sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred,label="Acc Dis Predictions",marker="s")
-sns.lineplot(x=df.num_deletions.values,y=df.acc_dis,label="True Acc Dis",marker="s")
-plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
+# sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v1,label="Acc Dis Predictions_v1",marker="s")
+# sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v2,label="Acc Dis Predictions_v2",marker="s")
+# sns.lineplot(x=df.num_deletions.values,y=df.acc_dis,label="True Acc Dis",marker="s")
+# plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
 # sns.lineplot(x=df.num_deletions.values,y=df.pipeline_acc_dis_est,label="Acc Dis Predictions",marker="s")
 
 plt.ylabel("")
@@ -397,7 +443,7 @@ plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level
 fig,(ax1,ax2,ax3) = plt.subplots(1,3,figsize=(15,5))
 noise_level = 0
 sampling_type = "targeted_informed"
-df = noise_filter(sampling_type_filter(gol_dis_df,sampling_type),noise_level)
+df = noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level)
 
 df1 = threshold_filter(df,1)
 df1.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax1,marker="s")
@@ -411,16 +457,13 @@ df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=
 ax2.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
 ax2.set_title("Threshold = 0.5")
 
-df3 = threshold_filter(df,0.1)
+df3 = threshold_filter(df,2)
 df3.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax3,marker="s")
 df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax3,marker="s")
-ax3.axhline(0.1,linestyle="--",color="black",alpha=0.5,marker="s")
-ax3.set_title("Threshold = 0.1")
+ax3.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
+ax3.set_title("Threshold = 2")
 
 plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
-if save_fig:
-    plt.savefig(f"Disparity_{dataset}_{' '.join(sampling_type.split('_'))}.pdf",bbox_inches="tight")
-else:
-    plt.show()
+plt.show()
 
 # %%
