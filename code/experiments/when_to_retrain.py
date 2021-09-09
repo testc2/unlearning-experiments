@@ -8,7 +8,7 @@ from methods.pytorch_utils import (
     predict_log_proba,
     lr_grad,
 )
-from methods.remove import remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
+from methods.remove import batch_remove, remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
 from methods.scrub import scrub, compute_noise, scrub_minibatch_pytorch, scrub_ovr_minibatch_pytorch
 from methods.common_utils import SAPE, get_f1_score, get_roc_score
 import torch
@@ -19,7 +19,7 @@ import torch.multiprocessing as mp
 import numpy as np
 from collections import OrderedDict
 from experiments.removal_ratio import sample
-
+import json
 # from tqdm.contrib.telegram import tqdm
 from tqdm import tqdm, trange
 header = [
@@ -30,9 +30,9 @@ header = [
     "sgd_seed","optim","step_size","lr_schedule","batch_size","num_steps",  # training details
     "noise","noise_seed",  # privacy noise details
     "running_time","unlearning_time","retraining_time","other_time",  # running time details
-    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err","pipeline_acc_dis_est","pipeline_abs_err",  #  metrics
+    "test_accuracy","cum_remove_accuracy","batch_remove_accuracy","pipeline_acc_err","pipeline_acc_dis_est","pipeline_abs_err","checkpoint_remove_accuracy",  #  metrics
     "num_deletions","retrained","batch_deleted_class_balance","cum_deleted_class_balance", # additional metrics
-    "threshold","prop_const"
+    "threshold","prop_const","checkpoint_batch"
 ]
 
 rows = OrderedDict({k: None for k in header})
@@ -69,6 +69,8 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
     metrics = []
     state_dict ={
         "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
+        "checkpoint_batch":0, # the batch of the last checkoint. Initially 0
+        "batch_size":batch_size
     }
     state_dict.update(pre_computed_data)
     for batch in trange(0,num_removes,batch_size):
@@ -80,28 +82,37 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
             "retraining_time":0,
             "other_time":0
         })
+        # the current batch of deletions 
         X_batch_remove = data["X_batch_remove"] = X_remove[batch:batch+batch_size]
         y_batch_remove = data["y_batch_remove"] = y_remove[batch:batch+batch_size]
+        # the remaining dataset after the current batch of deletions
         X_batch_prime = data["X_batch_prime"] = X_train_temp[batch+batch_size:]
         y_batch_prime = data["y_batch_prime"] = y_train_temp[batch+batch_size:]
+        # The total deleted points since the beginning 
         X_remove_cum = data["X_remove_cum"] = X_remove[:batch+batch_size]
         y_remove_cum = data["y_remove_cum"] = y_remove[:batch+batch_size]
+        num_deletions = min(batch+batch_size,num_removes)
+        state_dict["num_deletions"] = num_deletions
+        
         start = time()
         w_temp = strategy(w_temp,args,params,data,state_dict)
         running_time = time() - start 
 
         # compute time metrics 
         state_dict["other_time"] = running_time - (state_dict["retraining_time"]+state_dict["unlearning_time"])
-        # update current metrics 
+        # compute the checkpoint strategy
+        if strategy.__name__ == "always_retrain":
+            compute_checkpoint_metric(w_temp,data,state_dict,retraining=True)
+        else:
+            compute_checkpoint_metric(w_temp,data,state_dict,retraining=False)
+        # update current metrics with state information
         _metrics.update(state_dict)
-
         # compute performance metrics
         test_accuracy = accuracy_score(y_test,predict(w_temp,X_test))
         acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
         abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
         cum_remove_accuracy = accuracy_score(y_remove_cum,predict(w_temp,X_remove_cum))
         batch_remove_accuracy = accuracy_score(y_batch_remove,predict(w_temp,X_batch_remove))
-        num_deletions = min(batch+batch_size,num_removes)
 
         if args.ovr:
             #TODO implement logic for multi-class class balance 
@@ -118,7 +129,6 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
             "cum_remove_accuracy":cum_remove_accuracy,
             "pipeline_acc_err":acc_err_init,
             "pipeline_abs_err":abs_err_init,
-            "num_deletions":num_deletions,
             "batch_deleted_class_balance":batch_class_balance,
             "cum_deleted_class_balance":cum_class_balance,
         })
@@ -126,6 +136,48 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         metrics.append(_metrics)
     return metrics
 
+def compute_checkpoint_metric(w,data,state_dict,retraining):
+    """Function that computes the deleted sample accuracy for the checkpoint.
+    If always retraining, compute it for all window sizes from 0 till current number of deletions.
+    If another strategy, only compute wrt to the last checkpoint.
+
+    Args:
+        w (torch.Tensor): the current model weights
+        data (dict): the dictionary containing the data
+        state_dict (dict): the dictionary containing the pipeline state information
+        retraining (bool): flag to indicate if always retraining or not
+    """
+    X_remove = data["X_remove"]
+    y_remove = data["y_remove"]
+    batch_size = state_dict["batch_size"]
+    num_deletions = state_dict["num_deletions"]
+    # if always retraining then get all remove accuracies for the window 
+    if retraining:
+        # update the checkpoint batch (it is redundant for always_retraining)
+        state_dict["checkpoint_batch"]=num_deletions
+        remove_accuracy = {}
+        for checkpoint in range(0,num_deletions,batch_size):
+            window = slice(checkpoint,num_deletions)
+            acc_del = accuracy_score(y_remove[window],predict(w,X_remove[window]))
+            remove_accuracy[checkpoint] = acc_del
+        # by default the accuracy is 100% if there are no deletions
+        remove_accuracy[num_deletions]=1
+        # dump dict into json style string for the csv file 
+        remove_accuracy = fr'"{remove_accuracy}"'
+
+    # for all other strategies only compute a single accuracy or update the checkpoint
+    else:
+        # if a retraining has occured, update the checkpoint batch
+        if state_dict["retrained"]:
+            state_dict["checkpoint_batch"]=num_deletions
+            remove_accuracy = 1 # assume accuracy is 100% as there are no deletions
+        else:
+            # Find the window from the last checkpoint till the currennt number of deletions
+            window = slice(state_dict["checkpoint_batch"],num_deletions)
+            remove_accuracy = accuracy_score(y_remove[window],predict(w,X_remove[window]))
+
+    # update the state dictionary with the checkpoint accuracy   
+    state_dict["checkpoint_remove_accuracy"]=remove_accuracy
 
 def do_nothing(w,args,params,data,state_dict):
     return w
@@ -471,3 +523,6 @@ def execute_when_to_retrain(args,data):
             strings = run_pipeline(args,params,data)
             [fp.write(s) for s in strings]
             fp.flush()
+
+#%%
+
