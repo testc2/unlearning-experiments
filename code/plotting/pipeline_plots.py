@@ -356,7 +356,7 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
 
 #%%
 if __name__ == "__main__":
-    dataset = "COVTYPE"
+    dataset = "CIFAR"
     ovr_str = "binary"
     data = load_dfs(results_dir,dataset,ovr_str)
     data = compute_all_metrics(data)
@@ -462,28 +462,45 @@ sns.lineplot(x=df.num_deletions.values,y=errors,label="Errors",marker="s")
 plt.ylabel("")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
 # %%
-fig,(ax1,ax2,ax3) = plt.subplots(1,3,figsize=(15,5))
+fig,((ax11,ax21),(ax12,ax22),(ax13,ax23)) = plt.subplots(3,2,figsize=(10,15))
+
 noise_level = 0
 sampling_type = "targeted_informed"
 df = noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level)
 
-df1 = threshold_filter(df,1)
-df1.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax1,marker="s")
-df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax1,marker="s")
-ax1.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
-ax1.set_title("Threshold = 1")
+df1 = threshold_filter(df,2)
+df1.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax11,marker="s")
+df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax11,marker="s")
+ax11.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
+ax11.set_title("Cumulative AccDis")
 
-df2 = threshold_filter(df,0.5)
-df2.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax2,marker="s")
-df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax2,marker="s")
-ax2.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
-ax2.set_title("Threshold = 0.5")
+df1.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax21,marker="s")
+df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax21,marker="s")
+ax21.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
+ax21.set_title("Checkpoint AccDis")
 
-df3 = threshold_filter(df,2)
-df3.plot(x="num_deletions",y="acc_dis",label="True AccDis",ax=ax3,marker="s")
-df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax3,marker="s")
-ax3.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
-ax3.set_title("Threshold = 2")
+ax21.annotate(f"Threshold=2",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+
+df2 = threshold_filter(df,1)
+df2.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax12,marker="s")
+df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax12,marker="s")
+ax12.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
+
+df2.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax22,marker="s")
+df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax22,marker="s")
+ax22.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
+
+ax22.annotate(f"Threshold=1",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+
+df3 = threshold_filter(df,0.5)
+df3.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax13,marker="s")
+df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax13,marker="s")
+ax13.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
+
+df3.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax23,marker="s")
+df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax23,marker="s")
+ax23.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
+ax23.annotate(f"Threshold=0.5",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
 plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
 plt.show()
