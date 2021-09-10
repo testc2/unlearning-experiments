@@ -28,6 +28,8 @@ from scipy.optimize import curve_fit
 from scipy.stats import pearsonr,spearmanr
 import json
 from plotting.combined_plots import set_size
+from ast import literal_eval
+
 #%%
 def get_default(base:float=6,inc:float=0):
         return{
@@ -78,6 +80,8 @@ def load_df(exp_dir:Path,ovr_str:str,strategy_file_prefix:str,strategy_name:str)
 def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
     exp_dir = results_dir/dataset/"when_to_retrain"
     retrain_df = load_df(exp_dir,ovr_str,"retrain","retrain")
+    retrain_df.checkpoint_remove_accuracy.fillna("\"\"",inplace=True)
+    retrain_df["checkpoint_remove_accuracy"] = retrain_df.checkpoint_remove_accuracy.apply(literal_eval)
     gol_df = load_df(exp_dir,ovr_str,"golatkar","Golatkar")
     nothing_df = load_df(exp_dir,ovr_str,"nothing","nothing")
     gol_test_df = load_df(exp_dir,ovr_str,"golatkar_test_thresh","Golatkar Test")
@@ -101,6 +105,17 @@ noise_filter = lambda df,noise: df[df.noise==noise]
 threshold_filter = lambda df,threshold : df[df.threshold==threshold]
 sampling_type_filter = lambda df,sampling_type : df[df.sampling_type == sampling_type]
 #%%
+
+def row_func(row,checkpoint_batches,verbose=False):
+    # print(f"Row name: {row.name}")
+    # print(f"Checkpoint Batches {checkpoint_batches.values}")
+    # print(row.checkpoint_remove_accuracy)
+    if np.isnan(checkpoint_batches.values).any():
+        return np.nan
+    if verbose:
+        print(row.checkpoint_remove_accuracy[checkpoint_batches[row.name]],type(row.checkpoint_remove_accuracy[checkpoint_batches[row.name]]))
+    return row.checkpoint_remove_accuracy[checkpoint_batches[row.name]]
+
 def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=10):
     temp = []
     groupby_cols = ["sampling_type","noise"]
@@ -135,6 +150,13 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=1
                 m_df["acc_err_cumsum"] = m_df.acc_err.cumsum()
                 m_df["acc_err_cumsum_avg"] = m_df.acc_err_cumsum.values/m_df.num_deletions
                 m_df["speedup"] = r_df.running_time.cumsum().values/ m_df.cum_running_time.values
+                if noise == 0:
+                    checkpoint_batches = m_df.set_index("num_deletions").checkpoint_batch
+                    retrain_checkpoint_remove_accuracy = r_df.loc[m_df.num_deletions].apply(row_func,args=(checkpoint_batches,),axis=1).values
+                    if isinstance(m_df["checkpoint_remove_accuracy"].iloc[0],dict):
+                        m_df["checkpoint_remove_accuracy"] = m_df.set_index("num_deletions").apply(row_func,args=(r_df.checkpoint_batch,),axis=1)
+                    m_df["checkpoint_acc_dis"] = SAPE(m_df["checkpoint_remove_accuracy"].values,retrain_checkpoint_remove_accuracy)
+                    m_df["checkpoint_acc_dis_cumsum"] = m_df.checkpoint_acc_dis.cumsum()
                 if threshold is not None :
                     # find where the acc_err exceeded the threshold
                     # where acc_err was lower than threshold error is considered 0
@@ -334,7 +356,7 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
 
 #%%
 if __name__ == "__main__":
-    dataset = "CIFAR"
+    dataset = "COVTYPE"
     ovr_str = "binary"
     data = load_dfs(results_dir,dataset,ovr_str)
     data = compute_all_metrics(data)
@@ -346,7 +368,7 @@ if __name__ == "__main__":
 #%%
     plot_grid(data,"dis_v1",noise_level=0)
 # %%
-df = noise_filter( threshold_filter(data.gol_test,0.1), noise= 1)
+df = noise_filter(threshold_filter(data.gol_test,0.1),noise= 1)
 sns.lineplot(data=df,x="num_deletions",y="cum_running_time",hue="sampling_type")
 plt.yscale("log")
 # %%
@@ -404,10 +426,10 @@ plt.yscale("log")
 # plots to check the true and estimated pipeline AccDis
 sampling_type = "targeted_informed"
 noise_level = 0
-threshold = 0.5
+threshold = 1
 df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
 sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_dis_est",label="pipeline estimate",marker="s")
-sns.lineplot(data=df,x="num_deletions",y="acc_dis",label="true",marker="s")
+sns.lineplot(data=df,x="num_deletions",y="checkpoint_acc_dis",label="true",marker="s")
 plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
 # sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="threshold")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
