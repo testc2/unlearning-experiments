@@ -25,12 +25,12 @@ case $5 in
         # golatkar threshold results
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Test" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_test_thresh $6
         flag=true
-        ;;
+        ;;&
     golatkar_disparity_v1|all)
         # golatkar disparity v1 strategy
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Dis_v1" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_disparity_thresh_v1 $6
         flag=true
-        ;;
+        ;;&
     golatkar_disparity_v2|all)
         # golatkar disparity v2 strategy
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Dis_v2" --array=0-35 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_disparity_thresh_v2 $6
@@ -60,12 +60,12 @@ case $5 in
         # golatkar threshold results
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Test" --array=0-5 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_test_thresh
         flag=true
-        ;;
+        ;;&
     golatkar_disparity_v1|all)
         # golatkar disparity v1 strategy
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Dis_v1" --array=0-5 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_disparity_thresh_v1
         flag=true
-        ;;
+        ;;&
     golatkar_disparity_v2|all)
         # golatkar disparity v2 strategy
         sbatch --mem $2 -t $3 -c $4 -J "$1_Gol_Dis_v2" --array=0-5 $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain.sh $1 golatkar_disparity_thresh_v2
