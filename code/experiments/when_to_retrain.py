@@ -74,7 +74,7 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         predict_fn = predict
 
     state_dict ={
-        "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
+        "test_acc_init":accuracy_score(y_test,predict_fn(w,X_test)),
         "checkpoint_batch":0, # the batch of the last checkoint. Initially 0
         "batch_size":batch_size
     }
@@ -111,17 +111,17 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         state_dict["other_time"] = running_time - (state_dict["retraining_time"]+state_dict["unlearning_time"])
         # compute the checkpoint strategy
         if strategy.__name__ == "always_retrain":
-            compute_checkpoint_metric(w_temp,data,state_dict,retraining=True)
+            compute_checkpoint_metric(w_temp,args,data,state_dict,retraining=True)
         else:
-            compute_checkpoint_metric(w_temp,data,state_dict,retraining=False)
+            compute_checkpoint_metric(w_temp,args,data,state_dict,retraining=False)
         # update current metrics with state information
         _metrics.update(state_dict)
         # compute performance metrics
         test_accuracy = accuracy_score(y_test,predict_fn(w_temp,X_test))
         acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
         abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
-        cum_remove_accuracy = accuracy_score(y_remove_cum,predict(w_temp,X_remove_cum))
-        batch_remove_accuracy = accuracy_score(y_batch_remove,predict(w_temp,X_batch_remove))
+        cum_remove_accuracy = accuracy_score(y_remove_cum,predict_fn(w_temp,X_remove_cum))
+        batch_remove_accuracy = accuracy_score(y_batch_remove,predict_fn(w_temp,X_batch_remove))
 
         batch_class_balance = ((y_batch_remove == 0).sum()/y_batch_remove.shape[0]).item()
         cum_class_balance = ((y_remove[:batch+batch_size]==0).sum()/(num_deletions)).item()
