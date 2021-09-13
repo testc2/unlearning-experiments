@@ -26,6 +26,7 @@ case $1 in
         ovr="--ovr"
         num_noise_seeds="3"
         remove_ratios=(0.01 0.05 0.075)
+        deletion_batch_size="100"
         ;;
     COVTYPEBinary)
         dataset="COVTYPE"
@@ -46,6 +47,7 @@ case $1 in
         num_noise_seeds="3"
         remove_ratios=(0.01 0.05 0.10)
         deletion_batch_size="10000"
+        thresholds="--thresholds 1 2 5 10 20 50"
         ;;
     CIFARBinary)
         dataset="CIFAR"
@@ -97,4 +99,4 @@ noise_levels=(0 0 0 0 0 0)
 suffix="--suffix _$SLURM_ARRAY_TASK_ID"
 fi
 # echo "python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --noise-levels ${noise_levels[$SLURM_ARRAY_TASK_ID]} --noise-seeds ${noise_seeds[$SLURM_ARRAY_TASK_ID]} $suffix $strategy"
-srun python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --noise-levels ${noise_levels[$SLURM_ARRAY_TASK_ID]} --noise-seeds ${noise_seeds[$SLURM_ARRAY_TASK_ID]} $suffix $strategy
+srun python $WRKDIR/${repo_name}/code/run_exp.py --optim SGD --step-size $lr --batch-size $bz --num-steps $epochs --verbose when $dataset ${remove_ratios[2]} ${deletion_batch_size} ${sampling_type[${SLURM_ARRAY_TASK_ID}]} --num-processes $SLURM_CPUS_ON_NODE --l2-norm $ovr --sampler-seed ${sampler_seeds[$SLURM_ARRAY_TASK_ID]} --noise-levels ${noise_levels[$SLURM_ARRAY_TASK_ID]} --noise-seeds ${noise_seeds[$SLURM_ARRAY_TASK_ID]} $suffix $strategy $thresholds
