@@ -9,7 +9,7 @@ from methods.pytorch_utils import (
     lr_grad,
 )
 from methods.remove import batch_remove, remove_minibatch_pytorch, remove_ovr_minibatch_pytorch
-from methods.scrub import scrub, compute_noise, scrub_minibatch_pytorch, scrub_ovr_minibatch_pytorch
+from methods.scrub import compute_ovr_noise, scrub, compute_noise, scrub_minibatch_pytorch, scrub_ovr, scrub_ovr_minibatch_pytorch
 from methods.common_utils import SAPE, get_f1_score, get_roc_score
 import torch
 from sklearn.metrics import accuracy_score
@@ -18,7 +18,7 @@ from time import time
 import torch.multiprocessing as mp
 import numpy as np
 from collections import OrderedDict
-from experiments.removal_ratio import sample
+from experiments.removal_ratio import retrain, sample
 import json
 # from tqdm.contrib.telegram import tqdm
 from tqdm import tqdm, trange
@@ -67,6 +67,12 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
     y_train_temp = torch.cat((y_remove,y_prime))
     num_removes = X_remove.shape[0]
     metrics = []
+    if args.ovr :
+        y_test = y_test.argmax(1)
+        predict_fn = predict_ovr
+    else:
+        predict_fn = predict
+
     state_dict ={
         "test_acc_init":accuracy_score(y_test,predict(w,X_test)),
         "checkpoint_batch":0, # the batch of the last checkoint. Initially 0
@@ -93,6 +99,9 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         y_remove_cum = data["y_remove_cum"] = y_remove[:batch+batch_size]
         num_deletions = min(batch+batch_size,num_removes)
         state_dict["num_deletions"] = num_deletions
+        if args.ovr:
+            y_remove_cum = y_remove_cum.argmax(1)
+            y_batch_remove = y_batch_remove.argmax(1)
         
         start = time()
         w_temp = strategy(w_temp,args,params,data,state_dict)
@@ -108,18 +117,14 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         # update current metrics with state information
         _metrics.update(state_dict)
         # compute performance metrics
-        test_accuracy = accuracy_score(y_test,predict(w_temp,X_test))
+        test_accuracy = accuracy_score(y_test,predict_fn(w_temp,X_test))
         acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
         abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
         cum_remove_accuracy = accuracy_score(y_remove_cum,predict(w_temp,X_remove_cum))
         batch_remove_accuracy = accuracy_score(y_batch_remove,predict(w_temp,X_batch_remove))
 
-        if args.ovr:
-            #TODO implement logic for multi-class class balance 
-            pass
-        else:
-            batch_class_balance = ((y_batch_remove == 0).sum()/y_batch_remove.shape[0]).item()
-            cum_class_balance = ((y_remove[:batch+batch_size]==0).sum()/(num_deletions)).item()
+        batch_class_balance = ((y_batch_remove == 0).sum()/y_batch_remove.shape[0]).item()
+        cum_class_balance = ((y_remove[:batch+batch_size]==0).sum()/(num_deletions)).item()
         
         # add performance and other metrics
         _metrics.update({
@@ -136,7 +141,7 @@ def pipeline(w:torch.Tensor,strategy:Callable,args:dict,params:dict,data:dict,pr
         metrics.append(_metrics)
     return metrics
 
-def compute_checkpoint_metric(w,data,state_dict,retraining):
+def compute_checkpoint_metric(w,args,data,state_dict,retraining):
     """Function that computes the deleted sample accuracy for the checkpoint.
     If always retraining, compute it for all window sizes from 0 till current number of deletions.
     If another strategy, only compute wrt to the last checkpoint.
@@ -151,6 +156,13 @@ def compute_checkpoint_metric(w,data,state_dict,retraining):
     y_remove = data["y_remove"]
     batch_size = state_dict["batch_size"]
     num_deletions = state_dict["num_deletions"]
+    if args.ovr :
+        y_remove = y_remove.argmax(1)
+        predict_fn = predict_ovr
+    else:
+        y_test = data["y_test"]
+        predict_fn = predict
+    
     # if always retraining then get all remove accuracies for the window 
     if retraining:
         # update the checkpoint batch (it is redundant for always_retraining)
@@ -158,7 +170,7 @@ def compute_checkpoint_metric(w,data,state_dict,retraining):
         remove_accuracy = {}
         for checkpoint in range(0,num_deletions,batch_size):
             window = slice(checkpoint,num_deletions)
-            acc_del = accuracy_score(y_remove[window],predict(w,X_remove[window]))
+            acc_del = accuracy_score(y_remove[window],predict_fn(w,X_remove[window]))
             remove_accuracy[checkpoint] = acc_del
         # by default the accuracy is 100% if there are no deletions
         remove_accuracy[num_deletions]=1
@@ -174,7 +186,7 @@ def compute_checkpoint_metric(w,data,state_dict,retraining):
         else:
             # Find the window from the last checkpoint till the currennt number of deletions
             window = slice(state_dict["checkpoint_batch"],num_deletions)
-            remove_accuracy = accuracy_score(y_remove[window],predict(w,X_remove[window]))
+            remove_accuracy = accuracy_score(y_remove[window],predict_fn(w,X_remove[window]))
 
     # update the state dictionary with the checkpoint accuracy   
     state_dict["checkpoint_remove_accuracy"]=remove_accuracy
@@ -185,98 +197,182 @@ def do_nothing(w,args,params,data,state_dict):
 def always_retrain(w,args,params,data,state_dict):
     state_dict["retrained"]=True
     start = time()
-    w_prime =  lr_optimize_sgd_batch(
-        data["X_batch_prime"],
-        data["y_batch_prime"],
-        params,
-        args
-    )
-    # compute noise to be added 
-    noise_scrub = compute_noise(
-        w_prime,
-        data["X_batch_prime"],
-        data["y_batch_prime"],
-        args.lam,
-        params["noise"],
-        params["noise_seed"]
-    )
-    w_prime += noise_scrub
-    state_dict["retraining_time"] = time() - start
-    return w_prime
-
-def always_unlearn_gol(w,args,params,data,state_dict):
-    start = time()
-    w_approx,_ = scrub(
-        w,
-        data["X_batch_prime"],
-        data["y_batch_prime"],
-        args.lam,
-        noise=params["noise"],
-        noise_seed=params["noise_seed"]
-    )
-    state_dict["unlearning_time"]= time() - start
-    return w_approx
-
-def gol_test_acc_thresh(w,args,params,data,state_dict):
-    # always unlearn 
-    start = time()
-    w_approx,added_noise = scrub(
-        w,
-        data["X_batch_prime"],
-        data["y_batch_prime"],
-        args.lam,
-        noise=params["noise"],
-        noise_seed=params["noise_seed"]
-    )
-    state_dict["unlearning_time"] = time() - start
-    
-    # compute test accuracy
-    test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
-    # find the SAPE wrt to test accuracy of last checkpoint
-    acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
-    # if the unlearned model exceeds acc_test threshold then retrain 
-    if acc_err_init > params["threshold"]:
-        state_dict["retrained"]=True
-        
-        start = time()
-        w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
-        # compute noise to be added
-        noise_scrub = compute_noise(
-            w_approx,
+    if args.ovr:
+        w_prime = lr_ovr_optimize_sgd(
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            params,
+            args, 
+            b=None
+        )
+        # compute noise to be added to ovr model
+        noise_scrub = compute_ovr_noise(
+            w_prime,
             data["X_batch_prime"],
             data["y_batch_prime"],
             args.lam,
             params["noise"],
             params["noise_seed"]
         )
-        w_approx += noise_scrub
-        state_dict["retraining_time"] = time() - start
+        w_prime += noise_scrub
+    else:
+        w_prime =  lr_optimize_sgd_batch(
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            params,
+            args
+        )
+        # compute noise to be added 
+        noise_scrub = compute_noise(
+            w_prime,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w_prime += noise_scrub
+    state_dict["retraining_time"] = time() - start
+    return w_prime
+
+def always_unlearn_gol(w,args,params,data,state_dict):
+    start = time()
+    if args.ovr:
+        w_approx,total_added_noise = scrub_ovr(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    else:
+        w_approx,_ = scrub(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    state_dict["unlearning_time"]= time() - start
+    return w_approx
+
+def gol_test_acc_thresh(w,args,params,data,state_dict):
+    # always unlearn 
+    start = time()
+    
+    if args.ovr:
+        w_approx,total_added_noise = scrub_ovr(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    else:
+        w_approx,added_noise = scrub(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    
+    state_dict["unlearning_time"] = time() - start
+    if args.ovr :
+        y_test = data["y_test"].argmax(1)
+        predict_fn = predict_ovr
+    else:
+        y_test = data["y_test"]
+        predict_fn = predict
+    
+    # compute test accuracy
+    test_accuracy = accuracy_score(y_test,predict_fn(w_approx,data["X_test"]))
+    # find the SAPE wrt to test accuracy of last checkpoint
+    acc_err_init = SAPE(test_accuracy,state_dict["test_acc_init"])[0]
+    
+    # if the unlearned model exceeds acc_test threshold then retrain 
+    if acc_err_init > params["threshold"]:
+        state_dict["retrained"]=True
+        if args.ovr :
+            start = time()
+            w_approx = lr_ovr_optimize_sgd(data["X_batch_prime"],data["y_batch_prime"], params, args, b=None)
+            # compute noise to be added to ovr model
+            noise_scrub = compute_ovr_noise(
+                w_approx,
+                data["X_batch_prime"],
+                data["y_batch_prime"],
+                args.lam,
+                params["noise"],
+                params["noise_seed"]
+            )
+            w_approx += noise_scrub
+            retraining_time = time()-start
+        else:
+            start = time()
+            w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
+            # compute noise to be added
+            noise_scrub = compute_noise(
+                w_approx,
+                data["X_batch_prime"],
+                data["y_batch_prime"],
+                args.lam,
+                params["noise"],
+                params["noise_seed"]
+            )
+            w_approx += noise_scrub
+            retraining_time = time()-start
+        
+        state_dict["retraining_time"] = retraining_time
 
         # update checkpoint test accuracy
-        state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+        state_dict["test_acc_init"] = accuracy_score(y_test,predict_fn(w_approx,data["X_test"]))
+    
     return w_approx
 
 def gol_disparity_thresh(w,args,params,data,state_dict,v2=False):
     # always unlearn 
     start = time()
-    w_approx,added_noise = scrub(
-        w,
-        data["X_batch_prime"],
-        data["y_batch_prime"],
-        args.lam,
-        noise=params["noise"],
-        noise_seed=params["noise_seed"]
-    )
+    
+    if args.ovr:
+        w_approx,total_added_noise = scrub_ovr(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    else:
+        w_approx,added_noise = scrub(
+            w,
+            data["X_batch_prime"],
+            data["y_batch_prime"],
+            args.lam,
+            noise=params["noise"],
+            noise_seed=params["noise_seed"]
+        )
+    
     state_dict["unlearning_time"] = time() - start
+    if args.ovr :
+        y_test = data["y_test"].argmax(1)
+        y_remove_cum = data["y_remove_cum"].argmax(1)
+        predict_fn = predict_ovr
+    else:
+        y_test = data["y_test"]
+        y_remove_cum = data["y_remove_cum"]
+        predict_fn = predict
     
     # compute test accuracy
-    test_accuracy = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+    test_accuracy = accuracy_score(y_test,predict_fn(w_approx,data["X_test"]))
     if v2:
         # find the absolute error wrt to test accuracy of last checkpoint
         abs_err_init = np.abs(test_accuracy-state_dict["test_acc_init"])
         # find accuracy on deleted sample (cumulative) of the unlearned model
-        acc_del_u = accuracy_score(data["y_remove_cum"],predict(w_approx,data["X_remove_cum"]))
-
+        acc_del_u = accuracy_score(y_remove_cum,predict_fn(w_approx,data["X_remove_cum"]))
 
         # estimate the deleted sample accuracy of retrained model using the proportionality const
         term = state_dict["prop_const"]*abs_err_init
@@ -295,23 +391,38 @@ def gol_disparity_thresh(w,args,params,data,state_dict,v2=False):
     # if the estimated disparity of the unlearned model exceeds the threshold then retrain 
     if acc_dis_est > params["threshold"]:
         state_dict["retrained"]=True
+        if args.ovr :
+            start = time()
+            w_approx = lr_ovr_optimize_sgd(data["X_batch_prime"],data["y_batch_prime"], params, args, b=None)
+            # compute noise to be added to ovr model
+            noise_scrub = compute_ovr_noise(
+                w_approx,
+                data["X_batch_prime"],
+                data["y_batch_prime"],
+                args.lam,
+                params["noise"],
+                params["noise_seed"]
+            )
+            w_approx += noise_scrub
+            retraining_time = time()-start
+        else:
+            start = time()
+            w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
+            # compute noise to be added
+            noise_scrub = compute_noise(
+                w_approx,
+                data["X_batch_prime"],
+                data["y_batch_prime"],
+                args.lam,
+                params["noise"],
+                params["noise_seed"]
+            )
+            w_approx += noise_scrub
+            retraining_time = time()-start
         
-        start = time()
-        w_approx =  lr_optimize_sgd_batch(data["X_batch_prime"],data["y_batch_prime"],params,args)
-        # compute noise to be added
-        noise_scrub = compute_noise(
-            w_approx,
-            data["X_batch_prime"],
-            data["y_batch_prime"],
-            args.lam,
-            params["noise"],
-            params["noise_seed"]
-        )
-        w_approx += noise_scrub
-        state_dict["retraining_time"] = time() - start
-
+        state_dict["retraining_time"] = retraining_time
         # update checkpoint test accuracy
-        state_dict["test_acc_init"] = accuracy_score(data["y_test"],predict(w_approx,data["X_test"]))
+        state_dict["test_acc_init"] = accuracy_score(y_test,predict_fn(w_approx,data["X_test"]))
         acc_dis_est = 0
     
     state_dict["pipeline_acc_dis_est"] = acc_dis_est
@@ -337,7 +448,11 @@ def obtain_proportionality_const(w,args,params,data,v2=False):
     if args.ovr:
         deletion_ratio = 0.09
     else :
-        deletion_ratio = 0.45
+        # higgs is larger so compute prop const at an earlier point
+        if args.dataset == "HIGGS":
+            deletion_ratio = 0.35
+        else:
+            deletion_ratio = 0.45
     
     # generate most adversarial examples 
     X_remove,y_remove,X_prime,y_prime = sample(
@@ -379,7 +494,17 @@ def obtain_proportionality_const(w,args,params,data,v2=False):
 
     # obtain retrained model 
     if args.ovr:
-        pass
+        w_prime = lr_ovr_optimize_sgd(X_prime, y_prime, params, args, b=None)
+        # compute noise to be added to ovr model
+        noise_scrub = compute_ovr_noise(
+            w_prime,
+            data["X_train"],
+            data["y_train"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w_prime += noise_scrub
     else:
         w_prime = lr_optimize_sgd_batch(X_prime,y_prime,params,args)
         # compute noise to be added
@@ -402,7 +527,15 @@ def obtain_proportionality_const(w,args,params,data,v2=False):
     
     # compute metrics
     if args.ovr:
-        pass
+        # convert from one-hot 
+        y_test_ = y_test.argmax(1)
+        y_remove_ = y_remove.argmax(1)
+        retrain_test_acc = accuracy_score(y_test_,predict_ovr(w_prime,X_test))
+        gol_test_acc = accuracy_score(y_test_,predict_ovr(w_approx,X_test))
+        init_test_acc = accuracy_score(y_test_,predict_ovr(w,X_test))
+        # get deleted samples accuracy 
+        retrain_del_acc = accuracy_score(y_remove_,predict_ovr(w_prime,X_remove))
+        gol_del_acc = accuracy_score(y_remove_,predict_ovr(w_approx,X_remove))
     else:
         # get test accuracies
         retrain_test_acc = accuracy_score(y_test,predict(w_prime,X_test))
@@ -429,9 +562,18 @@ def obtain_proportionality_const(w,args,params,data,v2=False):
 def run_pipeline(args,params,data):
     # train model with no noise
     if args.ovr: 
-        pass
+        w = lr_ovr_optimize_sgd(data["X_train"], data["y_train"], params, args, b=None)
+        noise_scrub = compute_ovr_noise(
+            w,
+            data["X_train"],
+            data["y_train"],
+            args.lam,
+            params["noise"],
+            params["noise_seed"]
+        )
+        w += noise_scrub
     else:
-        w = lr_optimize_sgd_batch(data["X_train"],data["y_train"],params,args)
+        w = lr_optimize_sgd_batch(data["X_train"],data["y_train"],params,args, b=None)
         # compute noise to be added
         noise_scrub = compute_noise(
             w,

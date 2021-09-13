@@ -26,6 +26,7 @@ case $1 in
         ovr="--ovr"
         num_noise_seeds="3"
         remove_ratios=(0.01 0.05 0.075)
+        deletion_batch_size="100"
         ;;
     COVTYPEBinary)
         dataset="COVTYPE"

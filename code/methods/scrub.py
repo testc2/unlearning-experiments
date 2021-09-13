@@ -32,6 +32,17 @@ def compute_noise(w,X_prime,y_prime,lam,noise,noise_seed,B_inv=None):
     return noise_scrub
 
 
+def compute_ovr_noise(w,X_prime,y_prime,lam,noise,noise_seed):
+    n_classes = y_prime.size(1)
+    total_added_noise = torch.zeros_like(w)
+    if noise >0:
+        for k in range(n_classes):
+            y_k_prime = y_prime[:,k]
+            added_noise = compute_noise(w[:,k],X_prime,y_k_prime,lam,noise,noise_seed) 
+            total_added_noise[:,k] = added_noise
+    
+    return total_added_noise
+
 def scrub(w,X_prime,y_prime,lam,noise,noise_seed):
     B_inv = lr_hessian_inv(w,X_prime,y_prime,lam)
     grad = lr_grad(w,X_prime,y_prime,lam)
@@ -41,6 +52,17 @@ def scrub(w,X_prime,y_prime,lam,noise,noise_seed):
     w += (noise_scrub - quadratic_scrub)
 
     return w, noise_scrub
+
+def scrub_ovr(w,X_prime,y_prime,lam,noise,noise_seed):
+    n_classes = y_prime.size(1)
+    total_added_noise = torch.zeros_like(w)
+    for k in range(n_classes):
+        y_k_prime = y_prime[:,k]
+        w_temp,added_noise = scrub(w[:,k],X_prime,y_k_prime,lam,noise,noise_seed)
+        w[:,k] = w_temp
+        total_added_noise[:,k] = added_noise
+    
+    return w,total_added_noise
 
 def scrub_minibatch_pytorch(w,data,minibatch_size,args,noise,noise_seed,X_remove=None,X_prime=None,y_remove=None,y_prime=None):
     w_approx = w.clone()
