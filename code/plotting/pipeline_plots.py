@@ -116,7 +116,7 @@ def row_func(row,checkpoint_batches,verbose=False):
         print(row.checkpoint_remove_accuracy[checkpoint_batches[row.name]],type(row.checkpoint_remove_accuracy[checkpoint_batches[row.name]]))
     return row.checkpoint_remove_accuracy[checkpoint_batches[row.name]]
 
-def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=10):
+def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=20):
     temp = []
     groupby_cols = ["sampling_type","noise"]
     for (sampling_type,noise),df in retrain_df.groupby(groupby_cols):
@@ -157,6 +157,7 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=1
                         m_df["checkpoint_remove_accuracy"] = m_df.set_index("num_deletions").apply(row_func,args=(r_df.checkpoint_batch,),axis=1)
                     m_df["checkpoint_acc_dis"] = SAPE(m_df["checkpoint_remove_accuracy"].values,retrain_checkpoint_remove_accuracy)
                     m_df["checkpoint_acc_dis_cumsum"] = m_df.checkpoint_acc_dis.cumsum()
+                    m_df["checkpoint_acc_dis_rolling_avg"] = m_df.checkpoint_acc_dis.rolling(window_size).mean()
                 if threshold is not None :
                     # find where the acc_err exceeded the threshold
                     # where acc_err was lower than threshold error is considered 0
@@ -165,24 +166,26 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=1
                     # similarly check for acc_dis
                     m_df["error_acc_dis"] = np.maximum(m_df.acc_dis-threshold,0) 
                     m_df["error_acc_dis_cumsum"] = m_df.error_acc_dis.cumsum()
+                    if not (m_df.pipeline_acc_dis_est.unique()[0] == 'None' or m_df.pipeline_acc_dis_est.isna().any()):
+                        m_df["pipeline_acc_dis_est_rolling_avg"] = m_df.pipeline_acc_dis_est.rolling(window_size).mean()
                 temp.append(m_df)
     return pd.concat(temp)
 
-def compute_all_metrics(data:Data):
-    gol = compute_metrics(data.retrain,data.gol,data.nothing)
-    gol_test = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_test.groupby("threshold")])
-    gol_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v1.groupby("threshold")])
-    gol_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.gol_dis_v2.groupby("threshold")])
+def compute_all_metrics(data:Data,window_size=20):
+    gol = compute_metrics(data.retrain,data.gol,data.nothing,window_size=window_size)
+    gol_test = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t,window_size=window_size) for t,df in data.gol_test.groupby("threshold")])
+    gol_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t,window_size=window_size) for t,df in data.gol_dis_v1.groupby("threshold")])
+    gol_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t,window_size=window_size) for t,df in data.gol_dis_v2.groupby("threshold")])
     if len(data.guo_dis_v1):
-        guo_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.guo_dis_v1.groupby("threshold")])
+        guo_dis_v1 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t,window_size=window_size) for t,df in data.guo_dis_v1.groupby("threshold")])
     else:
         guo_dis_v1 = data.guo_dis_v1
     if len(data.guo_dis_v2):
-        guo_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t) for t,df in data.guo_dis_v2.groupby("threshold")])
+        guo_dis_v2 = pd.concat([compute_metrics(data.retrain,df,data.nothing,threshold=t,window_size=window_size) for t,df in data.guo_dis_v2.groupby("threshold")])
     else:
         guo_dis_v2 = data.guo_dis_v2
-    nothing = compute_metrics(data.retrain,data.nothing,data.nothing)
-    retrain = compute_metrics(data.retrain,data.retrain,data.nothing)
+    nothing = compute_metrics(data.retrain,data.nothing,data.nothing,window_size=window_size)
+    retrain = compute_metrics(data.retrain,data.retrain,data.nothing,window_size=window_size)
     
     return Data(data.dataset,data.ovr_str,retrain,gol,nothing,gol_test,gol_dis_v1,gol_dis_v2,guo_dis_v1,guo_dis_v2)
 #%%
@@ -356,10 +359,10 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
 
 #%%
 if __name__ == "__main__":
-    dataset = "CIFAR"
+    dataset = "MNIST"
     ovr_str = "binary"
     data = load_dfs(results_dir,dataset,ovr_str)
-    data = compute_all_metrics(data)
+    data = compute_all_metrics(data,window_size=10)
 
 #%%
     plot_acc_dis_versions(data,"Golatkar","targeted_informed",noise_level=0,threshold=1)
@@ -463,46 +466,51 @@ plt.ylabel("")
 plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
 # %%
 fig,((ax11,ax21),(ax12,ax22),(ax13,ax23)) = plt.subplots(3,2,figsize=(10,15))
-
 noise_level = 0
-sampling_type = "targeted_informed"
+sampling_type = "targeted_random"
 df = noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level)
+# df = df.groupby(["num_deletions","threshold","noise","sampling_type"]).mean().reset_index()
+
+_rolling_avg = "_rolling_avg"
+# _rolling_avg = ""
 
 df1 = threshold_filter(df,2)
-df1.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax11,marker="s")
-df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax11,marker="s")
+sns.lineplot(data=df1,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax11,marker="s")
+sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax11,marker="s")
 ax11.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
 ax11.set_title("Cumulative AccDis")
 
-df1.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax21,marker="s")
-df1.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax21,marker="s")
+
+sns.lineplot(data=df1,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax21,marker="s")
+sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax21,marker="s")
 ax21.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
 ax21.set_title("Checkpoint AccDis")
 
 ax21.annotate(f"Threshold=2",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
 df2 = threshold_filter(df,1)
-df2.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax12,marker="s")
-df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax12,marker="s")
+sns.lineplot(data=df2,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax12,marker="s")
+sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax12,marker="s")
 ax12.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
 
-df2.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax22,marker="s")
-df2.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax22,marker="s")
+sns.lineplot(data=df2,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax22,marker="s")
+sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax22,marker="s")
 ax22.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
 
 ax22.annotate(f"Threshold=1",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
 df3 = threshold_filter(df,0.5)
-df3.plot(x="num_deletions",y="acc_dis",label="AccDis",ax=ax13,marker="s")
-df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax13,marker="s")
+sns.lineplot(data=df3,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax13,marker="s")
+sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax13,marker="s")
 ax13.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
 
-df3.plot(x="num_deletions",y="checkpoint_acc_dis",label="Checkpoint AccDis",ax=ax23,marker="s")
-df3.plot(x="num_deletions",y="pipeline_acc_dis_est",label="Estimated AccDis",ax=ax23,marker="s")
+sns.lineplot(data=df3,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax23,marker="s")
+sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax23,marker="s")
 ax23.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
 ax23.annotate(f"Threshold=0.5",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
 plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
+# plt.savefig(f"{dataset}_{sampling_type}_checkpoint_metric_comparison.pdf",bbox_inches="tight")
 plt.show()
 
 # %%
