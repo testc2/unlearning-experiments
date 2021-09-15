@@ -5,12 +5,6 @@ from IPython import get_ipython
 from numpy.lib.npyio import load, save
 from torch import threshold_
 from torch.nn.functional import threshold
-if get_ipython() is not None and __name__ == "__main__":
-    notebook = True
-    get_ipython().run_line_magic("load_ext", "autoreload")
-    get_ipython().run_line_magic("autoreload", "2")
-else:
-    notebook = False
 
 from pathlib import Path
 import sys
@@ -21,41 +15,21 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
 import pandas as pd
+if get_ipython() is not None and __name__ == "__main__":
+    notebook = True
+    get_ipython().run_line_magic("load_ext", "autoreload")
+    get_ipython().run_line_magic("autoreload", "2")
+    from plotting.combined_plots import set_size
+else:
+    notebook = False
+from plotting.ratio_remove_plots import load_dfs as ratio_load_dfs
 from parse import get_dg_remove_ratio_frames
 from methods.common_utils import SAPE
-from plotting.ratio_remove_plots import load_dfs as ratio_load_dfs
 from scipy.optimize import curve_fit
 from scipy.stats import pearsonr,spearmanr
 import json
-from plotting.combined_plots import set_size
 from ast import literal_eval
 
-#%%
-def get_default(base:float=6,inc:float=0):
-        return{
-        'font.size' : base+inc,
-        'axes.labelsize' : base+1+inc,
-        'legend.fontsize': base+inc,
-        'legend.title_fontsize': base+inc,
-        'xtick.labelsize' : base+inc,
-        # 'xtick.major.size':3.5,
-        'ytick.labelsize' : base+inc,
-        'figure.titlesize':base+inc,
-}
-default = get_default()
-new_rc_params = {
-        'text.usetex': True,
-        'figure.dpi':200,
-        'savefig.dpi':1000,
-        'font.family': 'serif',
-         }
-new_rc_params.update(default)
-# mpl.rcParams.update(new_rc_params)
-save_fig = False
-if not save_fig:
-    new_rc_params["text.usetex"]=False
-data_dir = project_dir/"data"
-results_dir = data_dir/"results"
 #%%
 
 Data = namedtuple('Data', ["dataset","ovr_str",'retrain', 'gol', 'nothing', 'gol_test', 'gol_dis_v1', 'gol_dis_v2', 'guo_dis_v1', 'guo_dis_v2'])
@@ -80,7 +54,7 @@ def load_df(exp_dir:Path,ovr_str:str,strategy_file_prefix:str,strategy_name:str)
 def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
     exp_dir = results_dir/dataset/"when_to_retrain"
     retrain_df = load_df(exp_dir,ovr_str,"retrain","retrain")
-    retrain_df.checkpoint_remove_accuracy.fillna("\"\"",inplace=True)
+    retrain_df.checkpoint_remove_accuracy.fillna("None",inplace=True)
     retrain_df["checkpoint_remove_accuracy"] = retrain_df.checkpoint_remove_accuracy.apply(literal_eval)
     gol_df = load_df(exp_dir,ovr_str,"golatkar","Golatkar")
     nothing_df = load_df(exp_dir,ovr_str,"nothing","nothing")
@@ -150,7 +124,7 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
                 m_df["acc_err_cumsum"] = m_df.acc_err.cumsum()
                 m_df["acc_err_cumsum_avg"] = m_df.acc_err_cumsum.values/m_df.num_deletions
                 m_df["speedup"] = r_df.running_time.cumsum().values/ m_df.cum_running_time.values
-                if noise == 0:
+                if not m_df.checkpoint_remove_accuracy.isna().any():
                     checkpoint_batches = m_df.set_index("num_deletions").checkpoint_batch
                     retrain_checkpoint_remove_accuracy = r_df.loc[m_df.num_deletions].apply(row_func,args=(checkpoint_batches,),axis=1).values
                     if isinstance(m_df["checkpoint_remove_accuracy"].iloc[0],dict):
@@ -163,9 +137,17 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
                     # where acc_err was lower than threshold error is considered 0
                     m_df["error_acc_err"] = np.maximum(m_df.acc_err-threshold,0) 
                     m_df["error_acc_err_cumsum"] = m_df.error_acc_err.cumsum()
+                    m_df["error_acc_err_mean"] = m_df.error_acc_err.expanding().mean()
                     # similarly check for acc_dis
                     m_df["error_acc_dis"] = np.maximum(m_df.acc_dis-threshold,0) 
+                    m_df["error_acc_dis_mean"] = m_df.error_acc_dis.expanding().mean()
                     m_df["error_acc_dis_cumsum"] = m_df.error_acc_dis.cumsum()
+                    # if checkpoint accuracy is available 
+                    if not m_df.pipeline_acc_dis_est.isna().any():
+                        # similarly check for checkpoint_acc_dis
+                        m_df["error_checkpoint_acc_dis"] = np.maximum(m_df.checkpoint_acc_dis-threshold,0) 
+                        m_df["error_checkpoint_acc_dis_mean"] = m_df.error_checkpoint_acc_dis.expanding().mean()
+                        m_df["error_checkpoint_acc_dis_cumsum"] = m_df.error_checkpoint_acc_dis.cumsum()
                     if not (m_df.pipeline_acc_dis_est.unique()[0] == 'None' or m_df.pipeline_acc_dis_est.isna().any()):
                         m_df["pipeline_acc_dis_est_rolling_avg"] = m_df.pipeline_acc_dis_est.rolling(window_size).mean()
                 temp.append(m_df)
@@ -354,163 +336,202 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
     temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
     if threshold is not None:
         temp = threshold_filter(temp,threshold)
-    sns.lineplot(data=temp,x="num_deletions",y=metric,hue="strategy")
+    sns.lineplot(data=temp,x="num_deletions",y=metric,hue="strategy",ax=ax)
     return ax
 
+
+def compute_error_metrics(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float):
+    temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
+    # find the mean and std for each run
+    temp =temp.groupby(["threshold","sampling_type","sampler_seed","noise_seed"])[metric].agg(["mean","std"])
+    # then the average mean and std over all runs 
+    res = temp.groupby(["threshold","sampling_type"]).mean()
+    return res
+
+                
 #%%
 if __name__ == "__main__":
+    def get_default(base:float=6,inc:float=0):
+        return{
+        'font.size' : base+inc,
+        'axes.labelsize' : base+1+inc,
+        'legend.fontsize': base+inc,
+        'legend.title_fontsize': base+inc,
+        'xtick.labelsize' : base+inc,
+        # 'xtick.major.size':3.5,
+        'ytick.labelsize' : base+inc,
+        'figure.titlesize':base+inc,
+        }
+    default = get_default()
+    new_rc_params = {
+            'text.usetex': True,
+            'figure.dpi':200,
+            'savefig.dpi':1000,
+            'font.family': 'serif',
+            }
+    new_rc_params.update(default)
+    # mpl.rcParams.update(new_rc_params)
+    save_fig = False
+    if not save_fig:
+        new_rc_params["text.usetex"]=False
+    data_dir = project_dir/"data"
+    results_dir = data_dir/"results"
+    
     dataset = "MNIST"
-    ovr_str = "binary"
+    ovr_str = "multi"
     data = load_dfs(results_dir,dataset,ovr_str)
     data = compute_all_metrics(data,window_size=10)
-
+    
 #%%
     plot_acc_dis_versions(data,"Golatkar","targeted_informed",noise_level=0,threshold=1)
 #%%
-    plot_metric(data.gol_dis_v1,"error_acc_err_cumsum","targeted_informed",noise_level=0)
+    plot_metric(data.gol_dis_v1,"speedup","targeted_informed",noise_level=0)
 #%%
     plot_grid(data,"dis_v1",noise_level=0)
 # %%
-df = noise_filter(threshold_filter(data.gol_test,0.1),noise= 1)
-sns.lineplot(data=df,x="num_deletions",y="cum_running_time",hue="sampling_type")
-plt.yscale("log")
-# %%
-df = pd.concat([data.gol_dis_v1,data.gol])
-df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=0)
-# filter = filter[filter.threshold.isin([1,0.5])]
-sns.lineplot(data=df,x="num_deletions",y="error_acc_dis_cumsum",hue="strategy")
-plt.show()
+    df = noise_filter(threshold_filter(data.gol_test,0.1),noise= 1)
+    sns.lineplot(data=df,x="num_deletions",y="cum_running_time",hue="sampling_type")
+    plt.yscale("log")
+    # %%
+    df = pd.concat([data.gol_dis_v1,data.gol])
+    df = noise_filter(sampling_type_filter(df,"targeted_informed"),noise=0)
+    # filter = filter[filter.threshold.isin([1,0.5])]
+    sns.lineplot(data=df,x="num_deletions",y="error_acc_dis_cumsum",hue="strategy")
+    plt.show()
 
-# %%
-# plots to compare impact of threshold on a metric for particular noise level and sampling type 
-sampling_type = "targeted_informed"
-noise_level = 0
-metric = "error_acc_dis_cumsum"
-dataframe = data.gol_dis_v1
-df = noise_filter(sampling_type_filter(dataframe,sampling_type),noise_level)
-sns.lineplot(data=df,x="num_deletions",y=metric,hue="threshold",style="threshold")
-plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
-# plt.yscale("log")
-# plt.axhline(1)
-plt.show()
-print(df.groupby("threshold").error_acc_dis.sum())
+    # %%
+    # plots to compare impact of threshold on a metric for particular noise level and sampling type 
+    sampling_type = "targeted_informed"
+    noise_level = 0
+    metric = "error_checkpoint_acc_dis_mean"
+    dataframe = data.gol_dis_v1
+    df = noise_filter(sampling_type_filter(dataframe,sampling_type),noise_level)
+    sns.lineplot(data=df,x="num_deletions",y=metric,hue="threshold",style="threshold")
+    plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
+    if metric in ["speedup","cum_running_time"]:
+        plt.yscale("log")
+        plt.axhline(1,color="black",linestyle="--",alpha=0.5)
+    plt.show()
+    print("Per Batch Average Estimation Error of AccDis")
+    print(df.groupby(["threshold","sampler_seed"]).error_acc_dis.mean())
+    print(df.groupby(["threshold","sampler_seed"]).error_checkpoint_acc_dis.mean())
 #%%
 
-# plots to compare the impact of noise on AccDis and AccErr for a threshold and sampling type 
-threshold = 0.1
-sampling_type = "targeted_informed"
-fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,5))
-df = sampling_type_filter(threshold_filter(data.gol_test,threshold),sampling_type)
-ax1= sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="noise",ax=ax1)
-ax2= sns.lineplot(data=df,x="num_deletions",y="acc_err_cumsum",hue="noise",ax=ax2)
-ax1.set_xlabel("Num Deletions")
-ax2.set_xlabel("Num Deletions")
-ax1.set_ylabel("Cum. AccDis")
-ax2.set_ylabel("Cum. AccErr")
+    # plots to compare the impact of noise on AccDis and AccErr for a threshold and sampling type 
+    threshold = 0.1
+    sampling_type = "targeted_informed"
+    fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,5))
+    df = sampling_type_filter(threshold_filter(data.gol_dis_v1,threshold),sampling_type)
+    ax1= sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="noise",ax=ax1)
+    ax2= sns.lineplot(data=df,x="num_deletions",y="acc_err_cumsum",hue="noise",ax=ax2)
+    ax1.set_xlabel("Num Deletions")
+    ax2.set_xlabel("Num Deletions")
+    ax1.set_ylabel("Cum. AccDis")
+    ax2.set_ylabel("Cum. AccErr")
 
-plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))}, Golatkar AccErr threshold: {threshold}%")
-# %%
+    plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))}, Golatkar AccErr threshold: {threshold}%")
+    # %%
 
-# plot to explore the linearity between the AccErr_init and AccDis
-noise_level=0
-sampling_type="targeted_informed"
-df = sampling_type_filter(noise_filter(data.gol,noise_level),sampling_type)
-c = 0.61517267784659
-# c = df.abs_dis.values[-1]/df.abs_err_init.values[-1]
-print(c)
-sns.scatterplot(data=df,x="abs_err_init",y="abs_dis")
-sns.lineplot(x=df.abs_err_init,y=c*df.abs_err_init)
-# c = df.acc_dis.values[-1]/df.acc_err_init.values[-1]
-# sns.lineplot(x=df.acc_err_init,y=c*df.acc_err_init)
-# sns.scatterplot(data=df,x="acc_err_init",y="acc_dis")
-plt.xscale("log")
-plt.yscale("log")
-# %%
-# plots to check the true and estimated pipeline AccDis
-sampling_type = "targeted_informed"
-noise_level = 0
-threshold = 1
-df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
-sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_dis_est",label="pipeline estimate",marker="s")
-sns.lineplot(data=df,x="num_deletions",y="checkpoint_acc_dis",label="true",marker="s")
-plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
-# sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="threshold")
-plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
-# %%
+    # plot to explore the linearity between the AccErr_init and AccDis
+    noise_level=0
+    sampling_type="targeted_informed"
+    df = sampling_type_filter(noise_filter(data.gol,noise_level),sampling_type)
+    c = 0.61517267784659
+    # c = df.abs_dis.values[-1]/df.abs_err_init.values[-1]
+    print(c)
+    sns.scatterplot(data=df,x="abs_err_init",y="abs_dis")
+    sns.lineplot(x=df.abs_err_init,y=c*df.abs_err_init)
+    # c = df.acc_dis.values[-1]/df.acc_err_init.values[-1]
+    # sns.lineplot(x=df.acc_err_init,y=c*df.acc_err_init)
+    # sns.scatterplot(data=df,x="acc_err_init",y="acc_dis")
+    plt.xscale("log")
+    plt.yscale("log")
+    # %%
+    # plots to check the true and estimated pipeline AccDis
+    sampling_type = "targeted_informed"
+    noise_level = 0
+    threshold = 1
+    df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
+    sns.lineplot(data=df,x="num_deletions",y="pipeline_acc_dis_est",label="pipeline estimate",marker="s")
+    sns.lineplot(data=df,x="num_deletions",y="checkpoint_acc_dis",label="true",marker="s")
+    plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
+    # sns.lineplot(data=df,x="num_deletions",y="acc_dis_cumsum",hue="threshold")
+    plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
+    # %%
 
-# Code to rerun the computations of the pipeline estimations
-sampling_type = "targeted_informed"
-noise_level = 0
-threshold = 1
-df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
-r_df = noise_filter(sampling_type_filter(data.retrain,sampling_type),noise_level)
-c = df.prop_const.unique()[0]
-# c = 4.69518422
+    # Code to rerun the computations of the pipeline estimations
+    sampling_type = "targeted_informed"
+    noise_level = 0
+    threshold = 1
+    df = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
+    r_df = noise_filter(sampling_type_filter(data.retrain,sampling_type),noise_level)
+    c = df.prop_const.unique()[0]
+    # c = 4.69518422
 
-acc_dis_pred_v1 = df.pipeline_acc_err * c
-predictions = df.cum_remove_accuracy.values + c * df.pipeline_abs_err
-errors = SAPE(predictions,r_df.cum_remove_accuracy.values)
-acc_dis_pred_v2 = SAPE(df.cum_remove_accuracy,predictions)
+    acc_dis_pred_v1 = df.pipeline_acc_err * c
+    predictions = df.cum_remove_accuracy.values + c * df.pipeline_abs_err
+    errors = SAPE(predictions,r_df.cum_remove_accuracy.values)
+    acc_dis_pred_v2 = SAPE(df.cum_remove_accuracy,predictions)
 
-sns.lineplot(x=df.num_deletions.values,y=r_df.cum_remove_accuracy.values,label="Retrained acc_del",marker="s")
-# sns.lineplot(x=df.num_deletions.values,y=predictions,label="Predictions",marker="s")
-sns.lineplot(x=df.num_deletions.values,y=errors,label="Errors",marker="s")
+    sns.lineplot(x=df.num_deletions.values,y=r_df.cum_remove_accuracy.values,label="Retrained acc_del",marker="s")
+    # sns.lineplot(x=df.num_deletions.values,y=predictions,label="Predictions",marker="s")
+    sns.lineplot(x=df.num_deletions.values,y=errors,label="Errors",marker="s")
 
-# sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v1,label="Acc Dis Predictions_v1",marker="s")
-# sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v2,label="Acc Dis Predictions_v2",marker="s")
-# sns.lineplot(x=df.num_deletions.values,y=df.acc_dis,label="True Acc Dis",marker="s")
-# plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
-# sns.lineplot(x=df.num_deletions.values,y=df.pipeline_acc_dis_est,label="Acc Dis Predictions",marker="s")
+    # sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v1,label="Acc Dis Predictions_v1",marker="s")
+    # sns.lineplot(x=df.num_deletions.values,y=acc_dis_pred_v2,label="Acc Dis Predictions_v2",marker="s")
+    # sns.lineplot(x=df.num_deletions.values,y=df.acc_dis,label="True Acc Dis",marker="s")
+    # plt.axhline(y=threshold,linestyle="--",color="black",alpha=0.5)
+    # sns.lineplot(x=df.num_deletions.values,y=df.pipeline_acc_dis_est,label="Acc Dis Predictions",marker="s")
 
-plt.ylabel("")
-plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
-# %%
-fig,((ax11,ax21),(ax12,ax22),(ax13,ax23)) = plt.subplots(3,2,figsize=(10,15))
-noise_level = 0
-sampling_type = "targeted_random"
-df = noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level)
-# df = df.groupby(["num_deletions","threshold","noise","sampling_type"]).mean().reset_index()
+    plt.ylabel("")
+    plt.title(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$ Threshold:{threshold}")
+    # %%
+    fig,((ax11,ax21),(ax12,ax22),(ax13,ax23)) = plt.subplots(3,2,figsize=(10,15))
+    noise_level = 0
+    sampling_type = "targeted_random"
+    df = noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level)
+    # df = df.groupby(["num_deletions","threshold","noise","sampling_type"]).mean().reset_index()
 
-_rolling_avg = "_rolling_avg"
-# _rolling_avg = ""
+    _rolling_avg = "_rolling_avg"
+    # _rolling_avg = ""
 
-df1 = threshold_filter(df,2)
-sns.lineplot(data=df1,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax11,marker="s")
-sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax11,marker="s")
-ax11.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
-ax11.set_title("Cumulative AccDis")
+    df1 = threshold_filter(df,2)
+    sns.lineplot(data=df1,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax11,marker="s")
+    sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax11,marker="s")
+    ax11.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
+    ax11.set_title("Cumulative AccDis")
 
 
-sns.lineplot(data=df1,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax21,marker="s")
-sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax21,marker="s")
-ax21.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
-ax21.set_title("Checkpoint AccDis")
+    sns.lineplot(data=df1,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax21,marker="s")
+    sns.lineplot(data=df1,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax21,marker="s")
+    ax21.axhline(2,linestyle="--",color="black",alpha=0.5,marker="s")
+    ax21.set_title("Checkpoint AccDis")
 
-ax21.annotate(f"Threshold=2",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+    ax21.annotate(f"Threshold=2",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
-df2 = threshold_filter(df,1)
-sns.lineplot(data=df2,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax12,marker="s")
-sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax12,marker="s")
-ax12.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
+    df2 = threshold_filter(df,1)
+    sns.lineplot(data=df2,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax12,marker="s")
+    sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax12,marker="s")
+    ax12.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
 
-sns.lineplot(data=df2,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax22,marker="s")
-sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax22,marker="s")
-ax22.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
+    sns.lineplot(data=df2,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax22,marker="s")
+    sns.lineplot(data=df2,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax22,marker="s")
+    ax22.axhline(1,linestyle="--",color="black",alpha=0.5,marker="s")
 
-ax22.annotate(f"Threshold=1",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+    ax22.annotate(f"Threshold=1",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
-df3 = threshold_filter(df,0.5)
-sns.lineplot(data=df3,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax13,marker="s")
-sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax13,marker="s")
-ax13.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
+    df3 = threshold_filter(df,0.5)
+    sns.lineplot(data=df3,x="num_deletions",y=f"acc_dis{_rolling_avg}",label="AccDis",ax=ax13,marker="s")
+    sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax13,marker="s")
+    ax13.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
 
-sns.lineplot(data=df3,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax23,marker="s")
-sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax23,marker="s")
-ax23.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
-ax23.annotate(f"Threshold=0.5",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+    sns.lineplot(data=df3,x="num_deletions",y=f"checkpoint_acc_dis{_rolling_avg}",label="Checkpoint AccDis",ax=ax23,marker="s")
+    sns.lineplot(data=df3,x="num_deletions",y=f"pipeline_acc_dis_est{_rolling_avg}",label="Estimated AccDis",ax=ax23,marker="s")
+    ax23.axhline(0.5,linestyle="--",color="black",alpha=0.5,marker="s")
+    ax23.annotate(f"Threshold=0.5",xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
 
-plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
-# plt.savefig(f"{dataset}_{sampling_type}_checkpoint_metric_comparison.pdf",bbox_inches="tight")
-plt.show()
+    plt.suptitle(f"{dataset}, {' '.join(sampling_type.split('_'))},$\sigma={noise_level}$")
+    # plt.savefig(f"{dataset}_{sampling_type}_checkpoint_metric_comparison.pdf",bbox_inches="tight")
+    plt.show()
 
-# %%
+    # %%
