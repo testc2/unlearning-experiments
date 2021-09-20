@@ -100,8 +100,8 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
         if len(method_filter_df):
             # print(sampling_type,noise)
             for ((g1,r_df),(g2,m_df),(g3,n_df)) in zip(df.groupby(groupby_cols_1),method_filter_df.groupby(groupby_cols_1),nothing_filter_df.groupby(groupby_cols_1)):
-                assert g1 == g2 == g3
                 # print(g1,len(r_df),len(m_df),len(n_df))
+                assert g1 == g2 == g3
                 r_df.set_index("num_deletions",inplace=True)
                 m_df["acc_dis"] = SAPE(m_df["cum_remove_accuracy"].values,r_df.loc[m_df.num_deletions,"cum_remove_accuracy"].values)
                 m_df["abs_dis"] = np.abs(m_df["cum_remove_accuracy"].values-r_df.loc[m_df.num_deletions,"cum_remove_accuracy"].values)
@@ -136,16 +136,19 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
                     # find where the acc_err exceeded the threshold
                     # where acc_err was lower than threshold error is considered 0
                     m_df["error_acc_err"] = np.maximum(m_df.acc_err-threshold,0) 
+                    m_df["error_acc_err_rel_per"] = (m_df.error_acc_err/threshold)*100
                     m_df["error_acc_err_cumsum"] = m_df.error_acc_err.cumsum()
                     m_df["error_acc_err_mean"] = m_df.error_acc_err.expanding().mean()
                     # similarly check for acc_dis
                     m_df["error_acc_dis"] = np.maximum(m_df.acc_dis-threshold,0) 
+                    m_df["error_acc_dis_rel_per"] = (m_df.error_acc_dis/threshold)*100
                     m_df["error_acc_dis_mean"] = m_df.error_acc_dis.expanding().mean()
                     m_df["error_acc_dis_cumsum"] = m_df.error_acc_dis.cumsum()
                     # if checkpoint accuracy is available 
                     if not m_df.pipeline_acc_dis_est.isna().any():
                         # similarly check for checkpoint_acc_dis
                         m_df["error_checkpoint_acc_dis"] = np.maximum(m_df.checkpoint_acc_dis-threshold,0) 
+                        m_df["error_checkpoint_acc_dis_rel_per"] = (m_df.error_checkpoint_acc_dis/threshold)*100
                         m_df["error_checkpoint_acc_dis_mean"] = m_df.error_checkpoint_acc_dis.expanding().mean()
                         m_df["error_checkpoint_acc_dis_cumsum"] = m_df.error_checkpoint_acc_dis.cumsum()
                     if not (m_df.pipeline_acc_dis_est.unique()[0] == 'None' or m_df.pipeline_acc_dis_est.isna().any()):
@@ -377,15 +380,15 @@ if __name__ == "__main__":
     data_dir = project_dir/"data"
     results_dir = data_dir/"results"
     
-    dataset = "MNIST"
-    ovr_str = "multi"
+    dataset = "HIGGS"
+    ovr_str = "binary"
     data = load_dfs(results_dir,dataset,ovr_str)
     data = compute_all_metrics(data,window_size=10)
     
 #%%
     plot_acc_dis_versions(data,"Golatkar","targeted_informed",noise_level=0,threshold=1)
 #%%
-    plot_metric(data.gol_dis_v1,"speedup","targeted_informed",noise_level=0)
+    plot_metric(data.gol_test,"acc_err","targeted_informed",noise_level=0,threshold=0.1)
 #%%
     plot_grid(data,"dis_v1",noise_level=0)
 # %%

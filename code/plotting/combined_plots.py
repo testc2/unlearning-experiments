@@ -1232,7 +1232,7 @@ def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_
         
     
     temp = pd.concat(temp)
-    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.5f}\pm{row['std']:.3f}$",axis=1)
+    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.2f}\pm{row['std']:.1f}$",axis=1)
     temp["sampling type"] = temp.sampling_type.apply(lambda x : fr"$\texttt{{{'-'.join(x.split('_'))}}}$")
     temp = temp.pivot(index=["dataset","threshold"],columns="sampling type",values="output_str")
     temp = temp.sort_index(ascending=False,axis=1)
