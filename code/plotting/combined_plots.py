@@ -1,8 +1,11 @@
 #%%
 from os import replace
+from re import escape
 from IPython import get_ipython
 from numpy.lib.npyio import save
 from traitlets.traitlets import default
+
+from plotting.pipeline_plots import compute_all_metrics, compute_error_metrics, load_dfs, plot_metric
 if get_ipython() is not None and __name__ == "__main__":
     notebook = True
     get_ipython().run_line_magic("load_ext", "autoreload")
@@ -105,6 +108,14 @@ def plot_extended_ratios(results_dir:Path,save_fig:bool=False):
         axis[0].set_title(dataset_names[j])
     fig.subplots_adjust(bottom=0.01,top=0.95,wspace=0.4,hspace=0.5)
 
+def SAPE(a,b):
+    numerator = np.abs(a-b)
+    denominator = (np.abs(a)+np.abs(b))
+    both_zero = (numerator==0)&(denominator==0)
+    sae = numerator/denominator
+    sae[both_zero] = 1 
+    return sae*100
+
 def find_selected_ratios(save_fig:bool=False):
     figure_dir = results_dir/"images"
     dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
@@ -120,7 +131,8 @@ def find_selected_ratios(save_fig:bool=False):
             ratio_dfs = ratio_plots.load_dfs(results_dir,datasets[j],ovr_strs[j])
 
             true_test_accuracy = float(true_results[f"{datasets[j]}{ovr_strs[j].title()}"]["test_accuracy"])
-            ratio_dfs["accuracy_drop_percentage"] = ((true_test_accuracy-ratio_dfs.test_accuracy)/true_test_accuracy)*100
+            # ratio_dfs["accuracy_drop_percentage"] = ((true_test_accuracy-ratio_dfs.test_accuracy)/true_test_accuracy)*100
+            ratio_dfs["accuracy_drop_percentage"] = SAPE(true_test_accuracy,ratio_dfs.test_accuracy.values)
             ratio_dfs_list.append(ratio_dfs)
     
     fig,ax = plt.subplots(1,len(datasets),figsize=(4*len(datasets),4),sharex=True,sharey=True)
@@ -189,10 +201,10 @@ def set_size(width, fraction=1, subplots=(1, 1)):
     fig_height_in = fig_width_in * golden_ratio * (subplots[0] / subplots[1])
 
     return (fig_width_in, fig_height_in)
-
+#%%
 if __name__ == "__main__":
     mpl.rcParams["figure.dpi"]=100
-    mpl.rcParams["font.size"]=20
+    mpl.rcParams["font.size"]=5
     #%%
     plot_combined(results_dir,[0.01,0.05,0.10],save_fig=save_fig)
     # %%
@@ -1099,3 +1111,137 @@ def plot_unlearning_appendix(results_dir:Path,method:str,remove_ratio_idx:int,sa
         plt.savefig(figure_dir/f"Certifiability_Effectiveness_Tradeoff_Grid_{method}_{deletion_volumes[remove_ratio_idx]}.pdf",bbox_inches="tight")
     else:
         plt.show()
+
+#%%
+
+def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool=False,latex:bool=False,fig_width_pt:float=246.0,scale:float=3):
+    
+    assert strategy in ["gol_test","gol_dis_v1","gol_dis_v2"]
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    if latex:
+        dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"$\textsc{mnist}$",
+            r"$\textsc{covtype}$",
+            r"$\textsc{higgs}$",
+            r"$\textsc{cifar2}$",
+            r"$\textsc{epsilon}$"
+        ]
+        y_label="Speed-up"
+        x_label="No. Deletions"
+        method_labels = [r"$\textsc{Influence}$",r"$\textsc{Fisher}$",r"$\textsc{DeltaGrad}$"]
+
+    else:
+        y_label = "Speed-up"
+        x_label="No. Deletions"
+        dataset_names = ["$MNIST^b$","MNIST","COVTYPE","HIGGS","CIFAR2","EPSILON"]
+        method_labels = ["${INFL}$","${FISH}$","${DG}$"]
+    
+    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+    num_rows = len(sampling_types)
+    subplots = (num_rows,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)*scale
+    figsize[1]+=1
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=0.4)
+
+    for j,dataset in enumerate(datasets):
+        data = load_dfs(results_dir,dataset,ovr_strs[j])
+        data = compute_all_metrics(data)
+        data = data._asdict()
+        df = data[strategy]
+        if strategy in ["gol_dis_v1","gol_dis_v2"]:
+            df = df[df.threshold.isin([1,2,5])]
+        else:
+            df = df[df.threshold.isin([0.1,0.5,1])]
+        for i,sampling_type in enumerate(sampling_types):
+            print(i,j,dataset,sampling_type)
+            axis = ax[i,j]
+            axis = plot_metric(df,"speedup",sampling_type,noise_level,ax=axis)
+            axis.set_yscale("log")
+            axis.axhline(1,color="black",linestyle="--",alpha=0.5)
+            if i == 0 and j==0 :
+                axis.legend(bbox_to_anchor=(0.5,-0.05),
+                    loc="upper center",
+                    ncol=5,
+                    bbox_transform=fig.transFigure)
+                axis.annotate("No. Deletions",fontsize=30,
+                xy=(0.5,0.12), rotation=0,ha='center',va='center',xycoords='figure fraction'
+                )
+                axis.annotate(y_label,fontsize=30,
+                xy=(0.01,0.6), rotation=90,ha='center',va='center',xycoords='figure fraction')
+            else:
+                axis.get_legend().remove()
+            
+            if j == len(datasets)-1:
+                axis.annotate(fr"$\texttt{{{'-'.join(sampling_type.split('_'))}}}$", #fontsize=30,
+                 xy=(1.5,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
+            axis.set_ylabel("")
+            axis.set_xlabel("")
+            
+           
+
+            if i ==0:
+                axis.set_title(dataset_names[j])
+        
+    if save_fig:
+        plt.savefig(figure_dir/f"Pipeline_{strategy}_speedup_grid_noise_{noise_level}.pdf",bbox_inches="tight")
+
+
+def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_level:float=0):
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"\textsc{mnist}",
+            r"\textsc{covtype}",
+            r"\textsc{higgs}",
+            r"\textsc{cifar2}",
+            r"\textsc{epsilon}"
+        ]
+    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+
+    if strategy == "gol_test":
+        valid_thresholds = [0.1,0.5,1]
+    elif strategy in ["gol_dis_v1","gol_dis_v2"]:
+        valid_thresholds = [1,2,5]
+    temp =[ ]
+    for j,dataset in enumerate(datasets):
+        temp1 = []
+        data = load_dfs(results_dir,dataset,ovr_strs[j])
+        data = compute_all_metrics(data)
+        data = data._asdict()
+        df = data[strategy]
+        if strategy in ["gol_dis_v1","gol_dis_v2"] and dataset == "HIGGS":
+            df = df[df.threshold.isin([10,20,50])]
+        else:
+            df = df[df.threshold.isin(valid_thresholds)]
+        for sampling_type in sampling_types:
+            temp1.append(compute_error_metrics(df,metric,sampling_type,noise_level))
+        temp1 = pd.concat(temp1)
+        temp1 = temp1.reset_index()
+        temp1["dataset"] = dataset_names[j]
+        temp.append(temp1)
+        
+    
+    temp = pd.concat(temp)
+    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.2f}\pm{row['std']:.1f}$",axis=1)
+    temp["sampling type"] = temp.sampling_type.apply(lambda x : fr"$\texttt{{{'-'.join(x.split('_'))}}}$")
+    temp = temp.pivot(index=["dataset","threshold"],columns="sampling type",values="output_str")
+    temp = temp.sort_index(ascending=False,axis=1)
+    temp = temp.loc[dataset_names]
+    print(temp.to_latex(multirow=True,escape=False))
+
+    
+
+        
+
+
+# %%
