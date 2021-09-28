@@ -137,11 +137,13 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
                     # where acc_err was lower than threshold error is considered 0
                     m_df["error_acc_err"] = np.maximum(m_df.acc_err-threshold,0) 
                     m_df["error_acc_err_rel_per"] = (m_df.error_acc_err/threshold)*100
+                    m_df["error_acc_err_rel_per_mean"] = m_df.error_acc_err_rel_per.expanding().mean()
                     m_df["error_acc_err_cumsum"] = m_df.error_acc_err.cumsum()
                     m_df["error_acc_err_mean"] = m_df.error_acc_err.expanding().mean()
                     # similarly check for acc_dis
                     m_df["error_acc_dis"] = np.maximum(m_df.acc_dis-threshold,0) 
                     m_df["error_acc_dis_rel_per"] = (m_df.error_acc_dis/threshold)*100
+                    m_df["error_acc_dis_rel_per_mean"] = m_df.error_acc_dis_rel_per.expanding().mean()
                     m_df["error_acc_dis_mean"] = m_df.error_acc_dis.expanding().mean()
                     m_df["error_acc_dis_cumsum"] = m_df.error_acc_dis.cumsum()
                     # if checkpoint accuracy is available 
@@ -149,8 +151,15 @@ def compute_metrics(retrain_df,method_df,nothing_df,threshold=None,window_size=2
                         # similarly check for checkpoint_acc_dis
                         m_df["error_checkpoint_acc_dis"] = np.maximum(m_df.checkpoint_acc_dis-threshold,0) 
                         m_df["error_checkpoint_acc_dis_rel_per"] = (m_df.error_checkpoint_acc_dis/threshold)*100
+                        m_df["error_checkpoint_acc_dis_rel_per_mean"] = m_df.error_checkpoint_acc_dis_rel_per.expanding().mean()
                         m_df["error_checkpoint_acc_dis_mean"] = m_df.error_checkpoint_acc_dis.expanding().mean()
                         m_df["error_checkpoint_acc_dis_cumsum"] = m_df.error_checkpoint_acc_dis.cumsum()
+                        # compute the error metric for twice the pipeline threshold 
+                        m_df["error_checkpoint_acc_dis_double"] = np.maximum(m_df.checkpoint_acc_dis-(2*threshold),0) 
+                        m_df["error_checkpoint_acc_dis_rel_per_double"] = (m_df.error_checkpoint_acc_dis_double/(2*threshold))*100
+                        m_df["error_checkpoint_acc_dis_rel_per_mean_double"] = m_df.error_checkpoint_acc_dis_rel_per_double.expanding().mean()
+                        m_df["error_checkpoint_acc_dis_mean_double"] = m_df.error_checkpoint_acc_dis_double.expanding().mean()
+                        m_df["error_checkpoint_acc_dis_cumsum_double"] = m_df.error_checkpoint_acc_dis_double.cumsum()
                     if not (m_df.pipeline_acc_dis_est.unique()[0] == 'None' or m_df.pipeline_acc_dis_est.isna().any()):
                         m_df["pipeline_acc_dis_est_rolling_avg"] = m_df.pipeline_acc_dis_est.rolling(window_size).mean()
                 temp.append(m_df)
@@ -346,12 +355,58 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
 def compute_error_metrics(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float):
     temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
     # find the mean and std for each run
-    temp =temp.groupby(["threshold","sampling_type","sampler_seed","noise_seed"])[metric].agg(["mean","std"])
+    temp =temp.groupby(["threshold","sampling_type","sampler_seed","noise_seed"])[metric].mean()
     # then the average mean and std over all runs 
-    res = temp.groupby(["threshold","sampling_type"]).mean()
+    res = temp.groupby(["threshold","sampling_type"]).agg(["mean","std"])
     return res
 
-                
+def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:float):
+    temp = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
+    temp = temp.query("noise_seed==5 and sampler_seed==0")
+    # temp = temp.groupby(["num_deletions","threshold","sampling_type","noise"]).mean().reset_index()
+    print(len(temp))
+    deletion_batch_size = temp.deletion_batch_size.values[0]
+    x_ticks = (temp.num_deletions/deletion_batch_size).round()
+    plt.bar((temp.num_deletions/deletion_batch_size).round(),temp.checkpoint_acc_dis.values,label="True")
+    plt.plot((temp.num_deletions/deletion_batch_size).round(),temp.pipeline_acc_dis_est,label="Pipeline Estimate",color="red")
+    plt.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
+    for i,y in enumerate(temp.query("retrained==True").num_deletions):
+        if i ==0:
+            kwargs = {"label":"Restart"}
+        else:
+            kwargs = {}
+        plt.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.7,color="green",**kwargs)
+    plt.legend()
+    plt.xticks(x_ticks[::10],labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
+    plt.xlabel("No. Deletions")
+    plt.ylabel("AccDis %")
+    plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(str(threshold).split('.'))}_acc_dis_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
+
+    
+
+def plot_acc_err_helper(data:Data,sampling_type:str,noise_level:float,threshold:float):
+    temp = threshold_filter(noise_filter(sampling_type_filter(data.gol_test,sampling_type),noise_level),threshold)
+    temp = temp.query("noise_seed==0 and sampler_seed==0")
+    # temp = temp.groupby(["num_deletions","threshold","sampling_type","noise"]).mean().reset_index()
+    print(len(temp))
+    deletion_batch_size = temp.deletion_batch_size.values[0]
+    x_ticks = (temp.num_deletions/deletion_batch_size).round()
+    plt.bar(x_ticks,temp.acc_err.values,label="True AccErr")
+    plt.plot(x_ticks,temp.pipeline_acc_err,label="AccErr Estimate",color="red")
+    plt.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
+    for i,y in enumerate(temp.query("retrained==True").num_deletions):
+        if i ==0:
+            kwargs = {"label":"restart"}
+        else:
+            kwargs = {}
+        plt.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.5,color="green",**kwargs)
+
+    plt.xticks(x_ticks[::10],labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
+    plt.xlabel("No. Deletions")
+    plt.ylabel("AccErr \%")
+    plt.legend()
+    plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(threshold.split('.'))}_acc_err_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
+
 #%%
 if __name__ == "__main__":
     def get_default(base:float=6,inc:float=0):
@@ -374,13 +429,13 @@ if __name__ == "__main__":
             }
     new_rc_params.update(default)
     # mpl.rcParams.update(new_rc_params)
-    save_fig = False
+    save_fig = True
     if not save_fig:
         new_rc_params["text.usetex"]=False
     data_dir = project_dir/"data"
     results_dir = data_dir/"results"
     
-    dataset = "HIGGS"
+    dataset = "MNIST"
     ovr_str = "binary"
     data = load_dfs(results_dir,dataset,ovr_str)
     data = compute_all_metrics(data,window_size=10)

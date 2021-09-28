@@ -408,6 +408,95 @@ def plot_remove_dist(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,s
     else:
         plt.show()
 
+def plot_remove_dist_single(results_dir:Path,remove_ratio_size:str,plot_deltagrad=False,save_fig:bool=False,suffix:str="",latex:str=False,fig_width_pt:float=246.0,scale:float=3):
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    if latex:
+        dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"$\textsc{mnist}$",
+            r"$\textsc{covtype}$",
+            r"$\textsc{higgs}$",
+            r"$\textsc{cifar2}$",
+            r"$\textsc{epsilon}$"
+        ]
+        del_ylabel = r"\texttt{AccDis} \%"
+        sape = r"$\texttt{sAPE}$"
+        label_map = {"${INF}$":r"$\textsc{Influence}$","${FISH}$":r"$\textsc{Fisher}$","${DG}$":r"$\textsc{DeltaGrad}$"}
+    else:
+        dataset_names = ["$MNIST^b$","MNIST","COVTYPE","HIGGS","CIFAR2","EPSILON"]
+        test_ylabel = r"${Acc}_{test}$"
+        del_ylabel = r"${AccDis}$"
+    
+
+    relative_test_accuracy_drops_names=["small","medium","large"]
+    relative_test_accuracy_drops=[1,5,10]
+    assert remove_ratio_size in relative_test_accuracy_drops_names
+    remove_ratio_idx = relative_test_accuracy_drops_names.index(remove_ratio_size)
+    subplots = (1,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)*scale
+    figsize[1]+=0.5
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(
+        left=0.05,
+        bottom=0.3,
+        top=0.99,
+        wspace=0.3,
+        hspace=0.3
+        )
+    kwargs=dict(markersize=10,markeredgecolor="black")
+    for j in range(len(datasets)):
+        dist_dfs = dist_plots.load_dfs(results_dir,datasets[j],ovr_strs[j],plot_deltagrad=plot_deltagrad,suffix=suffix)
+        axis = ax[:,j]
+        ratios = sorted(dist_dfs[1].remove_ratio.unique())
+        ratio = ratios[remove_ratio_idx]
+        i = 0
+        axis[i] = dist_plots.plot_tradeoffs(f"remove_{metric_map[ovr_strs[j]]}",ratio,"targeted_informed",*dist_dfs,ax=axis[i],legend=True,**kwargs) 
+        axis[i].set_ylabel("")
+        axis[i].set_xlabel("")
+        axis[i].xaxis.set_major_formatter(speed_up)
+        if datasets[j] == "HIGGS":
+            axis[i].set_yscale("symlog",linthresh=1)
+            axis[i].set_ylim(bottom=-0.1,top=1e2+0.1)
+            axis[i].set_xticks([1,9,27,81])
+        if datasets[j] == "COVTYPE":
+            axis[i].set_yscale("symlog",linthresh=1)
+            axis[i].set_ylim(bottom=-0.1,top=1e2+0.1)
+            axis[i].set_xticks([1,3,27,243])
+        if datasets[j] == "CIFAR":
+            if i==0:
+                axis[i].set_yscale("symlog",linthresh=1)
+                axis[i].set_ylim(bottom=-0.1,top=1e2+50)
+            axis[i].set_xticks([1,3,9])
+        if dataset_base_names[j]=="mnist_binary":
+            axis[i].set_xticks([1,3,9,27])
+        if dataset_base_names[j]=="mnist_multi":
+            axis[i].set_xticks([1,3,9,27])
+        if datasets[j] == "EPSILON":
+            axis[i].set_xticks([0.3,1,3])
+        if i==0 and j==0:
+            axis[i].annotate(f'Speed-up',#fontsize=30,
+                xy=(0.5,0.05), rotation=0,ha='center',va='center',xycoords='figure fraction')
+            axis[i].annotate(f'{del_ylabel}',#size=30,
+                xy=(0.02,0.55), rotation=90,ha='center',va='center',xycoords='figure fraction')
+        
+        axis[i].get_legend().remove()
+        if j == len(datasets)-1:
+            axis[i].annotate(f'{relative_test_accuracy_drops_names[remove_ratio_idx]}', #fontsize=30,
+                xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+        if i==0:
+            axis[i].set_title(dataset_names[j])#,fontsize=30)
+    
+    fig.align_ylabels(ax[:,0])
+    if save_fig:
+        plt.savefig(figure_dir/f"Certifiability_Efficiency_Trade_Off_Grid_{remove_ratio_size}_sigma_0.pdf",bbox_inches="tight")
+    else:
+        plt.show()
+
 
 def get_legend_QoA(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix:str="",latex:str=False,fig_width_pt:float=246.0,scale:float=3):
     num_ratios=1
@@ -763,7 +852,6 @@ def plot_unlearning_certifiability(results_dir:Path,plot_deltagrad=False,save_fi
         wspace=0.3,
         hspace=0.3
         ) 
-
     kwargs = dict(markersize=10,markeredgecolor="black")
     relative_test_accuracy_drops_names=["small","medium","large"]
     for j in range(len(datasets)):
@@ -1146,7 +1234,8 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
     subplots = (num_rows,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=1
+    figsize[1]+=2
+    # figsize[0]+=
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
     fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=0.4)
 
@@ -1156,14 +1245,18 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
         data = data._asdict()
         df = data[strategy]
         if strategy in ["gol_dis_v1","gol_dis_v2"]:
-            df = df[df.threshold.isin([1,2,5])]
+            if dataset == "HIGGS":
+                df = df[df.threshold.isin([10,20,50])]
+            else:
+                df = df[df.threshold.isin([1,2,5])]
         else:
             df = df[df.threshold.isin([0.1,0.5,1])]
         for i,sampling_type in enumerate(sampling_types):
             print(i,j,dataset,sampling_type)
             axis = ax[i,j]
             axis = plot_metric(df,"speedup",sampling_type,noise_level,ax=axis)
-            axis.set_yscale("log")
+            if dataset not in ["MNIST","CIFAR","EPSILON"]:
+                axis.set_yscale("log")
             axis.axhline(1,color="black",linestyle="--",alpha=0.5)
             if i == 0 and j==0 :
                 axis.legend(bbox_to_anchor=(0.5,-0.05),
@@ -1209,7 +1302,7 @@ def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_
     sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
 
     if strategy == "gol_test":
-        valid_thresholds = [0.1,0.5,1]
+        valid_thresholds = [0.25,0.5,1]
     elif strategy in ["gol_dis_v1","gol_dis_v2"]:
         valid_thresholds = [1,2,5]
     temp =[ ]
@@ -1220,7 +1313,7 @@ def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_
         data = data._asdict()
         df = data[strategy]
         if strategy in ["gol_dis_v1","gol_dis_v2"] and dataset == "HIGGS":
-            df = df[df.threshold.isin([10,20,50])]
+            df = df[df.threshold.isin([1,2,5,10,20,50])]
         else:
             df = df[df.threshold.isin(valid_thresholds)]
         for sampling_type in sampling_types:
