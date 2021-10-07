@@ -80,7 +80,7 @@ def plot_tradeoffs(y,ratio,sampling_type,dist_baseline,dist_guo,dist_gol,dist_de
             xerr=x_values.std(),
             yerr=y_values.std(),
             marker=marker,
-            label=f"$m^\prime=m/{minibatch_fraction}$",color="tab:blue",
+            label=fr"$m^\prime=\lfloor m/{minibatch_fraction}\rfloor$",color="tab:blue",
             **kwargs
         )
         xmeans.append(x_values.mean())
@@ -104,7 +104,7 @@ def plot_tradeoffs(y,ratio,sampling_type,dist_baseline,dist_guo,dist_gol,dist_de
             xerr=x_values.std(),
             yerr=y_values.std(),
             marker=marker,
-            label=f"$m^\prime=m/{minibatch_fraction}$",color="tab:orange",
+            label=fr"$m^\prime=\lfloor m/{minibatch_fraction}\rfloor$",color="tab:orange",
             **kwargs
         )
         xmeans.append(x_values.mean())

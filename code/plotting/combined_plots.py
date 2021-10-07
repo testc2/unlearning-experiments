@@ -748,9 +748,9 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
     subplots = (num_methods,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=2
+    figsize[1]+=0
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.5,hspace=0.3)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.5,hspace=0.2)
 
     methods = ["Guo","Golatkar","deltagrad"]
     method_short = ["guo","gol","deltagrad"]
@@ -780,9 +780,6 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
             axis[i].set_ylabel("")
             twin_ax.set_ylabel("")
             axis[i].set_xlabel("")
-            axis[i].set_xticks([1e-2,1e0,1e2])
-            # twin_ax.yaxis.set_major_formatter(major_formatter)
-            # axis[i].yaxis.set_major_formatter(major_formatter)
             if datasets[j] == "HIGGS" and i==0:
                 twin_ax.set_yticks([0.158,0.168])
             if j == len(datasets)-1:
@@ -794,7 +791,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
                 axis[i].annotate(f"{test_ylabel}",# fontsize=30,
                  xy=(0.97,0.5), rotation=-90,ha='center',va='center',xycoords='figure fraction',color="black")
                 axis[i].annotate(r"Noise Paramter $\sigma$",# fontsize=30,
-                 xy=(0.48,0.03), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                 xy=(0.48,0.02), rotation=0,ha='center',va='center',xycoords='figure fraction')
             if i!= num_methods-1:
                 axis[i].set_xlabel("")
             
@@ -804,6 +801,9 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
                 axis[0].set_title(dataset_names[j])#,fontsize=30)
             axis[i].tick_params(axis="both",which="major")#,labelsize=30)
             twin_ax.tick_params(axis="both",which="major")#,labelsize=30)
+            axis[i].set_xticks([1e-2,1e0,1e2])
+            if i != num_methods-1 :
+                axis[i].set_xticklabels([])
     
 
     if save_fig:
@@ -1224,20 +1224,21 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
         method_labels = [r"$\textsc{Influence}$",r"$\textsc{Fisher}$",r"$\textsc{DeltaGrad}$"]
 
     else:
-        y_label = "Speed-up"
+        y_label = "Speed-Up"
         x_label="No. Deletions"
         dataset_names = ["$MNIST^b$","MNIST","COVTYPE","HIGGS","CIFAR2","EPSILON"]
         method_labels = ["${INFL}$","${FISH}$","${DG}$"]
     
-    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+    
+    # sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+    sampling_types = ["uniform_random","targeted_informed"]
     num_rows = len(sampling_types)
     subplots = (num_rows,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=2
-    # figsize[0]+=
+    figsize[1]+=1.2
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=0.4)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=0.12)
 
     for j,dataset in enumerate(datasets):
         data = load_dfs(results_dir,dataset,ovr_strs[j])
@@ -1260,24 +1261,25 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
             axis.axhline(1,color="black",linestyle="--",alpha=0.5)
             if i == 0 and j==0 :
                 axis.legend(bbox_to_anchor=(0.5,-0.05),
+                    labels=[f"$\kappa={t}$" for t in sorted(df.threshold.unique())],
                     loc="upper center",
                     ncol=5,
                     bbox_transform=fig.transFigure)
-                axis.annotate("No. Deletions",fontsize=30,
+                axis.annotate("Num Deletions",#fontsize=30,
                 xy=(0.5,0.12), rotation=0,ha='center',va='center',xycoords='figure fraction'
                 )
-                axis.annotate(y_label,fontsize=30,
+                axis.annotate(y_label,#fontsize=30,
                 xy=(0.01,0.6), rotation=90,ha='center',va='center',xycoords='figure fraction')
             else:
                 axis.get_legend().remove()
             
             if j == len(datasets)-1:
                 axis.annotate(fr"$\texttt{{{'-'.join(sampling_type.split('_'))}}}$", #fontsize=30,
-                 xy=(1.5,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
+                 xy=(1.3,0.5), rotation=270,ha='center',va='center',xycoords='axes fraction')
             axis.set_ylabel("")
             axis.set_xlabel("")
-            
-           
+            if i != len(sampling_types)-1:
+                axis.set_xticks([])
 
             if i ==0:
                 axis.set_title(dataset_names[j])
@@ -1331,10 +1333,94 @@ def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_
     temp = temp.sort_index(ascending=False,axis=1)
     temp = temp.loc[dataset_names]
     print(temp.to_latex(multirow=True,escape=False))
-
-    
-
-        
-
-
 # %%
+
+def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix:str="",noise:float=1,remove_ratio_idx:int=2,fig_width_pt:float=246.0,scale:float=3):
+    num_row=2
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    dataset_names = [
+        r"$\textsc{mnist}^{\text{b}}$",
+        r"$\textsc{mnist}$",
+        r"$\textsc{covtype}$",
+        r"$\textsc{higgs}$",
+        r"$\textsc{cifar2}$",
+        r"$\textsc{epsilon}$"
+    ]
+    dis_ylabel = r"\texttt{AccDis} \%"
+    err_ylabel = r"\texttt{AccErr} \%"
+    sape = r"$\texttt{sAPE}$"
+    label_map = {"${INF}$":r"$\textsc{Influence}$","${FISH}$":r"$\textsc{Fisher}$","${DG}$":r"$\textsc{DeltaGrad}$"}
+
+    subplots = (num_row,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)*scale
+    figsize[1]+=0.5
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(
+        left=0.05,
+        bottom=0.15,
+        top=0.99,
+        wspace=0.2,
+        hspace=0.4
+        ) 
+    kwargs = dict(markersize=10,markeredgecolor="black")
+    relative_test_accuracy_drops_names=["small","medium","large"]
+    for j in range(len(datasets)):
+        dfs_dict = unlearn_plots.load_dfs(results_dir,datasets[j],ovr_strs[j],plot_deltagrad=plot_deltagrad,ratio_index=remove_ratio_idx)
+        axis = ax[:,j]
+        for i, subcaption in enumerate(["(a)","(b)"]):
+            if i ==0 :
+
+                axis[i] = unlearn_plots.plot_unlearn_certifiability(f"remove_{metric_map[ovr_strs[j]]}",dfs_dict,noise=noise,legend=True,ax=axis[i],**kwargs)
+            else:
+                axis[i] = unlearn_plots.plot_unlearn_effectiveness(f"test_{metric_map[ovr_strs[j]]}",dfs_dict,noise=noise,legend=True,ax=axis[i],**kwargs)
+            axis[i].set_ylabel("")
+            axis[i].set_xlabel("")
+            axis[i].get_legend().remove()
+            if j==0:
+                axis[i].annotate(f'Speed-up',#fontsize=30,
+                    xy=(0.5,0.04), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                if i ==0 :
+                    y_label = dis_ylabel
+                else:
+                    y_label = err_ylabel
+                axis[i].annotate(f'{y_label}',#size=30,
+                    xy=(-0.4,0.5), rotation=90,ha='center',va='center',xycoords='axes fraction')
+            
+            if i==0:
+                axis[i].set_title(dataset_names[j])#,fontsize=30)
+            if j == len(datasets)-1:
+                    axis[i].annotate(subcaption, #fontsize=30,
+                    xy=(1.1,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
+            if j == 0 :
+                axis[i].set_yscale("symlog",linthresh=0.1)
+                axis[i].set_ylim(bottom=-0.05,top=1e2+0.1)
+            else:
+                axis[i].set_yticks([])
+            axis[i].xaxis.set_major_formatter(speed_up)
+            if dataset_base_names[j]=="mnist_binary":
+                axis[i].set_xticks([1,3,27,243])
+            if dataset_base_names[j]=="mnist_multi":
+                axis[i].set_xticks([0.3,1,3,9,27])
+            if datasets[j] == "COVTYPE":
+                axis[i].set_xticks([1,3,27,243])
+            if datasets[j] == "HIGGS":
+                axis[i].set_xticks([1,9,27,81])
+            if datasets[j] == "CIFAR":
+                if i == 0:
+                    axis[i].set_xticks([1,3,9,27])
+                else:
+                    axis[i].set_xticks([0.03,0.3,1,3,9,27])
+            if datasets[j] == "EPSILON":
+                axis[i].set_xticks([0.3,1,3])
+        
+    if save_fig:
+        plt.savefig(figure_dir/f"Effectiveness_Custom_Grid_{relative_test_accuracy_drops_names[remove_ratio_idx]}_sigma_{'_'.join(str(noise).split('.'))}.pdf",bbox_inches="tight")
+    else:
+        plt.show()
+
+

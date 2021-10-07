@@ -59,12 +59,12 @@ def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
     gol_df = load_df(exp_dir,ovr_str,"golatkar","Golatkar")
     nothing_df = load_df(exp_dir,ovr_str,"nothing","nothing")
     gol_test_df = load_df(exp_dir,ovr_str,"golatkar_test_thresh","Golatkar Test")
-    gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Golatkar Threshold {t} %")
+    gol_test_df["strategy"] = gol_test_df.threshold.apply(lambda t: f"Gol Test Threshold {t} %")
    
     gol_dis_v1_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v1","Golatkar Disparity")
-    gol_dis_v1_df["strategy"] = gol_dis_v1_df.threshold.apply(lambda t: f"Golatkar V1 Dis Threshold {t} %")
+    gol_dis_v1_df["strategy"] = gol_dis_v1_df.threshold.apply(lambda t: f"Gol Dis V1 Threshold {t} %")
     gol_dis_v2_df = load_df(exp_dir,ovr_str,"golatkar_disparity_thresh_v2","Golatkar Disparity")
-    gol_dis_v2_df["strategy"] = gol_dis_v2_df.threshold.apply(lambda t: f"Golatkar V2 Dis Threshold {t} %")
+    gol_dis_v2_df["strategy"] = gol_dis_v2_df.threshold.apply(lambda t: f"Gol Dis V2 Threshold {t} %")
 
     guo_dis_v1_df = load_df(exp_dir,ovr_str,"guo_disparity_thresh_v1","Guo Disparity")
     if len(guo_dis_v1_df):
@@ -360,26 +360,33 @@ def compute_error_metrics(df:pd.DataFrame,metric:str,sampling_type:str,noise_lev
     res = temp.groupby(["threshold","sampling_type"]).agg(["mean","std"])
     return res
 
-def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:float):
+def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:float,ax:plt.Axes=None):
+    if ax is None:
+        fig,ax = plt.subplots()
+    fig = plt.gcf()
     temp = threshold_filter(noise_filter(sampling_type_filter(data.gol_dis_v1,sampling_type),noise_level),threshold)
     temp = temp.query("noise_seed==5 and sampler_seed==0")
     # temp = temp.groupby(["num_deletions","threshold","sampling_type","noise"]).mean().reset_index()
     print(len(temp))
     deletion_batch_size = temp.deletion_batch_size.values[0]
     x_ticks = (temp.num_deletions/deletion_batch_size).round()
-    plt.bar((temp.num_deletions/deletion_batch_size).round(),temp.checkpoint_acc_dis.values,label="True")
-    plt.plot((temp.num_deletions/deletion_batch_size).round(),temp.pipeline_acc_dis_est,label="Pipeline Estimate",color="red")
-    plt.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
+    ax.bar((temp.num_deletions/deletion_batch_size).round(),temp.checkpoint_acc_dis.values,label="True")
+    ax.plot((temp.num_deletions/deletion_batch_size).round(),temp.pipeline_acc_dis_est,label="Estimate",color="red")
+    ax.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
     for i,y in enumerate(temp.query("retrained==True").num_deletions):
         if i ==0:
             kwargs = {"label":"Restart"}
         else:
             kwargs = {}
         plt.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.7,color="green",**kwargs)
-    plt.legend()
-    plt.xticks(x_ticks[::10],labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
-    plt.xlabel("No. Deletions")
-    plt.ylabel("AccDis %")
+    ax.legend(bbox_to_anchor=(0.9,0.5),
+                    loc="center left",
+                    ncol=1,
+                    bbox_transform=fig.transFigure)
+    ax.set_xticks(x_ticks[::10])
+    ax.set_xticklabels(labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
+    ax.set_xlabel("Num Deletions")
+    ax.set_ylabel("AccDis %")
     plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(str(threshold).split('.'))}_acc_dis_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
 
     
