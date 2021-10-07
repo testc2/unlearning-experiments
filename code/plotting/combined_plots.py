@@ -1230,16 +1230,29 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
         method_labels = ["${INFL}$","${FISH}$","${DG}$"]
     
     
-    # sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
-    sampling_types = ["uniform_random","targeted_informed"]
+    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+    # sampling_types = ["uniform_random","targeted_informed"]
     num_rows = len(sampling_types)
     subplots = (num_rows,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=1.2
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=0.12)
 
+
+    if len(sampling_types)==4:
+        full_str = "full_"
+        hspace = 0.3
+        rotation = 0
+        figsize[1]+=2
+        xy=(1.6,0.5)
+    else:
+        full_str=""
+        rotation = 270
+        hspace = 0.12
+        xy=(1.3,0.5)
+        figsize[1]+=1.2
+
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=hspace)
     for j,dataset in enumerate(datasets):
         data = load_dfs(results_dir,dataset,ovr_strs[j])
         data = compute_all_metrics(data)
@@ -1251,7 +1264,7 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
             else:
                 df = df[df.threshold.isin([1,2,5])]
         else:
-            df = df[df.threshold.isin([0.1,0.5,1])]
+            df = df[df.threshold.isin([0.25,0.5,1])]
         for i,sampling_type in enumerate(sampling_types):
             print(i,j,dataset,sampling_type)
             axis = ax[i,j]
@@ -1275,7 +1288,7 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
             
             if j == len(datasets)-1:
                 axis.annotate(fr"$\texttt{{{'-'.join(sampling_type.split('_'))}}}$", #fontsize=30,
-                 xy=(1.3,0.5), rotation=270,ha='center',va='center',xycoords='axes fraction')
+                 xy=xy, rotation=rotation,ha='center',va='center',xycoords='axes fraction')
             axis.set_ylabel("")
             axis.set_xlabel("")
             if i != len(sampling_types)-1:
@@ -1283,9 +1296,9 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
 
             if i ==0:
                 axis.set_title(dataset_names[j])
-        
+    
     if save_fig:
-        plt.savefig(figure_dir/f"Pipeline_{strategy}_speedup_grid_noise_{noise_level}.pdf",bbox_inches="tight")
+        plt.savefig(figure_dir/f"Pipeline_{strategy}_speedup_{full_str}grid_noise_{noise_level}.pdf",bbox_inches="tight")
 
 
 def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_level:float=0):

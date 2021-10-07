@@ -378,7 +378,7 @@ def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:
             kwargs = {"label":"Restart"}
         else:
             kwargs = {}
-        plt.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.7,color="green",**kwargs)
+        ax.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.7,color="green",**kwargs)
     ax.legend(bbox_to_anchor=(0.9,0.5),
                     loc="center left",
                     ncol=1,
@@ -391,28 +391,35 @@ def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:
 
     
 
-def plot_acc_err_helper(data:Data,sampling_type:str,noise_level:float,threshold:float):
+def plot_acc_err_helper(data:Data,sampling_type:str,noise_level:float,threshold:float,ax:plt.Axes=None):
+    if ax is None:
+        fig,ax = plt.subplots()
+    fig = plt.gcf()
     temp = threshold_filter(noise_filter(sampling_type_filter(data.gol_test,sampling_type),noise_level),threshold)
-    temp = temp.query("noise_seed==0 and sampler_seed==0")
+    temp = temp.query("noise_seed==4 and sampler_seed==0")
     # temp = temp.groupby(["num_deletions","threshold","sampling_type","noise"]).mean().reset_index()
     print(len(temp))
     deletion_batch_size = temp.deletion_batch_size.values[0]
     x_ticks = (temp.num_deletions/deletion_batch_size).round()
-    plt.bar(x_ticks,temp.acc_err.values,label="True AccErr")
-    plt.plot(x_ticks,temp.pipeline_acc_err,label="AccErr Estimate",color="red")
-    plt.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
+    ax.bar(x_ticks,temp.acc_err.values,label="True")
+    ax.plot(x_ticks,temp.pipeline_acc_err,label="Estimate",color="red")
+    ax.axhline(threshold,color="black",linestyle="--",alpha=0.5,label="Threshold")
     for i,y in enumerate(temp.query("retrained==True").num_deletions):
         if i ==0:
-            kwargs = {"label":"restart"}
+            kwargs = {"label":"Restart"}
         else:
             kwargs = {}
-        plt.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.5,color="green",**kwargs)
+        ax.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.5,color="green",**kwargs)
 
-    plt.xticks(x_ticks[::10],labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
-    plt.xlabel("No. Deletions")
-    plt.ylabel("AccErr \%")
-    plt.legend()
-    plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(threshold.split('.'))}_acc_err_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
+    ax.set_xticks(x_ticks[::10])
+    ax.set_xticklabels(labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
+    ax.set_xlabel("Num  Deletions")
+    ax.set_ylabel("AccErr %")
+    ax.legend(bbox_to_anchor=(0.9,0.5),
+                    loc="center left",
+                    ncol=1,
+                    bbox_transform=fig.transFigure)
+    plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(str(threshold).split('.'))}_acc_err_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
 
 #%%
 if __name__ == "__main__":
