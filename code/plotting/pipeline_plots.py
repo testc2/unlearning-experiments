@@ -23,10 +23,8 @@ if get_ipython() is not None and __name__ == "__main__":
 else:
     notebook = False
 from plotting.ratio_remove_plots import load_dfs as ratio_load_dfs
-from parse import get_dg_remove_ratio_frames
 from methods.common_utils import SAPE
-from scipy.optimize import curve_fit
-from scipy.stats import pearsonr,spearmanr
+from scipy.stats import sem
 import json
 from ast import literal_eval
 
@@ -351,13 +349,15 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
     sns.lineplot(data=temp,x="num_deletions",y=metric,hue="strategy",ax=ax)
     return ax
 
+def ci_95(x):
+    return sem(x, ddof=1) * 1.96
 
 def compute_error_metrics(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float):
     temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
     # find the mean and std for each run
     temp =temp.groupby(["threshold","sampling_type","sampler_seed","noise_seed"])[metric].mean()
     # then the average mean and std over all runs 
-    res = temp.groupby(["threshold","sampling_type"]).agg(["mean","std"])
+    res = temp.groupby(["threshold","sampling_type"]).agg(["mean",ci_95])
     return res
 
 def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:float,ax:plt.Axes=None):
@@ -378,7 +378,7 @@ def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:
             kwargs = {"label":"Restart"}
         else:
             kwargs = {}
-        ax.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.7,color="green",**kwargs)
+        ax.axvline((y/deletion_batch_size).round(),linestyle=":",alpha=0.9,color="green",**kwargs)
     ax.legend(bbox_to_anchor=(0.9,0.5),
                     loc="center left",
                     ncol=1,
@@ -443,7 +443,7 @@ if __name__ == "__main__":
             }
     new_rc_params.update(default)
     # mpl.rcParams.update(new_rc_params)
-    save_fig = True
+    save_fig = False
     if not save_fig:
         new_rc_params["text.usetex"]=False
     data_dir = project_dir/"data"
@@ -607,3 +607,5 @@ if __name__ == "__main__":
     plt.show()
 
     # %%
+    fig,ax = plt.subplots(figsize=(4,1.5))
+    plot_acc_dis_helper(data,"targeted_informed",1,1,ax=ax)

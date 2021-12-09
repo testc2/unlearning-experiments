@@ -790,7 +790,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
                  xy=(0.01,0.5), rotation=90,ha='center',va='center',xycoords='figure fraction',color="tab:red")
                 axis[i].annotate(f"{test_ylabel}",# fontsize=30,
                  xy=(0.97,0.5), rotation=-90,ha='center',va='center',xycoords='figure fraction',color="black")
-                axis[i].annotate(r"Noise Paramter $\sigma$",# fontsize=30,
+                axis[i].annotate(r"Noise Parameter $\sigma$",# fontsize=30,
                  xy=(0.48,0.02), rotation=0,ha='center',va='center',xycoords='figure fraction')
             if i!= num_methods-1:
                 axis[i].set_xlabel("")
@@ -1340,7 +1340,7 @@ def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_
         
     
     temp = pd.concat(temp)
-    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.2f}\pm{row['std']:.1f}$",axis=1)
+    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.2f}\pm{row['ci_95']:.1f}$",axis=1)
     temp["sampling type"] = temp.sampling_type.apply(lambda x : fr"$\texttt{{{'-'.join(x.split('_'))}}}$")
     temp = temp.pivot(index=["dataset","threshold"],columns="sampling type",values="output_str")
     temp = temp.sort_index(ascending=False,axis=1)
@@ -1371,14 +1371,13 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
     subplots = (num_row,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=0.5
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
     fig.subplots_adjust(
         left=0.05,
-        bottom=0.15,
+        bottom=0.14,
         top=0.99,
         wspace=0.2,
-        hspace=0.4
+        hspace=0.1
         ) 
     kwargs = dict(markersize=10,markeredgecolor="black")
     relative_test_accuracy_drops_names=["small","medium","large"]
@@ -1396,7 +1395,7 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
             axis[i].get_legend().remove()
             if j==0:
                 axis[i].annotate(f'Speed-up',#fontsize=30,
-                    xy=(0.5,0.04), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                    xy=(0.51,0.03), rotation=0,ha='center',va='center',xycoords='figure fraction')
                 if i ==0 :
                     y_label = dis_ylabel
                 else:
@@ -1424,12 +1423,14 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
             if datasets[j] == "HIGGS":
                 axis[i].set_xticks([1,9,27,81])
             if datasets[j] == "CIFAR":
-                if i == 0:
-                    axis[i].set_xticks([1,3,9,27])
-                else:
-                    axis[i].set_xticks([0.03,0.3,1,3,9,27])
+                # if i == 0:
+                axis[i].set_xticks([0.05,0.3,1,3,9,27])
+                # else:
+                    # axis[i].set_xticks([0.03,0.3,1,3,9,27])
             if datasets[j] == "EPSILON":
                 axis[i].set_xticks([0.3,1,3])
+            if i == 0:
+                axis[i].set_xticklabels([])
         
     if save_fig:
         plt.savefig(figure_dir/f"Effectiveness_Custom_Grid_{relative_test_accuracy_drops_names[remove_ratio_idx]}_sigma_{'_'.join(str(noise).split('.'))}.pdf",bbox_inches="tight")
