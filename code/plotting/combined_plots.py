@@ -245,9 +245,14 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
 
     if extended :
-        fig.subplots_adjust(bottom=0.01,top=0.85,wspace=0.3,hspace=0.3)
+        fig.subplots_adjust(bottom=0.05,top=0.95,wspace=0.3,hspace=0.2)
+        leg_loc = (0.5,-0.05)
+        xlabel_loc = (0.5,0.12)
     else:
         fig.subplots_adjust(bottom=0.15,top=0.85,wspace=0.3,hspace=0.3)
+        leg_loc = (0.5,1.08)
+        xlabel_loc = (0.5,0.05)
+        
 
     for j in range(len(datasets)):
         ratio_dfs = ratio_plots.load_dfs(results_dir,datasets[j],ovr_strs[j])
@@ -266,8 +271,6 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
             labels = ["-".join(s.split("_")) for s in labels]
             if latex:
                 labels = [fr"$\texttt{{{s}}}$" for s in labels]
-            leg_loc = (0.5,1.05)
-            xlabel_loc = (0.5,0.05)
             axis[0].legend(
                 handles=handles,
                 labels=labels,
@@ -276,6 +279,7 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
                 loc="upper center",
                 bbox_transform=fig.transFigure,
                 ncol=4,
+                frameon=False,
                 # fontsize=30,
                 # markerscale=2,
                 )
@@ -1244,15 +1248,15 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
         hspace = 0.3
         rotation = 0
         figsize[1]+=2
-        xy=(1.6,0.5)
+        xy=(1.8,0.5)
     else:
         full_str=""
-        rotation = 270
-        hspace = 0.12
-        xy=(1.3,0.5)
-        figsize[1]+=1.2
+        rotation = 0
+        hspace = 0.3
+        xy=(1.8,0.5)
+        figsize[1]+=0
 
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.35,hspace=hspace)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.3,hspace=hspace)
     for j,dataset in enumerate(datasets):
         data = load_dfs(results_dir,dataset,ovr_strs[j])
         data = compute_all_metrics(data)
@@ -1273,17 +1277,18 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
                 axis.set_yscale("log")
             axis.axhline(1,color="black",linestyle="--",alpha=0.5)
             if i == 0 and j==0 :
-                axis.legend(bbox_to_anchor=(0.5,-0.05),
+                axis.legend(bbox_to_anchor=(0.5,-0.1),
                     labels=[f"$\kappa={t}$" for t in sorted(df.threshold.unique())],
                     loc="upper center",
                     ncol=5,
-                    bbox_transform=fig.transFigure)
+                    bbox_transform=fig.transFigure,frameon=False
+                    )
                 axis.annotate("Num Deletions",#fontsize=30,
-                xy=(0.5,0.12), rotation=0,ha='center',va='center',xycoords='figure fraction'
+                xy=(0.5,0.15), rotation=0,ha='center',va='center',xycoords='figure fraction'
                 )
                 axis.annotate(y_label,#fontsize=30,
                 xy=(0.01,0.6), rotation=90,ha='center',va='center',xycoords='figure fraction')
-            else:
+            elif axis.get_legend() is not None:
                 axis.get_legend().remove()
             
             if j == len(datasets)-1:
@@ -1374,7 +1379,7 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
     fig.subplots_adjust(
         left=0.05,
-        bottom=0.14,
+        bottom=0.2,
         top=0.99,
         wspace=0.2,
         hspace=0.1
@@ -1395,7 +1400,7 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
             axis[i].get_legend().remove()
             if j==0:
                 axis[i].annotate(f'Speed-up',#fontsize=30,
-                    xy=(0.51,0.03), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                    xy=(0.51,0.05), rotation=0,ha='center',va='center',xycoords='figure fraction')
                 if i ==0 :
                     y_label = dis_ylabel
                 else:

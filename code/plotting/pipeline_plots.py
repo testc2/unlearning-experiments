@@ -346,7 +346,7 @@ def plot_metric(df:pd.DataFrame,metric:str,sampling_type:str,noise_level:float,t
     temp = noise_filter(sampling_type_filter(df,sampling_type),noise_level)
     if threshold is not None:
         temp = threshold_filter(temp,threshold)
-    sns.lineplot(data=temp,x="num_deletions",y=metric,hue="strategy",ax=ax)
+    sns.lineplot(data=temp.reset_index(),x="num_deletions",y=metric,hue="strategy",ax=ax)
     return ax
 
 def ci_95(x):
@@ -386,7 +386,7 @@ def plot_acc_dis_helper(data:Data,sampling_type:str,noise_level:float,threshold:
     ax.set_xticks(x_ticks[::10])
     ax.set_xticklabels(labels=[str(int(x)*deletion_batch_size) for x in x_ticks[::10]])
     ax.set_xlabel("Num Deletions")
-    ax.set_ylabel("AccDis %")
+    ax.set_ylabel(r"$\texttt{AccDis}\%$")
     plt.savefig(f"{data.dataset}_{data.ovr_str}_{sampling_type}_threshold_{'_'.join(str(threshold).split('.'))}_acc_dis_noise_{noise_level}.pdf",dpi=300,bbox_inches="tight")
 
     
@@ -443,7 +443,7 @@ if __name__ == "__main__":
             }
     new_rc_params.update(default)
     # mpl.rcParams.update(new_rc_params)
-    save_fig = False
+    save_fig = True
     if not save_fig:
         new_rc_params["text.usetex"]=False
     data_dir = project_dir/"data"
@@ -457,7 +457,7 @@ if __name__ == "__main__":
 #%%
     plot_acc_dis_versions(data,"Golatkar","targeted_informed",noise_level=0,threshold=1)
 #%%
-    plot_metric(data.gol_test,"acc_err","targeted_informed",noise_level=0,threshold=0.1)
+    plot_metric(data.gol_dis_v1,"speedup","targeted_informed",noise_level=1,threshold=1)
 #%%
     plot_grid(data,"dis_v1",noise_level=0)
 # %%
@@ -609,3 +609,5 @@ if __name__ == "__main__":
     # %%
     fig,ax = plt.subplots(figsize=(4,1.5))
     plot_acc_dis_helper(data,"targeted_informed",1,1,ax=ax)
+
+# %%
