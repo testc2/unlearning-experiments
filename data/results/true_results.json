@@ -1,0 +1,46 @@
+{
+    "MNISTBinary": {
+        "dataset":"MNIST",
+        "ovr_str":"binary",
+        "test_accuracy":"0.96875",
+        "test_f1_score":"0.9682051282051282",
+        "remove_ratios":[0.2,0.3,0.375]
+    },
+    "MNISTMulti":{
+        "dataset":"MNIST",
+        "ovr_str":"multi",
+        "test_accuracy":"0.8864",
+        "test_f1_score":"0.8855748025846064",
+        "remove_ratios":[0.01,0.05,0.075]
+    },
+    "COVTYPEBinary":{
+        "dataset":"COVTYPE",
+        "ovr_str":"binary",
+        "test_accuracy":"0.7425561942790265",
+        "test_f1_score":"0.7538750123408036",
+        "remove_ratios":[0.05,0.10,0.15]
+    },
+    "HIGGSBinary":{
+        "dataset":"HIGGS",
+        "ovr_str":"binary",
+        "test_accuracy":"0.5832781818181818",
+        "test_f1_score":"0.6417699795562392",
+        "remove_ratios":[0.01,0.05,0.10]
+
+    },
+    "CIFARBinary":{
+        "dataset":"CIFAR2",
+        "ovr_str":"binary",
+        "test_accuracy":"0.852",
+        "test_f1_score":"0.8502024291497975",
+        "remove_ratios":[0.05,0.125,0.2]
+    },
+    "EPSILONBinary":{
+        "dataset":"EPSILON",
+        "ovr_str":"binary",
+        "test_accuracy":"0.87823",
+        "test_f1_score":"0.8784038824480992",
+        "remove_ratios":[0.1,0.2,0.25]
+    }
+
+}
