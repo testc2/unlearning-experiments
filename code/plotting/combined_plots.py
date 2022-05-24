@@ -240,8 +240,10 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
     metric_map = {"binary":"accuracy","multi":"accuracy"}
     datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
     subplots = (2,len(datasets))
-    figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
-    figsize = np.array(figsize)*scale
+    # figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)
+    figsize[1]*=1.5
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
 
     if extended :
@@ -249,7 +251,7 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
         leg_loc = (0.5,-0.05)
         xlabel_loc = (0.5,0.12)
     else:
-        fig.subplots_adjust(bottom=0.15,top=0.85,wspace=0.3,hspace=0.3)
+        fig.subplots_adjust(bottom=0.16,top=0.85,wspace=0.55,hspace=0.35,left=0.01,right=0.99)
         leg_loc = (0.5,1.08)
         xlabel_loc = (0.5,0.05)
         
@@ -260,11 +262,11 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
         axis = ax[:,j]
         
         if extended:
-            axis[0] = ratio_plots.plot_metric("test_accuracy",extended_ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True,markersize=12))
-            axis[1] = ratio_plots.plot_metric("remove_accuracy",extended_ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True,markersize=12))
+            axis[0] = ratio_plots.plot_metric("test_accuracy",extended_ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True))
+            axis[1] = ratio_plots.plot_metric("remove_accuracy",extended_ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True))
         else:
-            axis[0] = ratio_plots.plot_metric("test_accuracy",ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markersize=12,markers=True))
-            axis[1] = ratio_plots.plot_metric("remove_accuracy",ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markersize=12,markers=True))
+            axis[0] = ratio_plots.plot_metric("test_accuracy",ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markers=True))
+            axis[1] = ratio_plots.plot_metric("remove_accuracy",ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markers=True))
         
         if j == 0:
             handles, labels = axis[0].get_legend_handles_labels()
@@ -316,6 +318,7 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
         
     fig.align_ylabels(ax[:,0])
     # plt.suptitle("Effect of Sampling Distributions",fontsize=30)
+    # fig.tight_layout()
     if save_fig:
         if not extended:
             plt.savefig(figure_dir/"Effect_of_Sampling_Grid.pdf",bbox_inches="tight")
