@@ -523,7 +523,7 @@ def get_legend_QoA(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suf
 
     dist_dfs = dist_plots.load_dfs(results_dir,datasets[0],ovr_strs[0],plot_deltagrad=plot_deltagrad,suffix=suffix)
     ratio = sorted(dist_dfs[1].remove_ratio.unique())[0]
-    kwargs=dict(markersize=10,markeredgecolor="black")
+    kwargs=dict(markeredgecolor="black")
     ax[0][0] = dist_plots.plot_tradeoffs(f"remove_{metric_map[ovr_strs[0]]}",ratio,"targeted_informed",*dist_dfs,ax=ax[0][0],legend=True,**kwargs) 
     # get legend handles
     handles,labels = ax[0][0].get_legend_handles_labels() 
@@ -1378,16 +1378,18 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
 
     subplots = (num_row,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
-    figsize = np.array(figsize)*scale
+    figsize = np.array(figsize)
+    figsize[1] *= 1.5
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
     fig.subplots_adjust(
-        left=0.05,
+        left=0.01,
         bottom=0.2,
         top=0.99,
-        wspace=0.2,
-        hspace=0.1
+        wspace=0.15,
+        hspace=0.15,
+        right=0.99
         ) 
-    kwargs = dict(markersize=10,markeredgecolor="black")
+    kwargs = dict(markeredgecolor="black")
     relative_test_accuracy_drops_names=["small","medium","large"]
     for j in range(len(datasets)):
         dfs_dict = unlearn_plots.load_dfs(results_dir,datasets[j],ovr_strs[j],plot_deltagrad=plot_deltagrad,ratio_index=remove_ratio_idx)
@@ -1408,14 +1410,15 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
                     y_label = dis_ylabel
                 else:
                     y_label = err_ylabel
-                axis[i].annotate(f'{y_label}',#size=30,
-                    xy=(-0.4,0.5), rotation=90,ha='center',va='center',xycoords='axes fraction')
+                # axis[i].annotate(f'{y_label}',#size=30,
+                #     xy=(-0.4,0.5), rotation=90,ha='center',va='center',xycoords='axes fraction')
+                axis[i].set_ylabel(y_label)
             
             if i==0:
                 axis[i].set_title(dataset_names[j])#,fontsize=30)
             if j == len(datasets)-1:
                     axis[i].annotate(subcaption, #fontsize=30,
-                    xy=(1.1,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
+                    xy=(1.12,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
             if j == 0 :
                 axis[i].set_yscale("symlog",linthresh=0.1)
                 axis[i].set_ylim(bottom=-0.05,top=1e2+0.1)
@@ -1432,7 +1435,7 @@ def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix
                 axis[i].set_xticks([1,9,27,81])
             if datasets[j] == "CIFAR":
                 # if i == 0:
-                axis[i].set_xticks([0.05,0.3,1,3,9,27])
+                axis[i].set_xticks([0.1,1,9,30])
                 # else:
                     # axis[i].set_xticks([0.03,0.3,1,3,9,27])
             if datasets[j] == "EPSILON":
