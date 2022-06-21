@@ -755,9 +755,9 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
     subplots = (num_methods,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=0
+    figsize[1]*=1.2
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.5,hspace=0.2)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.7,hspace=0.2)
 
     methods = ["Guo","Golatkar","deltagrad"]
     method_short = ["guo","gol","deltagrad"]
@@ -769,7 +769,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
         axis = ax[:,j]
         for i,method in enumerate(methods[:num_methods]):
             kwargs=dict(
-                markersize=10,
+                # markersize=10,
             )
             twin_ax = axis[i].twinx()
             axis[i],twin_ax = unlearn_plots.plot_unlearn(
@@ -791,7 +791,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
                 twin_ax.set_yticks([0.158,0.168])
             if j == len(datasets)-1:
                 axis[i].annotate(f"{method_labels[i]}",#fontsize=30,
-                 xy=(1.5,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction',color=method_colors[i])
+                 xy=(1.6,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction',color=method_colors[i])
             if i==0 and j==0:
                 axis[i].annotate(f"{del_ylabel}",# fontsize=30,
                  xy=(0.01,0.5), rotation=90,ha='center',va='center',xycoords='figure fraction',color="tab:red")
@@ -814,7 +814,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
     
 
     if save_fig:
-        plt.savefig(figure_dir/"Unlearning_Tradeoff_Grid.pdf",bbox_inches="tight",dpi=300)
+        plt.savefig(figure_dir/"Unlearning_Tradeoff_Grid.pdf",bbox_inches="tight")
     else:
         plt.show()
 #%%
