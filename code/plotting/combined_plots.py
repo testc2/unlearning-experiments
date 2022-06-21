@@ -329,7 +329,7 @@ if __name__ == "__main__":
 # %%
 @mpl.ticker.FuncFormatter
 def speed_up(x, pos):
-    return f"{int(x)}x" if x>=1 else f"{str(round(x,2)).rstrip('0')}x"
+    return rf"\text{{{int(x)}}}\texttimes\ " if x>=1 else rf"{str(round(x,2)).rstrip('0')}\texttimes\ "
 
 def plot_remove_dist(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix:str="",latex:str=False,fig_width_pt:float=246.0,scale:float=3):
     num_ratios=3
@@ -1298,6 +1298,9 @@ def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool
             axis.set_xlabel("")
             if i != len(sampling_types)-1:
                 axis.set_xticks([])
+            else:
+                axis.get_xaxis().set_major_formatter(
+                mpl.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 
             if i ==0:
                 axis.set_title(dataset_names[j])
