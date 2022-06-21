@@ -558,7 +558,7 @@ def plot_unlearn_effectiveness(
 if __name__ == "__main__":
     mpl.rcParams["figure.dpi"]=100
     mpl.rcParams["font.size"]=20
-    dataset = "MNIST"
+    dataset = "EPSILON"
     dfs_dict = load_dfs(results_dir,dataset,"binary",plot_deltagrad=True,ratio_index=2)
     plot_unlearn_certifiability(
         "remove_accuracy",

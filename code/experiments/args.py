@@ -290,3 +290,129 @@ def add_unlearn_subparser(subparser):
     )
 
     return unlearn_parser
+
+
+
+def add_golatkar_test_thresh_subparser(subparser):
+    gol_subparser = subparser.add_parser("golatkar_test_thresh")
+    gol_subparser.add_argument(
+        "--thresholds",
+        type=float,
+        nargs="+",
+        default=[1,0.5,0.1]
+        )
+
+
+def add_golatkar_disparity_thresh_subparser(subparser,v2=False):
+    if v2:
+        version_str = "v2"
+    else:
+        version_str = "v1"
+    gol_subparser = subparser.add_parser(f"golatkar_disparity_thresh_{version_str}")
+    gol_subparser.add_argument(
+        "--thresholds",
+        type=float,
+        nargs="+",
+        default=[5,2,1,0.5]
+        )
+
+
+
+
+
+def add_when_subparser(subparser):
+    when_parser = subparser.add_parser("when")
+    when_parser.add_argument(
+        "dataset",
+        type=str,
+        choices=["MNIST","COVTYPE","HIGGS","CIFAR","EPSILON"]
+    )
+    when_parser.add_argument(
+        "remove_ratio",
+        type=float,
+    )
+    when_parser.add_argument(
+        "deletion_batch_size",
+        type=int,
+        help="The number of deletions after which a decision is to be made",
+    )
+    when_parser.add_argument(
+        "sampling_type",
+        type=str,
+        choices=["uniform_random","uniform_informed","targeted_random","targeted_informed"],
+        default=["targeted_informed"]
+    )
+    when_parser.add_argument(
+        "--ovr",
+        action="store_true",
+        default=False,
+        help="if multi-class or binary"
+    )
+    when_parser.add_argument(
+        "--num-processes",
+        type=int,
+        default=4
+    )
+    when_parser.add_argument(
+        "--sgd-seed",
+        type=int,
+        default=0,
+        help="seeds for adam"
+    )
+    
+    when_parser.add_argument(
+        "--sampler-seed",
+        type = int,
+        default = 0,
+        help = "The seed for the random sampling distributions"
+    )
+    # General arguments
+    when_parser.add_argument(
+        "--overwrite-mode",
+        type=str,
+        default="w",
+        choices=["w", "a"]
+    )
+    when_parser.add_argument(
+        "--l2-norm",
+        action="store_true",
+        default=False,
+        help="Whether to L2 normalize the data or not"
+    )
+    
+    when_parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=data_dir / "results"
+    )
+    when_parser.add_argument(
+        "--suffix",
+        type=str,
+        default="",
+        help="suffix to file"
+    )
+    # noise args 
+    when_parser.add_argument(
+        "--noise-seeds",
+        type=int,
+        nargs="+",
+        default=[0]
+    )
+    when_parser.add_argument(
+        "--noise-levels",
+        type=float,
+        nargs="+",
+        default=[0]
+    )
+
+
+    subsubparser = when_parser.add_subparsers(description="Additional arguments for strategy",dest="strategy")
+    retrain = subsubparser.add_parser("retrain")
+    
+    subsubparser.add_parser("golatkar")
+    subsubparser.add_parser("nothing")
+    add_golatkar_test_thresh_subparser(subsubparser)
+    add_golatkar_disparity_thresh_subparser(subsubparser,v2=False)
+    add_golatkar_disparity_thresh_subparser(subsubparser,v2=True)
+
+    return when_parser

@@ -2,12 +2,24 @@ import torch
 from methods.pytorch_utils import lr_hessian_inv,lr_grad
 from scipy.linalg import fractional_matrix_power
 
-def scrub(w,X_prime,y_prime,lam,noise,noise_seed):
-    B_inv = lr_hessian_inv(w,X_prime,y_prime,lam)
-    grad = lr_grad(w,X_prime,y_prime,lam)
-    quadratic_scrub = B_inv.mv(grad)
-    torch.manual_seed(noise_seed)
+def compute_noise(w,X_prime,y_prime,lam,noise,noise_seed,B_inv=None):
+    """Computes the noise for Fisher noise.
+
+    Args:
+        w (torch.tensor): The model weights
+        X_prime (torch.tensor): The remaining training samples
+        y_prime (torch.tensor): The labels of the remaining samples
+        lam (float): The regularization term
+        noise (float): The quantity of noise to add to the model
+        noise_seed (int): The seed for the random noise
+        B_inv (torch.tensor, optional): The Hessian inverse if already computed. Defaults to None.
+    """
     if noise > 0:
+        torch.manual_seed(noise_seed)
+        # compute hessian inverse if not avaible
+        if B_inv is None:
+            B_inv = lr_hessian_inv(w,X_prime,y_prime,lam)
+        
         gauss_noise = torch.randn_like(w)
         # cov = torch.from_numpy(fractional_matrix_power(B_inv,1/2).real).float()
         # cov_chol  = torch.cholesky(cov)
@@ -16,9 +28,41 @@ def scrub(w,X_prime,y_prime,lam,noise,noise_seed):
         noise_scrub = noise*B_inv_frac.mv(gauss_noise)
     else:
         noise_scrub = torch.zeros_like(w)
+
+    return noise_scrub
+
+
+def compute_ovr_noise(w,X_prime,y_prime,lam,noise,noise_seed):
+    n_classes = y_prime.size(1)
+    total_added_noise = torch.zeros_like(w)
+    if noise >0:
+        for k in range(n_classes):
+            y_k_prime = y_prime[:,k]
+            added_noise = compute_noise(w[:,k],X_prime,y_k_prime,lam,noise,noise_seed) 
+            total_added_noise[:,k] = added_noise
+    
+    return total_added_noise
+
+def scrub(w,X_prime,y_prime,lam,noise,noise_seed):
+    B_inv = lr_hessian_inv(w,X_prime,y_prime,lam)
+    grad = lr_grad(w,X_prime,y_prime,lam)
+    quadratic_scrub = B_inv.mv(grad)
+    # get the noise to be added for the method
+    noise_scrub = compute_noise(w,X_prime,y_prime,lam,noise,noise_seed,B_inv=B_inv)
     w += (noise_scrub - quadratic_scrub)
 
     return w, noise_scrub
+
+def scrub_ovr(w,X_prime,y_prime,lam,noise,noise_seed):
+    n_classes = y_prime.size(1)
+    total_added_noise = torch.zeros_like(w)
+    for k in range(n_classes):
+        y_k_prime = y_prime[:,k]
+        w_temp,added_noise = scrub(w[:,k],X_prime,y_k_prime,lam,noise,noise_seed)
+        w[:,k] = w_temp
+        total_added_noise[:,k] = added_noise
+    
+    return w,total_added_noise
 
 def scrub_minibatch_pytorch(w,data,minibatch_size,args,noise,noise_seed,X_remove=None,X_prime=None,y_remove=None,y_prime=None):
     w_approx = w.clone()

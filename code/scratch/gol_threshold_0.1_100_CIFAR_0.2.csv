@@ -1,0 +1,21 @@
+,method,unlearning_bz,num_removes,remove_ratio,sampling_type,batch,time,test_accuracy,retrained,cum_remove_accuracy,batch_remove_accuracy,pipeline_acc_err
+0,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,100,23.724596119078342,0.848,True,0.44,0.44,0.0
+1,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,200,0.9830721659818664,0.847,False,0.41,0.45,0.05899705014749268
+2,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,300,23.450832583068404,0.8465,True,0.43333333333333335,0.62,0.0
+3,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,400,23.678899893013295,0.843,True,0.42,0.59,0.0
+4,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,500,23.78263345803134,0.8385,True,0.392,0.56,0.0
+5,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,600,1.2115736340056174,0.8375,False,0.40166666666666667,0.59,0.05966587112171842
+6,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,700,23.14694671408506,0.8315,True,0.36,0.55,0.0
+7,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,800,22.555142704048194,0.8275,True,0.33625,0.44,0.0
+8,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,900,1.018578057992272,0.828,False,0.35,0.55,0.03020235578374781
+9,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1000,21.00169528502738,0.821,True,0.337,0.59,0.0
+10,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1100,22.913277901010588,0.815,True,0.32181818181818184,0.5,0.0
+11,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1200,1.3759530460229144,0.8145,False,0.32,0.42,0.030684258975142372
+12,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1300,22.028987502038945,0.808,True,0.3038461538461538,0.55,0.0
+13,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1400,21.029392319032922,0.801,True,0.295,0.57,0.0
+14,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1500,1.3832840530085377,0.802,False,0.304,0.53,0.06238303181534627
+15,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1600,21.55575876997318,0.7905,True,0.285625,0.55,0.0
+16,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1700,20.171978787053376,0.7895,True,0.2858823529411765,0.58,0.0
+17,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1800,1.2999216539901681,0.789,False,0.2922222222222222,0.61,0.0316756414317355
+18,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,1900,20.43718131899368,0.777,True,0.26894736842105266,0.47,0.0
+19,Golatkar threshold: 0.1%,100,2000,0.2,targeted_informed,2000,1.0953600880457088,0.777,False,0.2805,0.64,0.0

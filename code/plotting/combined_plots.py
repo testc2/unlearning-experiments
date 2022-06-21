@@ -1,8 +1,11 @@
 #%%
 from os import replace
+from re import escape
 from IPython import get_ipython
 from numpy.lib.npyio import save
 from traitlets.traitlets import default
+
+from plotting.pipeline_plots import compute_all_metrics, compute_error_metrics, load_dfs, plot_metric
 if get_ipython() is not None and __name__ == "__main__":
     notebook = True
     get_ipython().run_line_magic("load_ext", "autoreload")
@@ -105,6 +108,14 @@ def plot_extended_ratios(results_dir:Path,save_fig:bool=False):
         axis[0].set_title(dataset_names[j])
     fig.subplots_adjust(bottom=0.01,top=0.95,wspace=0.4,hspace=0.5)
 
+def SAPE(a,b):
+    numerator = np.abs(a-b)
+    denominator = (np.abs(a)+np.abs(b))
+    both_zero = (numerator==0)&(denominator==0)
+    sae = numerator/denominator
+    sae[both_zero] = 1 
+    return sae*100
+
 def find_selected_ratios(save_fig:bool=False):
     figure_dir = results_dir/"images"
     dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
@@ -120,7 +131,8 @@ def find_selected_ratios(save_fig:bool=False):
             ratio_dfs = ratio_plots.load_dfs(results_dir,datasets[j],ovr_strs[j])
 
             true_test_accuracy = float(true_results[f"{datasets[j]}{ovr_strs[j].title()}"]["test_accuracy"])
-            ratio_dfs["accuracy_drop_percentage"] = ((true_test_accuracy-ratio_dfs.test_accuracy)/true_test_accuracy)*100
+            # ratio_dfs["accuracy_drop_percentage"] = ((true_test_accuracy-ratio_dfs.test_accuracy)/true_test_accuracy)*100
+            ratio_dfs["accuracy_drop_percentage"] = SAPE(true_test_accuracy,ratio_dfs.test_accuracy.values)
             ratio_dfs_list.append(ratio_dfs)
     
     fig,ax = plt.subplots(1,len(datasets),figsize=(4*len(datasets),4),sharex=True,sharey=True)
@@ -189,10 +201,10 @@ def set_size(width, fraction=1, subplots=(1, 1)):
     fig_height_in = fig_width_in * golden_ratio * (subplots[0] / subplots[1])
 
     return (fig_width_in, fig_height_in)
-
+#%%
 if __name__ == "__main__":
     mpl.rcParams["figure.dpi"]=100
-    mpl.rcParams["font.size"]=20
+    mpl.rcParams["font.size"]=5
     #%%
     plot_combined(results_dir,[0.01,0.05,0.10],save_fig=save_fig)
     # %%
@@ -228,14 +240,21 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
     metric_map = {"binary":"accuracy","multi":"accuracy"}
     datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
     subplots = (2,len(datasets))
-    figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
-    figsize = np.array(figsize)*scale
+    # figsize = set_size(fig_width_pt,subplots=(subplots[0]+1,subplots[1]+2))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)
+    figsize[1]*=1.5
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
 
     if extended :
-        fig.subplots_adjust(bottom=0.01,top=0.85,wspace=0.3,hspace=0.3)
+        fig.subplots_adjust(bottom=0.05,top=0.95,wspace=0.3,hspace=0.2)
+        leg_loc = (0.5,-0.05)
+        xlabel_loc = (0.5,0.12)
     else:
-        fig.subplots_adjust(bottom=0.15,top=0.85,wspace=0.3,hspace=0.3)
+        fig.subplots_adjust(bottom=0.16,top=0.85,wspace=0.55,hspace=0.35,left=0.01,right=0.99)
+        leg_loc = (0.5,1.08)
+        xlabel_loc = (0.5,0.05)
+        
 
     for j in range(len(datasets)):
         ratio_dfs = ratio_plots.load_dfs(results_dir,datasets[j],ovr_strs[j])
@@ -243,19 +262,17 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
         axis = ax[:,j]
         
         if extended:
-            axis[0] = ratio_plots.plot_metric("test_accuracy",extended_ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True,markersize=12))
-            axis[1] = ratio_plots.plot_metric("remove_accuracy",extended_ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True,markersize=12))
+            axis[0] = ratio_plots.plot_metric("test_accuracy",extended_ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True))
+            axis[1] = ratio_plots.plot_metric("remove_accuracy",extended_ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:green"],markevery=3,markers=True))
         else:
-            axis[0] = ratio_plots.plot_metric("test_accuracy",ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markersize=12,markers=True))
-            axis[1] = ratio_plots.plot_metric("remove_accuracy",ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markersize=12,markers=True))
+            axis[0] = ratio_plots.plot_metric("test_accuracy",ratio_dfs,ax=axis[0],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markers=True))
+            axis[1] = ratio_plots.plot_metric("remove_accuracy",ratio_dfs,ax=axis[1],**dict(palette=["tab:blue","tab:orange","tab:green","tab:red"],markers=True))
         
         if j == 0:
             handles, labels = axis[0].get_legend_handles_labels()
             labels = ["-".join(s.split("_")) for s in labels]
             if latex:
                 labels = [fr"$\texttt{{{s}}}$" for s in labels]
-            leg_loc = (0.5,1.05)
-            xlabel_loc = (0.5,0.05)
             axis[0].legend(
                 handles=handles,
                 labels=labels,
@@ -264,6 +281,7 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
                 loc="upper center",
                 bbox_transform=fig.transFigure,
                 ncol=4,
+                frameon=False,
                 # fontsize=30,
                 # markerscale=2,
                 )
@@ -297,6 +315,7 @@ def plot_ratios_grid(results_dir:Path,save_fig:bool=False,latex:bool=False,exten
         
     fig.align_ylabels(ax[:,0])
     # plt.suptitle("Effect of Sampling Distributions",fontsize=30)
+    # fig.tight_layout()
     if save_fig:
         if not extended:
             plt.savefig(figure_dir/"Effect_of_Sampling_Grid.pdf",bbox_inches="tight")
@@ -393,6 +412,95 @@ def plot_remove_dist(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,s
     else:
         plt.show()
 
+def plot_remove_dist_single(results_dir:Path,remove_ratio_size:str,plot_deltagrad=False,save_fig:bool=False,suffix:str="",latex:str=False,fig_width_pt:float=246.0,scale:float=3):
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    if latex:
+        dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"$\textsc{mnist}$",
+            r"$\textsc{covtype}$",
+            r"$\textsc{higgs}$",
+            r"$\textsc{cifar2}$",
+            r"$\textsc{epsilon}$"
+        ]
+        del_ylabel = r"\texttt{AccDis} \%"
+        sape = r"$\texttt{sAPE}$"
+        label_map = {"${INF}$":r"$\textsc{Influence}$","${FISH}$":r"$\textsc{Fisher}$","${DG}$":r"$\textsc{DeltaGrad}$"}
+    else:
+        dataset_names = ["$MNIST^b$","MNIST","COVTYPE","HIGGS","CIFAR2","EPSILON"]
+        test_ylabel = r"${Acc}_{test}$"
+        del_ylabel = r"${AccDis}$"
+    
+
+    relative_test_accuracy_drops_names=["small","medium","large"]
+    relative_test_accuracy_drops=[1,5,10]
+    assert remove_ratio_size in relative_test_accuracy_drops_names
+    remove_ratio_idx = relative_test_accuracy_drops_names.index(remove_ratio_size)
+    subplots = (1,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)*scale
+    figsize[1]+=0.5
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(
+        left=0.05,
+        bottom=0.3,
+        top=0.99,
+        wspace=0.3,
+        hspace=0.3
+        )
+    kwargs=dict(markersize=10,markeredgecolor="black")
+    for j in range(len(datasets)):
+        dist_dfs = dist_plots.load_dfs(results_dir,datasets[j],ovr_strs[j],plot_deltagrad=plot_deltagrad,suffix=suffix)
+        axis = ax[:,j]
+        ratios = sorted(dist_dfs[1].remove_ratio.unique())
+        ratio = ratios[remove_ratio_idx]
+        i = 0
+        axis[i] = dist_plots.plot_tradeoffs(f"remove_{metric_map[ovr_strs[j]]}",ratio,"targeted_informed",*dist_dfs,ax=axis[i],legend=True,**kwargs) 
+        axis[i].set_ylabel("")
+        axis[i].set_xlabel("")
+        axis[i].xaxis.set_major_formatter(speed_up)
+        if datasets[j] == "HIGGS":
+            axis[i].set_yscale("symlog",linthresh=1)
+            axis[i].set_ylim(bottom=-0.1,top=1e2+0.1)
+            axis[i].set_xticks([1,9,27,81])
+        if datasets[j] == "COVTYPE":
+            axis[i].set_yscale("symlog",linthresh=1)
+            axis[i].set_ylim(bottom=-0.1,top=1e2+0.1)
+            axis[i].set_xticks([1,3,27,243])
+        if datasets[j] == "CIFAR":
+            if i==0:
+                axis[i].set_yscale("symlog",linthresh=1)
+                axis[i].set_ylim(bottom=-0.1,top=1e2+50)
+            axis[i].set_xticks([1,3,9])
+        if dataset_base_names[j]=="mnist_binary":
+            axis[i].set_xticks([1,3,9,27])
+        if dataset_base_names[j]=="mnist_multi":
+            axis[i].set_xticks([1,3,9,27])
+        if datasets[j] == "EPSILON":
+            axis[i].set_xticks([0.3,1,3])
+        if i==0 and j==0:
+            axis[i].annotate(f'Speed-up',#fontsize=30,
+                xy=(0.5,0.05), rotation=0,ha='center',va='center',xycoords='figure fraction')
+            axis[i].annotate(f'{del_ylabel}',#size=30,
+                xy=(0.02,0.55), rotation=90,ha='center',va='center',xycoords='figure fraction')
+        
+        axis[i].get_legend().remove()
+        if j == len(datasets)-1:
+            axis[i].annotate(f'{relative_test_accuracy_drops_names[remove_ratio_idx]}', #fontsize=30,
+                xy=(1.1,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction')
+        if i==0:
+            axis[i].set_title(dataset_names[j])#,fontsize=30)
+    
+    fig.align_ylabels(ax[:,0])
+    if save_fig:
+        plt.savefig(figure_dir/f"Certifiability_Efficiency_Trade_Off_Grid_{remove_ratio_size}_sigma_0.pdf",bbox_inches="tight")
+    else:
+        plt.show()
+
 
 def get_legend_QoA(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix:str="",latex:str=False,fig_width_pt:float=246.0,scale:float=3):
     num_ratios=1
@@ -412,7 +520,7 @@ def get_legend_QoA(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suf
 
     dist_dfs = dist_plots.load_dfs(results_dir,datasets[0],ovr_strs[0],plot_deltagrad=plot_deltagrad,suffix=suffix)
     ratio = sorted(dist_dfs[1].remove_ratio.unique())[0]
-    kwargs=dict(markersize=10,markeredgecolor="black")
+    kwargs=dict(markeredgecolor="black")
     ax[0][0] = dist_plots.plot_tradeoffs(f"remove_{metric_map[ovr_strs[0]]}",ratio,"targeted_informed",*dist_dfs,ax=ax[0][0],legend=True,**kwargs) 
     # get legend handles
     handles,labels = ax[0][0].get_legend_handles_labels() 
@@ -644,9 +752,9 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
     subplots = (num_methods,len(datasets))
     figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
     figsize = np.array(figsize)*scale
-    figsize[1]+=2
+    figsize[1]*=1.2
     fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
-    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.5,hspace=0.3)
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.7,hspace=0.2)
 
     methods = ["Guo","Golatkar","deltagrad"]
     method_short = ["guo","gol","deltagrad"]
@@ -658,7 +766,7 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
         axis = ax[:,j]
         for i,method in enumerate(methods[:num_methods]):
             kwargs=dict(
-                markersize=10,
+                # markersize=10,
             )
             twin_ax = axis[i].twinx()
             axis[i],twin_ax = unlearn_plots.plot_unlearn(
@@ -676,21 +784,18 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
             axis[i].set_ylabel("")
             twin_ax.set_ylabel("")
             axis[i].set_xlabel("")
-            axis[i].set_xticks([1e-2,1e0,1e2])
-            # twin_ax.yaxis.set_major_formatter(major_formatter)
-            # axis[i].yaxis.set_major_formatter(major_formatter)
             if datasets[j] == "HIGGS" and i==0:
                 twin_ax.set_yticks([0.158,0.168])
             if j == len(datasets)-1:
                 axis[i].annotate(f"{method_labels[i]}",#fontsize=30,
-                 xy=(1.5,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction',color=method_colors[i])
+                 xy=(1.6,0.5), rotation=-90,ha='center',va='center',xycoords='axes fraction',color=method_colors[i])
             if i==0 and j==0:
                 axis[i].annotate(f"{del_ylabel}",# fontsize=30,
                  xy=(0.01,0.5), rotation=90,ha='center',va='center',xycoords='figure fraction',color="tab:red")
                 axis[i].annotate(f"{test_ylabel}",# fontsize=30,
                  xy=(0.97,0.5), rotation=-90,ha='center',va='center',xycoords='figure fraction',color="black")
-                axis[i].annotate(r"Noise Paramter $\sigma$",# fontsize=30,
-                 xy=(0.48,0.03), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                axis[i].annotate(r"Noise Parameter $\sigma$",# fontsize=30,
+                 xy=(0.48,0.02), rotation=0,ha='center',va='center',xycoords='figure fraction')
             if i!= num_methods-1:
                 axis[i].set_xlabel("")
             
@@ -700,10 +805,13 @@ def plot_unlearning(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,la
                 axis[0].set_title(dataset_names[j])#,fontsize=30)
             axis[i].tick_params(axis="both",which="major")#,labelsize=30)
             twin_ax.tick_params(axis="both",which="major")#,labelsize=30)
+            axis[i].set_xticks([1e-2,1e0,1e2])
+            if i != num_methods-1 :
+                axis[i].set_xticklabels([])
     
 
     if save_fig:
-        plt.savefig(figure_dir/"Unlearning_Tradeoff_Grid.pdf",bbox_inches="tight",dpi=300)
+        plt.savefig(figure_dir/"Unlearning_Tradeoff_Grid.pdf",bbox_inches="tight")
     else:
         plt.show()
 #%%
@@ -748,7 +856,6 @@ def plot_unlearning_certifiability(results_dir:Path,plot_deltagrad=False,save_fi
         wspace=0.3,
         hspace=0.3
         ) 
-
     kwargs = dict(markersize=10,markeredgecolor="black")
     relative_test_accuracy_drops_names=["small","medium","large"]
     for j in range(len(datasets)):
@@ -1096,3 +1203,246 @@ def plot_unlearning_appendix(results_dir:Path,method:str,remove_ratio_idx:int,sa
         plt.savefig(figure_dir/f"Certifiability_Effectiveness_Tradeoff_Grid_{method}_{deletion_volumes[remove_ratio_idx]}.pdf",bbox_inches="tight")
     else:
         plt.show()
+
+#%%
+
+def plot_speedup(results_dir:Path,strategy:str,noise_level:float=0,save_fig:bool=False,latex:bool=False,fig_width_pt:float=246.0,scale:float=3):
+    
+    assert strategy in ["gol_test","gol_dis_v1","gol_dis_v2"]
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    if latex:
+        dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"$\textsc{mnist}$",
+            r"$\textsc{covtype}$",
+            r"$\textsc{higgs}$",
+            r"$\textsc{cifar2}$",
+            r"$\textsc{epsilon}$"
+        ]
+        y_label="Speed-up"
+        x_label="No. Deletions"
+        method_labels = [r"$\textsc{Influence}$",r"$\textsc{Fisher}$",r"$\textsc{DeltaGrad}$"]
+
+    else:
+        y_label = "Speed-Up"
+        x_label="No. Deletions"
+        dataset_names = ["$MNIST^b$","MNIST","COVTYPE","HIGGS","CIFAR2","EPSILON"]
+        method_labels = ["${INFL}$","${FISH}$","${DG}$"]
+    
+    
+    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+    # sampling_types = ["uniform_random","targeted_informed"]
+    num_rows = len(sampling_types)
+    subplots = (num_rows,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)*scale
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+
+
+    if len(sampling_types)==4:
+        full_str = "full_"
+        hspace = 0.3
+        rotation = 0
+        figsize[1]+=2
+        xy=(1.8,0.5)
+    else:
+        full_str=""
+        rotation = 0
+        hspace = 0.3
+        xy=(1.8,0.5)
+        figsize[1]+=0
+
+    fig.subplots_adjust(left=0.05,right=0.93,bottom=0.1,top=0.9,wspace=0.3,hspace=hspace)
+    for j,dataset in enumerate(datasets):
+        data = load_dfs(results_dir,dataset,ovr_strs[j])
+        data = compute_all_metrics(data)
+        data = data._asdict()
+        df = data[strategy]
+        if strategy in ["gol_dis_v1","gol_dis_v2"]:
+            if dataset == "HIGGS":
+                df = df[df.threshold.isin([10,20,50])]
+            else:
+                df = df[df.threshold.isin([1,2,5])]
+        else:
+            df = df[df.threshold.isin([0.25,0.5,1])]
+        for i,sampling_type in enumerate(sampling_types):
+            print(i,j,dataset,sampling_type)
+            axis = ax[i,j]
+            axis = plot_metric(df,"speedup",sampling_type,noise_level,ax=axis)
+            if dataset not in ["MNIST","CIFAR","EPSILON"]:
+                axis.set_yscale("log")
+            axis.axhline(1,color="black",linestyle="--",alpha=0.5)
+            if i == 0 and j==0 :
+                axis.legend(bbox_to_anchor=(0.5,-0.1),
+                    labels=[f"$\kappa={t}$" for t in sorted(df.threshold.unique())],
+                    loc="upper center",
+                    ncol=5,
+                    bbox_transform=fig.transFigure,frameon=False
+                    )
+                axis.annotate("Num Deletions",#fontsize=30,
+                xy=(0.5,0.15), rotation=0,ha='center',va='center',xycoords='figure fraction'
+                )
+                axis.annotate(y_label,#fontsize=30,
+                xy=(0.01,0.6), rotation=90,ha='center',va='center',xycoords='figure fraction')
+            elif axis.get_legend() is not None:
+                axis.get_legend().remove()
+            
+            if j == len(datasets)-1:
+                axis.annotate(fr"$\texttt{{{'-'.join(sampling_type.split('_'))}}}$", #fontsize=30,
+                 xy=xy, rotation=rotation,ha='center',va='center',xycoords='axes fraction')
+            axis.set_ylabel("")
+            axis.set_xlabel("")
+            if i != len(sampling_types)-1:
+                axis.set_xticks([])
+
+            if i ==0:
+                axis.set_title(dataset_names[j])
+    
+    if save_fig:
+        plt.savefig(figure_dir/f"Pipeline_{strategy}_speedup_{full_str}grid_noise_{noise_level}.pdf",bbox_inches="tight")
+
+
+def print_combined_error_metrics(results_dir:Path,strategy:str,metric:str,noise_level:float=0):
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    dataset_names = [
+            r"$\textsc{mnist}^{\text{b}}$",
+            r"\textsc{mnist}",
+            r"\textsc{covtype}",
+            r"\textsc{higgs}",
+            r"\textsc{cifar2}",
+            r"\textsc{epsilon}"
+        ]
+    sampling_types = ["uniform_random","uniform_informed","targeted_random","targeted_informed"]
+
+    if strategy == "gol_test":
+        valid_thresholds = [0.25,0.5,1]
+    elif strategy in ["gol_dis_v1","gol_dis_v2"]:
+        valid_thresholds = [1,2,5]
+    temp =[ ]
+    for j,dataset in enumerate(datasets):
+        temp1 = []
+        data = load_dfs(results_dir,dataset,ovr_strs[j])
+        data = compute_all_metrics(data)
+        data = data._asdict()
+        df = data[strategy]
+        if strategy in ["gol_dis_v1","gol_dis_v2"] and dataset == "HIGGS":
+            df = df[df.threshold.isin([1,2,5,10,20,50])]
+        else:
+            df = df[df.threshold.isin(valid_thresholds)]
+        for sampling_type in sampling_types:
+            temp1.append(compute_error_metrics(df,metric,sampling_type,noise_level))
+        temp1 = pd.concat(temp1)
+        temp1 = temp1.reset_index()
+        temp1["dataset"] = dataset_names[j]
+        temp.append(temp1)
+        
+    
+    temp = pd.concat(temp)
+    temp["output_str"]=temp.apply(lambda row: rf"${row['mean']:.2f}\pm{row['ci_95']:.1f}$",axis=1)
+    temp["sampling type"] = temp.sampling_type.apply(lambda x : fr"$\texttt{{{'-'.join(x.split('_'))}}}$")
+    temp = temp.pivot(index=["dataset","threshold"],columns="sampling type",values="output_str")
+    temp = temp.sort_index(ascending=False,axis=1)
+    temp = temp.loc[dataset_names]
+    print(temp.to_latex(multirow=True,escape=False))
+# %%
+
+def plot_custom(results_dir:Path,plot_deltagrad=False,save_fig:bool=False,suffix:str="",noise:float=1,remove_ratio_idx:int=2,fig_width_pt:float=246.0,scale:float=3):
+    num_row=2
+    figure_dir = results_dir/"images"
+    dataset_base_names = ["mnist_binary","mnist_multi","covtype_binary","higgs_binary","cifar_binary","epsilon_binary"]
+    ovr_strs = [dataset.split("_")[1] for dataset in dataset_base_names]
+    metric_map = {"binary":"accuracy","multi":"accuracy"}
+    datasets = [dataset.split("_")[0].upper() for dataset in dataset_base_names]
+    dataset_names = [
+        r"$\textsc{mnist}^{\text{b}}$",
+        r"$\textsc{mnist}$",
+        r"$\textsc{covtype}$",
+        r"$\textsc{higgs}$",
+        r"$\textsc{cifar2}$",
+        r"$\textsc{epsilon}$"
+    ]
+    dis_ylabel = r"\texttt{AccDis} \%"
+    err_ylabel = r"\texttt{AccErr} \%"
+    sape = r"$\texttt{sAPE}$"
+    label_map = {"${INF}$":r"$\textsc{Influence}$","${FISH}$":r"$\textsc{Fisher}$","${DG}$":r"$\textsc{DeltaGrad}$"}
+
+    subplots = (num_row,len(datasets))
+    figsize = set_size(fig_width_pt,subplots=(subplots[0],subplots[1]))
+    figsize = np.array(figsize)
+    figsize[1] *= 1.5
+    fig,ax = plt.subplots(*subplots,figsize=figsize,squeeze=False)
+    fig.subplots_adjust(
+        left=0.01,
+        bottom=0.2,
+        top=0.99,
+        wspace=0.15,
+        hspace=0.15,
+        right=0.99
+        ) 
+    kwargs = dict(markeredgecolor="black")
+    relative_test_accuracy_drops_names=["small","medium","large"]
+    for j in range(len(datasets)):
+        dfs_dict = unlearn_plots.load_dfs(results_dir,datasets[j],ovr_strs[j],plot_deltagrad=plot_deltagrad,ratio_index=remove_ratio_idx)
+        axis = ax[:,j]
+        for i, subcaption in enumerate(["(a)","(b)"]):
+            if i ==0 :
+
+                axis[i] = unlearn_plots.plot_unlearn_certifiability(f"remove_{metric_map[ovr_strs[j]]}",dfs_dict,noise=noise,legend=True,ax=axis[i],**kwargs)
+            else:
+                axis[i] = unlearn_plots.plot_unlearn_effectiveness(f"test_{metric_map[ovr_strs[j]]}",dfs_dict,noise=noise,legend=True,ax=axis[i],**kwargs)
+            axis[i].set_ylabel("")
+            axis[i].set_xlabel("")
+            axis[i].get_legend().remove()
+            if j==0:
+                axis[i].annotate(f'Speed-up',#fontsize=30,
+                    xy=(0.51,0.05), rotation=0,ha='center',va='center',xycoords='figure fraction')
+                if i ==0 :
+                    y_label = dis_ylabel
+                else:
+                    y_label = err_ylabel
+                # axis[i].annotate(f'{y_label}',#size=30,
+                #     xy=(-0.4,0.5), rotation=90,ha='center',va='center',xycoords='axes fraction')
+                axis[i].set_ylabel(y_label)
+            
+            if i==0:
+                axis[i].set_title(dataset_names[j])#,fontsize=30)
+            if j == len(datasets)-1:
+                    axis[i].annotate(subcaption, #fontsize=30,
+                    xy=(1.12,0.5), rotation=0,ha='center',va='center',xycoords='axes fraction')
+            if j == 0 :
+                axis[i].set_yscale("symlog",linthresh=0.1)
+                axis[i].set_ylim(bottom=-0.05,top=1e2+0.1)
+            else:
+                axis[i].set_yticks([])
+            axis[i].xaxis.set_major_formatter(speed_up)
+            if dataset_base_names[j]=="mnist_binary":
+                axis[i].set_xticks([1,3,27,243])
+            if dataset_base_names[j]=="mnist_multi":
+                axis[i].set_xticks([0.3,1,3,9,27])
+            if datasets[j] == "COVTYPE":
+                axis[i].set_xticks([1,3,27,243])
+            if datasets[j] == "HIGGS":
+                axis[i].set_xticks([1,9,27,81])
+            if datasets[j] == "CIFAR":
+                # if i == 0:
+                axis[i].set_xticks([0.1,1,9,30])
+                # else:
+                    # axis[i].set_xticks([0.03,0.3,1,3,9,27])
+            if datasets[j] == "EPSILON":
+                axis[i].set_xticks([0.3,1,3])
+            if i == 0:
+                axis[i].set_xticklabels([])
+        
+    if save_fig:
+        plt.savefig(figure_dir/f"Effectiveness_Custom_Grid_{relative_test_accuracy_drops_names[remove_ratio_idx]}_sigma_{'_'.join(str(noise).split('.'))}.pdf",bbox_inches="tight")
+    else:
+        plt.show()
+
+

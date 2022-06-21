@@ -1,5 +1,6 @@
 #%%
 from IPython import get_ipython
+
 if get_ipython() is not None and __name__ == "__main__":
     notebook = True
     get_ipython().run_line_magic("load_ext", "autoreload")
@@ -18,6 +19,7 @@ import seaborn as sns
 import pandas as pd
 from parse import get_dg_remove_ratio_frames
 import matplotlib.ticker as mticker
+from methods.common_utils import SAPE
 
 #%%
 
@@ -46,13 +48,6 @@ def load_dfs(results_dir:Path,dataset,ovr_str:str,suffix="",plot_deltagrad=False
     
     return dist_baseline,dist_guo,dist_gol,dist_deltagrad,deltagrad_baseline
 
-def SAPE(a,b):
-    numerator = np.abs(a-b)
-    denominator = (np.abs(a)+np.abs(b))
-    both_zero = (numerator==0)&(denominator==0)
-    sae = numerator/denominator
-    sae[both_zero] = 1 
-    return sae*100
 
 def plot_tradeoffs(y,ratio,sampling_type,dist_baseline,dist_guo,dist_gol,dist_deltagrad=None,deltagrad_baseline=None,ax=None,legend=False,verbose:bool=False,**kwargs):
     
@@ -85,7 +80,7 @@ def plot_tradeoffs(y,ratio,sampling_type,dist_baseline,dist_guo,dist_gol,dist_de
             xerr=x_values.std(),
             yerr=y_values.std(),
             marker=marker,
-            label=f"$m^\prime=m/{minibatch_fraction}$",color="tab:blue",
+            label=fr"$m^\prime=\lfloor m/{minibatch_fraction}\rfloor$",color="tab:blue",
             **kwargs
         )
         xmeans.append(x_values.mean())
@@ -109,7 +104,7 @@ def plot_tradeoffs(y,ratio,sampling_type,dist_baseline,dist_guo,dist_gol,dist_de
             xerr=x_values.std(),
             yerr=y_values.std(),
             marker=marker,
-            label=f"$m^\prime=m/{minibatch_fraction}$",color="tab:orange",
+            label=fr"$m^\prime=\lfloor m/{minibatch_fraction}\rfloor$",color="tab:orange",
             **kwargs
         )
         xmeans.append(x_values.mean())

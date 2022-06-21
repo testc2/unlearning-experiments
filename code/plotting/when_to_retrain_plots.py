@@ -35,9 +35,9 @@ def SMAPE(a,b):
     both_zero = (numerator==0)&(denominator==0)
     sae = numerator/denominator
     if sae.size > 1:
-        sae[both_zero] = 1 
+        sae[both_zero] = 0 
     elif both_zero:
-        sae = np.array(1)
+        sae = np.array(0)
     return sae*100
 
 # %%
@@ -67,7 +67,9 @@ def mse(y,y_pred):
 def scatter_metric_eps(df,sampling_type:str,ax=None):
     if ax is None:
         fig,ax = plt.subplots()
-    data_sampling_type=df.reset_index().groupby(["remove_ratio","sampling_type","minibatch_fraction"]).mean().xs(1,level=2)
+    # select minibatch fraction 
+    fraction = 1
+    data_sampling_type=df.reset_index().groupby(["remove_ratio","sampling_type","minibatch_fraction"]).mean().xs(fraction,level=2)
     corr = data_sampling_type.groupby(level=1).apply(lambda x: pd.DataFrame({"Pearson Corr":pearsonr(x.baseline_eps,x.origin_eps),"Spearman Corr":spearmanr(x.baseline_eps,x.origin_eps)})).xs(0,level=-1)
     if sampling_type == "all":
         sns.scatterplot(data=data_sampling_type.reset_index(),x="origin_eps",y="baseline_eps",hue="sampling_type",ax=ax)
@@ -85,21 +87,25 @@ def scatter_metric_eps(df,sampling_type:str,ax=None):
 
         # calculate the slope as y/x at largest deletion ratio. c = [Acc Dis/ Acc Err]
         slope = data_sampling_type["baseline_eps"].values[-1]/data_sampling_type["origin_eps"].values[-1]
-        
+        # slope = 2.10309079
         print(data_sampling_type["baseline_eps"].values,prop_predict(data_sampling_type["origin_eps"],slope).values)
         ax.plot(data_sampling_type["origin_eps"],prop_predict(data_sampling_type["origin_eps"],slope))
         print(f'MSE: {mse(data_sampling_type["baseline_eps"].values,prop_predict(data_sampling_type["origin_eps"].values,slope)):.4f}')
         # print(np.polyfit(data_sampling_type["origin_eps"],data_sampling_type["baseline_eps"],deg=1))
         # slope=0
-        # ax.set_xscale("log")
-        # ax.set_yscale("log")
+        ax.set_xscale("log")
+        ax.set_yscale("log")
         corr = np.r_[corr,slope]
     
-    ax.set_xlabel("Acc Err wrt initial model")
-    ax.set_ylabel("Acc Dis wrt fully-retrained model")
+    # ax.set_xlabel("Acc Err wrt initial model")
+    # ax.set_ylabel("Acc Dis wrt fully-retrained model")
+    
+    ax.set_xlabel("Abs Err wrt initial model")
+    ax.set_ylabel("Abs Dis ")
+
     return ax,corr
 
-def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
+def load_dfs(results_dir:Path,dataset:str,ovr_str:str,v2=False):
     baseline_df,guo_df,gol_df,_,_ = ratio_load_dfs(results_dir,dataset,ovr_str,suffix="_when_to_retrain",plot_deltagrad=False)
     if ovr_str == "multi":
         threshold = 0.1
@@ -118,26 +124,34 @@ def load_dfs(results_dir:Path,dataset:str,ovr_str:str):
     baseline_df = baseline_df.set_index(["remove_ratio","sampling_type","sampler_seed"])
     guo_df = guo_df.set_index(["remove_ratio","sampling_type","sampler_seed"])
     gol_df = gol_df.set_index(["remove_ratio","sampling_type","sampler_seed"])
-    # calculate disparity wrt to baseline fully-trained model using remove_accuracy 
-    guo_df["baseline_eps"] = SMAPE(guo_df.remove_accuracy.values,baseline_df.loc[guo_df.index].remove_accuracy.values)
-    gol_df["baseline_eps"] = SMAPE(gol_df.remove_accuracy.values,baseline_df.loc[gol_df.index].remove_accuracy.values)
-    # calculate disparity wrt initial model trained on all the data using test_accuracy
-    guo_df["origin_eps"] = SMAPE(true_test_accuracy,guo_df.test_accuracy.values)
-    gol_df["origin_eps"] = SMAPE(true_test_accuracy,gol_df.test_accuracy.values)
+    if not v2:
+        # calculate disparity wrt to baseline fully-trained model using remove_accuracy 
+        guo_df["baseline_eps"] = SMAPE(guo_df.remove_accuracy.values,baseline_df.loc[guo_df.index].remove_accuracy.values)
+        gol_df["baseline_eps"] = SMAPE(gol_df.remove_accuracy.values,baseline_df.loc[gol_df.index].remove_accuracy.values)
+    else:
+        guo_df["baseline_eps"] = np.abs(guo_df.remove_accuracy.values-baseline_df.loc[guo_df.index].remove_accuracy.values)
+        gol_df["baseline_eps"] = np.abs(gol_df.remove_accuracy.values-baseline_df.loc[gol_df.index].remove_accuracy.values)
+    if not v2:
+        # calculate disparity wrt initial model trained on all the data using test_accuracy
+        guo_df["origin_eps"] = SMAPE(true_test_accuracy,guo_df.test_accuracy.values)
+        gol_df["origin_eps"] = SMAPE(true_test_accuracy,gol_df.test_accuracy.values)
+    else:
+        guo_df["origin_eps"] = np.abs(true_test_accuracy-guo_df.test_accuracy.values)
+        gol_df["origin_eps"] = np.abs(true_test_accuracy-gol_df.test_accuracy.values)
     return baseline_df,guo_df,gol_df
 
-def plot_when_to_retrain(results_dir:Path,dataset:str,ovr_str:str):
-    baseline,guo,gol = load_dfs(results_dir,dataset,ovr_str)
-    _,corr = scatter_metric_eps(guo,sampling_type="targeted_random")
+def plot_when_to_retrain(results_dir:Path,dataset:str,ovr_str:str,v2=False):
+    baseline,guo,gol = load_dfs(results_dir,dataset,ovr_str,v2=v2)
+    _,corr = scatter_metric_eps(guo,sampling_type="targeted_informed")
     # _,corr = scatter_metric_eps(gol,sampling_type="targeted_random")
     print(corr)
     # scatter_metric_eps(gol,sampling_type="all")
 
 #%%
 if __name__ == "__main__":
-    dataset = "EPSILON"; ovr_str="binary"
+    dataset = "MNIST"; ovr_str="multi"
     baseline,guo,gol = load_dfs(results_dir,dataset,ovr_str)
-    plot_when_to_retrain(results_dir,dataset,ovr_str)
+    plot_when_to_retrain(results_dir,dataset,ovr_str,v2=False)
     # %%
 
 # %%

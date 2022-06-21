@@ -11,7 +11,7 @@ for dataset in $datasets; do
     # select memory requirements, time limits and cores based on dataset
     case $dataset in 
         MNISTBinary)
-            mem="4000M"
+            mem="1000M"
             time="5:00:00"
             cores="24"
             ;;
@@ -78,8 +78,14 @@ for dataset in $datasets; do
         4b)
             sbatch --mem $mem -t $time -c $cores -J "DG_$dataset" $WRKDIR/${repo_name}/code/slurm_scripts/deltagrad_array_job.sh $dataset $2
             ;;
+    # When to retrain experiments
+        5)
+            strategy=$3
+            noise=$4
+            $WRKDIR/${repo_name}/code/slurm_scripts/when_to_retrain_main.sh $dataset $mem $time $cores $strategy $noise
+            ;;
         *)
-            echo -n "Error Usage: ./master.sh (MNISTBinary|MNISTOVR|COVTYPEBinary|HIGGS|CIFARBinary|EPSILON) (1|2a|2b|3a|3b|4a|4b)"
+            echo -n "Error Usage: ./master.sh (MNISTBinary|MNISTOVR|COVTYPEBinary|HIGGS|CIFARBinary|EPSILON) (1|2a|2b|3a|3b|4a|4b|5)"
             exit 1
             ;;
     esac
